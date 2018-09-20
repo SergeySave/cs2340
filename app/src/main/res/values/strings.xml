@@ -16,4 +16,8 @@
     <string name="title_activity_register">RegisterScreen</string>
     <string name="action_register">Register</string>
     <string name="prompt_username">Username</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
