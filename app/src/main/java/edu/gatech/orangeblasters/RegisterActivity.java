@@ -2,6 +2,7 @@ package edu.gatech.orangeblasters;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -12,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 /**
- * A login screen that offers login via email/password.
+ * A login screen that offers login via username/password.
  */
 public class RegisterActivity extends AppCompatActivity {
 
@@ -58,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void attemptCreateAccount() {
-
+        Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.unsupported_operation, Snackbar.LENGTH_SHORT).show();
     }
 }
 

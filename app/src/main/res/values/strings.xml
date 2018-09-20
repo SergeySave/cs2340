@@ -16,4 +16,5 @@
     <string name="title_activity_register">RegisterScreen</string>
     <string name="action_register">Register</string>
     <string name="prompt_username">Username</string>
+    <string name="unsupported_operation">This operation is unsupported at this time</string>
 </resources>
