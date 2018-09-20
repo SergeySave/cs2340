@@ -41,7 +41,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 public class LoginActivity extends AppCompatActivity {
 
      // UI references.
-    private EditText mEmailView;
+    private EditText mUserNameView;
     private EditText mPasswordView;
 
     @Override
@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         // Set up the login form.
-        mEmailView = findViewById(R.id.username);
+        mUserNameView = findViewById(R.id.username);
 
         mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -83,7 +83,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void attemptLogin() {
-
+        if (mUserNameView.getText().toString().equals("user") && mPasswordView.getText().toString().equals("pass")) {
+            startActivity(new Intent(LoginActivity.this, ApplicationActivity.class));
+        }
     }
 
     private void attemptRegister() {
