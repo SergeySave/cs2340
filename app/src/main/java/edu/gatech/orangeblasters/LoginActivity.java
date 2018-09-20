@@ -71,12 +71,26 @@ public class LoginActivity extends AppCompatActivity {
                 attemptLogin();
             }
         });
+
+        //Set up the Register form
+        attemptRegister();
+        Button register = (Button) findViewById(R.id.registerButton);
+        register.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+        });
     }
 
     private void attemptLogin() {
         if (mUserNameView.getText().toString().equals("user") && mPasswordView.getText().toString().equals("pass")) {
             startActivity(new Intent(LoginActivity.this, ApplicationActivity.class));
         }
+    }
+
+    private void attemptRegister() {
+
+
     }
 }
 
