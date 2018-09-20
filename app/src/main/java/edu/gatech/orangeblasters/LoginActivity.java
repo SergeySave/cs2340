@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void attemptLogin() {
-        if (mUserNameView.getText().equals("user") && mPasswordView.getText().equals("pass")) {
+        if (mUserNameView.getText().toString().equals("user") && mPasswordView.getText().toString().equals("pass")) {
             startActivity(new Intent(LoginActivity.this, ApplicationActivity.class));
         }
     }
