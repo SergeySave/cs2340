@@ -15,4 +15,5 @@
     </string>
     <string name="title_activity_register">RegisterScreen</string>
     <string name="action_register">Register</string>
+    <string name="prompt_username">Username</string>
 </resources>
