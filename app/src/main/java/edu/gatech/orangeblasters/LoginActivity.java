@@ -3,6 +3,7 @@ package edu.gatech.orangeblasters;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -70,9 +71,23 @@ public class LoginActivity extends AppCompatActivity {
                 attemptLogin();
             }
         });
+
+        //Set up the Register form
+        attemptRegister();
+        Button register = (Button) findViewById(R.id.registerButton);
+        register.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+        });
     }
 
     private void attemptLogin() {
+
+    }
+
+    private void attemptRegister() {
+
 
     }
 }
