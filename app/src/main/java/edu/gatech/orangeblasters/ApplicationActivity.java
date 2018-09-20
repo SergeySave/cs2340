@@ -14,7 +14,7 @@ public class ApplicationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_application);
 
 
-        Button logout = findViewById(R.id.Logout);
+        Button logout = findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
