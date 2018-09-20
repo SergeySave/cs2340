@@ -76,6 +76,9 @@ public class LoginActivity extends AppCompatActivity {
     private void attemptLogin() {
         if (mUserNameView.getText().toString().equals("user") && mPasswordView.getText().toString().equals("pass")) {
             startActivity(new Intent(LoginActivity.this, ApplicationActivity.class));
+        } else {
+            Snackbar mySnackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), "Invalid username or password.", 5);
+            mySnackbar.show();
         }
     }
 }
