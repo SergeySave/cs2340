@@ -1,8 +1,9 @@
 package edu.gatech.orangeblasters;
 
-import android.support.v7.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,12 +13,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 /**
- * A login screen that offers login via email/password.
+ * A login screen that offers login via username/password.
  */
 public class RegisterActivity extends AppCompatActivity {
 
     // UI references.
-    private EditText mEmailView;
+    private EditText mUsernameView;
     private EditText mPasswordView;
 
     @Override
@@ -26,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         // Set up the login form.
-        mEmailView = findViewById(R.id.email);
+        mUsernameView = findViewById(R.id.username);
 
         mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -40,17 +41,25 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = findViewById(R.id.registerButton);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptCreateAccount();
             }
         });
+
+        Button mCancelButton = findViewById(R.id.cancelButton);
+        mCancelButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+            }
+        });
     }
 
     private void attemptCreateAccount() {
-
+        Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.unsupported_operation, Snackbar.LENGTH_SHORT).show();
     }
 }
 

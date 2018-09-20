@@ -81,7 +81,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/Register_button"
+                android:id="@+id/registerButton"
                 style="?attr/actionBarPopupTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
