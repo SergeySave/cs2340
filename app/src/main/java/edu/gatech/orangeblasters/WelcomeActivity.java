@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+
+import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,7 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 /**
- * A login screen that offers login via username/password.
+ * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity {
 
@@ -65,6 +67,11 @@ public class LoginActivity extends AppCompatActivity {
             Snackbar mySnackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), "Invalid username or password.", 5);
             mySnackbar.show();
         }
+    }
+
+    private void attemptRegister() {
+
+
     }
 }
 
