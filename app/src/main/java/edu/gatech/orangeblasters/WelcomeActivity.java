@@ -17,7 +17,7 @@ import android.widget.TextView;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity {
 
      // UI references.
     private EditText mUserNameView;
@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_welcome);
 
         // Set up the login form.
         mUserNameView = findViewById(R.id.username);
@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button mEmailSignInButton = findViewById(R.id.username_sign_in_button);
+        Button mEmailSignInButton = findViewById(R.id.signin);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,19 +52,19 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         //Set up the Register form
-        Button register = findViewById(R.id.registerButton);
+        Button register = findViewById(R.id.register);
         register.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                startActivity(new Intent(WelcomeActivity.this, RegisterActivity.class));
             }
         });
     }
 
     private void attemptLogin() {
         if ("user".equals(mUserNameView.getText().toString()) && "pass".equals(mPasswordView.getText().toString())) {
-            startActivity(new Intent(LoginActivity.this, ApplicationActivity.class));
+            startActivity(new Intent(WelcomeActivity.this, ApplicationActivity.class));
         } else {
-            Snackbar mySnackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), "Invalid username or password.", 5);
+            Snackbar mySnackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.invalid_user_pass, Snackbar.LENGTH_SHORT);
             mySnackbar.show();
         }
     }

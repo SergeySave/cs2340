@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
         mCancelButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                startActivity(new Intent(RegisterActivity.this, WelcomeActivity.class));
             }
         });
     }
