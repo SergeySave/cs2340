@@ -33,8 +33,9 @@
         android:id="@+id/border"
         android:layout_width="242dp"
         android:layout_height="228dp"
-        android:layout_below="@+id/loginLogo"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="126dp"
         android:contentDescription="@string/logo"
         android:scaleType="fitCenter"
         android:src="@drawable/rec"
@@ -46,10 +47,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="156dp"
+        android:layout_marginBottom="170dp"
         android:background="@drawable/rounded_button"
         android:text="@string/action_sign_in_short"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/register"
@@ -57,10 +58,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="156dp"
+        android:layout_marginBottom="197dp"
         android:background="@drawable/rounded_button"
         android:text="@string/action_sign_in_short"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF" />
 
 
 
