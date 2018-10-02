@@ -1,4 +1,4 @@
-package edu.gatech.orangeblasters.Account;
+package edu.gatech.orangeblasters.account;
 
 public enum AccountTypes {
     ADMIN("Admin"),
