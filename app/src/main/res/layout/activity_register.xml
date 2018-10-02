@@ -107,7 +107,7 @@
             android:textSize="14sp" />
 
     <Spinner
-        android:id="@+id/usertype"
+        android:id="@+id/userType"
         android:layout_width="223dp"
         android:layout_height="38dp"
 

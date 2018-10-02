@@ -7,9 +7,13 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import edu.gatech.orangeblasters.account.AccountTypes;
 
 /**
  * A login screen that offers login via username/password.
@@ -21,6 +25,7 @@ public class RegisterActivity extends AppCompatActivity {
     // UI references.
     private EditText mUsernameView;
     private EditText mPasswordView;
+    private Spinner userSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,13 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Set up the login form.
         mUsernameView = findViewById(R.id.username);
+        AccountTypes[] accounts = new AccountTypes[] {
+        };
+        //set up the spinner
+        userSpinner = (Spinner) findViewById(R.id.userType);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, AccountTypes.values());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        userSpinner.setAdapter(adapter);
 
         mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {

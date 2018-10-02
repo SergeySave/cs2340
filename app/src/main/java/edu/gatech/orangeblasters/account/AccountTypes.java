@@ -32,4 +32,9 @@ public enum AccountTypes {
     public String setUserType(String userType) {
         return this.userType = userType;
     }
+
+    @Override
+    public String toString() {
+        return userType;
+    }
 }

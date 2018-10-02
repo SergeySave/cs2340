@@ -1,6 +1,8 @@
-package edu.gatech.orangeblasters.account;
+package edu.gatech.orangeblasters;
 
 import java.io.Serializable;
+
+import edu.gatech.orangeblasters.account.AccountState;
 
 public abstract class Account implements Serializable {
     private String name;
