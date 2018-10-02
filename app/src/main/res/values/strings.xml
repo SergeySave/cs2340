@@ -24,4 +24,5 @@
 
     <string name="unsupported_operation">Unsupported Operation</string>
     <string name="invalid_user_pass">Invalid Username or Password</string>
+    <string name="user_type">User Type</string>
 </resources>

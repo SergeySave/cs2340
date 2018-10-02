@@ -40,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        Button mEmailSignInButton = findViewById(R.id.registerButton);
+        Button mEmailSignInButton = findViewById(R.id.register);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,7 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        Button mCancelButton = findViewById(R.id.cancelButton);
+        Button mCancelButton = findViewById(R.id.cancel);
         mCancelButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
