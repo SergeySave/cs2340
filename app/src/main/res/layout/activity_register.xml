@@ -9,7 +9,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".WelcomeActivity">
+        tools:context=".RegisterActivity">
 
         <ImageView
             android:id="@+id/loginBack"
@@ -22,105 +22,104 @@
             android:scaleType="centerCrop"
             android:src="@drawable/background" />
 
-    <ImageView
-        android:id="@+id/loginLogo"
-        android:layout_width="129dp"
-        android:layout_height="88dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="71dp"
-        android:contentDescription="@string/logo"
-        android:scaleType="fitCenter"
-        android:src="@drawable/orange"
-        android:visibility="visible" />
+        <ImageView
+            android:id="@+id/loginLogo"
+            android:layout_width="129dp"
+            android:layout_height="88dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="71dp"
+            android:contentDescription="@string/logo"
+            android:scaleType="fitCenter"
+            android:src="@drawable/orange"
+            android:visibility="visible" />
 
-    <ImageView
-        android:id="@+id/border"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="106dp"
-        android:contentDescription="@string/logo"
-        android:scaleType="fitCenter"
-        android:src="@drawable/rec"
-        android:visibility="visible" />
+        <ImageView
+            android:id="@+id/border"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="106dp"
+            android:contentDescription="@string/logo"
+            android:scaleType="fitCenter"
+            android:src="@drawable/rec"
+            android:visibility="visible" />
 
-    <Button
-        android:id="@+id/register"
-        android:layout_width="152dp"
-        android:layout_height="32dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="178dp"
-        android:background="@drawable/rounded_button"
-        android:contentDescription="@string/action_register"
-        android:elevation="0dp"
-        android:text="@string/action_register"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp" />
+        <Button
+            android:id="@+id/register"
+            android:layout_width="152dp"
+            android:layout_height="32dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="178dp"
+            android:background="@drawable/rounded_button"
+            android:contentDescription="@string/action_register"
+            android:elevation="0dp"
+            android:text="@string/action_register"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp" />
 
-    <Button
-        android:id="@+id/cancel"
-        android:layout_width="152dp"
-        android:layout_height="32dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="128dp"
-        android:background="@drawable/rounded_button"
-        android:contentDescription="@android:string/cancel"
-        android:text="@android:string/cancel"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp" />
-
-
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="223dp"
-        android:layout_height="38dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="208dp"
-        android:background="@drawable/rounded_text"
-        android:fontFamily="monospace"
-        android:hint="@string/prompt_username"
-        android:imeActionId="6"
-        android:imeActionLabel="@string/action_sign_in_short"
-        android:imeOptions="actionUnspecified"
-        android:inputType="textEmailAddress"
-        android:textColor="@android:color/white"
-        android:textSize="15sp"
-        android:typeface="monospace" />
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="152dp"
+            android:layout_height="32dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="128dp"
+            android:background="@drawable/rounded_button"
+            android:contentDescription="@android:string/cancel"
+            android:text="@android:string/cancel"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp" />
 
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="223dp"
-        android:layout_height="38dp"
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="223dp"
+            android:layout_height="38dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="208dp"
+            android:background="@drawable/rounded_text"
+            android:fontFamily="monospace"
+            android:hint="@string/prompt_username"
+            android:imeActionId="6"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textEmailAddress"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:typeface="monospace" />
 
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="253dp"
-        android:background="@drawable/rounded_text"
-        android:fontFamily="monospace"
-        android:hint="@string/password"
-        android:imeActionId="6"
-        android:imeActionLabel="@string/action_sign_in_short"
-        android:imeOptions="actionUnspecified"
-        android:inputType="textPassword"
-        android:textSize="14sp" />
 
-    <Spinner
-        android:id="@+id/userType"
-        android:layout_width="223dp"
-        android:layout_height="38dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="223dp"
-        android:background="#D3D3D3"
-        android:entries="@string/user_type"
-        android:spinnerMode="dropdown"
-        android:textColor="#FFFFFF" />
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="223dp"
+            android:layout_height="38dp"
+
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="253dp"
+            android:background="@drawable/rounded_text"
+            android:fontFamily="monospace"
+            android:hint="@string/password"
+            android:imeActionId="6"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:textSize="14sp" />
+
+            <Spinner
+                android:id="@+id/userType"
+                android:layout_width="223dp"
+                android:layout_height="38dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="223dp"
+                android:background="#D3D3D3"
+                android:spinnerMode="dropdown"
+                android:textColor="#FFFFFF" />
 
 
     </RelativeLayout>
