@@ -43,32 +43,19 @@ public class RegisterActivity extends AppCompatActivity {
         userSpinner.setAdapter(adapter);
 
         mPasswordView = findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptCreateAccount();
-                    return true;
-                }
-                return false;
+        mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
+            if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+                attemptCreateAccount();
+                return true;
             }
+            return false;
         });
 
         Button mEmailSignInButton = findViewById(R.id.register);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptCreateAccount();
-            }
-        });
+        mEmailSignInButton.setOnClickListener(view -> attemptCreateAccount());
 
         Button mCancelButton = findViewById(R.id.cancel);
-        mCancelButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        mCancelButton.setOnClickListener(view -> finish());
     }
 
     private void attemptCreateAccount() {

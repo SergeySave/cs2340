@@ -2,7 +2,6 @@ package edu.gatech.orangeblasters;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Button;
 
 public class ApplicationActivity extends AppCompatActivity {
@@ -14,11 +13,6 @@ public class ApplicationActivity extends AppCompatActivity {
 
 
         Button logout = findViewById(R.id.logout);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        logout.setOnClickListener(view -> finish());
     }
 }
