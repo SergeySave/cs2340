@@ -1,6 +1,5 @@
 package edu.gatech.orangeblasters;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -53,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
         mCancelButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RegisterActivity.this, WelcomeActivity.class));
+                finish();
             }
         });
     }
