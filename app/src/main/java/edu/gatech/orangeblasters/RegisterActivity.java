@@ -16,6 +16,8 @@ import android.widget.TextView;
  */
 public class RegisterActivity extends AppCompatActivity {
 
+    public static final String ARG_ACCOUNT_LIST = "ACCOUNT_LIST";
+
     // UI references.
     private EditText mUsernameView;
     private EditText mPasswordView;

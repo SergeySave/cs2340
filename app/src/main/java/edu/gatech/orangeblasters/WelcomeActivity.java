@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-
-import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,6 +11,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import edu.gatech.orangeblasters.account.AccountState;
+import edu.gatech.orangeblasters.account.User;
 
 /**
  * A login screen that offers login via email/password.
@@ -26,6 +27,10 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ((OrangeBlastersApplication) getApplication()).getAccounts()
+                .add(new User("Default", "user", "pass", AccountState.NORMAL));
+
         setContentView(R.layout.activity_welcome);
 
         // Set up the login form.
@@ -61,8 +66,11 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void attemptLogin() {
-        if ("user".equals(mUserNameView.getText().toString()) && "pass".equals(mPasswordView.getText().toString())) {
-            startActivity(new Intent(WelcomeActivity.this, ApplicationActivity.class));
+        final String userStr = mUserNameView.getText().toString();
+        final String passStr = mPasswordView.getText().toString();
+        if (((OrangeBlastersApplication) getApplication()).getAccounts().stream()
+                .anyMatch(acc -> acc.getEmail().equals(userStr) && acc.getPassword().equals(passStr))) {
+            startActivity(new Intent(this, ApplicationActivity.class));
         } else {
             Snackbar mySnackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.invalid_user_pass, Snackbar.LENGTH_SHORT);
             mySnackbar.show();
