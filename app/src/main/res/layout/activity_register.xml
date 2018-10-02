@@ -43,29 +43,32 @@
         android:src="@drawable/rec"
         android:visibility="visible" />
 
-        <Button
-            android:id="@+id/register"
-            android:layout_width="152dp"
-            android:layout_height="32dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="221dp"
-            android:background="@drawable/rounded_button"
-            android:text="@string/action_register"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp" />
+    <Button
+        android:id="@+id/register"
+        android:layout_width="152dp"
+        android:layout_height="32dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="215dp"
+        android:background="@drawable/rounded_button"
+        android:contentDescription="@string/action_register"
+        android:elevation="0dp"
+        android:text="@string/action_register"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp" />
 
-        <Button
-            android:id="@+id/cancel"
-            android:layout_width="152dp"
-            android:layout_height="32dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="180dp"
-            android:background="@drawable/rounded_button"
-            android:text="@android:string/cancel"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp" />
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="152dp"
+        android:layout_height="32dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="171dp"
+        android:background="@drawable/rounded_button"
+        android:contentDescription="@android:string/cancel"
+        android:text="@android:string/cancel"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp" />
 
 
     <EditText
@@ -105,14 +108,12 @@
 
     <Spinner
         android:id="@+id/usertype"
-        android:layout_width="215dp"
+        android:layout_width="223dp"
         android:layout_height="38dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="265dp"
+
+        android:layout_centerInParent="true"
+
         android:background="#D3D3D3"
-        android:fadingEdge="none|horizontal"
-        android:fontFamily="monospace"
         android:spinnerMode="dropdown" />
 
 
