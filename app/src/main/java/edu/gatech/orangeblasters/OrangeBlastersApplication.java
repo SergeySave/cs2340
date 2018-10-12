@@ -17,13 +17,13 @@ import edu.gatech.orangeblasters.location.LocationType;
 
 public class OrangeBlastersApplication extends Application {
     private List<Account> accounts = new ArrayList<>();
-    private List<Location> locations = new ArrayList<>();
+    private LiveList<Location> locations = new LiveList<>(new ArrayList<>());
 
     public List<Account> getAccounts() {
         return accounts;
     }
 
-    public List<Location> getLocations() {
+    public LiveList<Location> getLocations() {
         return locations;
     }
 
