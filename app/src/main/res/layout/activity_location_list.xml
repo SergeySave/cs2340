@@ -23,14 +23,16 @@
         android:src="@drawable/background" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/location_recycler"
-            android:layout_width="124dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/locationList"
+            android:layout_width="211dp"
+            android:layout_height="309dp"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="289dp"
+            android:layout_marginStart="106dp"
+            android:layout_marginTop="103dp"
             android:background="@android:color/holo_orange_light"
             android:scrollbars="vertical"
             tools:layout_editor_absoluteX="78dp" />
-</RelativeLayout>
+
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

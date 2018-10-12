@@ -28,4 +28,8 @@
     <string name="title_activity_location_list">LocationList</string>
 
     <string name="element_text">Element</string>
+    <string name="location_name">Name</string>
+    <string name="location_type">Location Type</string>
+    <string name="location_address">Location Address</string>
+    <string name="location_number">Phone Number</string>
 </resources>
