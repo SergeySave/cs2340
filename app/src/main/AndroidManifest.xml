@@ -10,18 +10,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-
-        <activity
-            android:name=".WelcomeActivity">
-
+        <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> </activity>
+            </intent-filter>
+        </activity>
         <activity android:name=".ApplicationActivity" />
-        <activity android:name=".RegisterActivity"
-            android:label="@string/title_activity_register" ></activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:label="@string/title_activity_register" />
+        <activity android:name=".LocationListActivity"></activity>
     </application>
 
 </manifest>

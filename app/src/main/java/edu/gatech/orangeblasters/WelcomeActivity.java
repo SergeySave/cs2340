@@ -48,7 +48,7 @@ public class WelcomeActivity extends AppCompatActivity {
         final String passStr = mPasswordView.getText().toString();
         if (((OrangeBlastersApplication) getApplication()).getAccounts().stream()
                 .anyMatch(acc -> acc.getEmail().equals(userStr) && acc.getPassword().equals(passStr))) {
-            startActivity(new Intent(this, ApplicationActivity.class));
+            startActivity(new Intent(this, LocationListActivity.class));
         } else {
             Snackbar mySnackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.invalid_user_pass, Snackbar.LENGTH_SHORT);
             mySnackbar.show();
