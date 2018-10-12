@@ -12,6 +12,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import edu.gatech.orangeblasters.account.Account;
+import edu.gatech.orangeblasters.account.AccountState;
+import edu.gatech.orangeblasters.account.User;
 import edu.gatech.orangeblasters.location.Location;
 import edu.gatech.orangeblasters.location.LocationType;
 
@@ -30,6 +32,8 @@ public class OrangeBlastersApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        accounts.add(new User("User", "user@user.com", "pass", AccountState.NORMAL));
 
         Thread locationInitializationThread = new Thread(() -> {
             try(Scanner scan = new Scanner(getResources().openRawResource(R.raw.location_data))) {
