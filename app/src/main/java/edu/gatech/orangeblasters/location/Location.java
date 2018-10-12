@@ -1,8 +1,9 @@
 package edu.gatech.orangeblasters.location;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Location {
+public class Location implements Serializable {
     private String name;
     private LocationType type;
     private double longitude;

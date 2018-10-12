@@ -33,6 +33,7 @@ public class OrangeBlastersApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        //Add default user
         accounts.add(new User("User", "user@user.com", "pass", AccountState.NORMAL));
 
         Thread locationInitializationThread = new Thread(() -> {
