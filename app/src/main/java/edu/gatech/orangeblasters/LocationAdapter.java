@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
 import edu.gatech.orangeblasters.location.Location;
 
 public class LocationAdapter extends ListAdapter<Location, LocationAdapter.LocationViewHolder> {
@@ -22,7 +20,7 @@ public class LocationAdapter extends ListAdapter<Location, LocationAdapter.Locat
     @NonNull
     @Override
     public LocationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
+        View v = (View) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.location_row, parent, false);
         LocationViewHolder vh = new LocationViewHolder(v);
         return vh;
@@ -59,7 +57,7 @@ public class LocationAdapter extends ListAdapter<Location, LocationAdapter.Locat
 //                    Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
                 }
             });
-            textView = (TextView) v.findViewById(R.id.textView);
+            textView = v.findViewById(R.id.textView);
         }
 
         public TextView getTextView() {

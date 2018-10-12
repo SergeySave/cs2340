@@ -3,6 +3,7 @@ package edu.gatech.orangeblasters;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -15,6 +16,7 @@ import java.util.function.UnaryOperator;
 public class LiveList<T> extends LiveData<List<T>> implements List<T> {
 
     private List<T> backing;
+    private boolean sendType = false;
 
     public LiveList(List<T> backing) {
         this.backing = backing;
@@ -56,7 +58,7 @@ public class LiveList<T> extends LiveData<List<T>> implements List<T> {
     @Override
     public boolean add(T t) {
         if (backing.add(t)) {
-            super.postValue(backing);
+            update();
             return true;
         }
         return false;
@@ -65,7 +67,7 @@ public class LiveList<T> extends LiveData<List<T>> implements List<T> {
     @Override
     public boolean remove(Object o) {
         if (backing.remove(o)) {
-            super.postValue(backing);
+            update();
             return true;
         }
         return false;
@@ -79,7 +81,7 @@ public class LiveList<T> extends LiveData<List<T>> implements List<T> {
     @Override
     public boolean addAll(@NonNull Collection<? extends T> c) {
         if (backing.addAll(c)) {
-            super.postValue(backing);
+            update();
             return true;
         }
         return false;
@@ -88,7 +90,7 @@ public class LiveList<T> extends LiveData<List<T>> implements List<T> {
     @Override
     public boolean addAll(int index, @NonNull Collection<? extends T> c) {
         if (backing.addAll(index, c)) {
-            super.postValue(backing);
+            update();
             return true;
         }
         return false;
@@ -97,7 +99,7 @@ public class LiveList<T> extends LiveData<List<T>> implements List<T> {
     @Override
     public boolean removeAll(@NonNull Collection<?> c) {
         if (backing.removeAll(c)) {
-            super.postValue(backing);
+            update();
             return true;
         }
         return false;
@@ -106,7 +108,7 @@ public class LiveList<T> extends LiveData<List<T>> implements List<T> {
     @Override
     public boolean retainAll(@NonNull Collection<?> c) {
         if (backing.retainAll(c)) {
-            super.postValue(backing);
+            update();
             return true;
         }
         return false;
@@ -116,7 +118,7 @@ public class LiveList<T> extends LiveData<List<T>> implements List<T> {
     public void clear() {
         if (!isEmpty()) {
             backing.clear();
-            super.postValue(backing);
+            update();
         }
     }
 
@@ -128,20 +130,20 @@ public class LiveList<T> extends LiveData<List<T>> implements List<T> {
     @Override
     public T set(int index, T element) {
         T ret = backing.set(index, element);
-        super.postValue(backing);
+        update();
         return ret;
     }
 
     @Override
     public void add(int index, T element) {
         backing.add(index, element);
-        super.postValue(backing);
+        update();
     }
 
     @Override
     public T remove(int index) {
         T ret = backing.remove(index);
-        super.postValue(backing);
+        update();
         return ret;
     }
 
@@ -161,7 +163,7 @@ public class LiveList<T> extends LiveData<List<T>> implements List<T> {
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
         LiveList<T> subList = new LiveList<>(backing.subList(fromIndex, toIndex));
-        subList.observeForever((c) -> postValue(backing));
+        subList.observeForever((c) -> update());
         return subList;
     }
 
@@ -178,13 +180,13 @@ public class LiveList<T> extends LiveData<List<T>> implements List<T> {
     @Override
     public void replaceAll(UnaryOperator<T> operator) {
         backing.replaceAll(operator);
-        super.postValue(backing);
+        update();
     }
 
     @Override
     public void sort(Comparator<? super T> c) {
         backing.sort(c);
-        super.postValue(backing);
+        update();
     }
 
     @Override
@@ -195,7 +197,7 @@ public class LiveList<T> extends LiveData<List<T>> implements List<T> {
     @Override
     public boolean removeIf(Predicate<? super T> filter) {
         if (backing.removeIf(filter)) {
-            super.postValue(backing);
+            update();
             return true;
         }
         return false;
@@ -214,6 +216,10 @@ public class LiveList<T> extends LiveData<List<T>> implements List<T> {
     @Override
     public boolean equals(Object obj) {
         return backing.equals(obj);
+    }
+
+    private void update() {
+        super.postValue(new ArrayList<>(backing));
     }
 
     private class LstIter implements ListIterator<T> {
@@ -257,19 +263,19 @@ public class LiveList<T> extends LiveData<List<T>> implements List<T> {
         @Override
         public void remove() {
             backingIter.remove();
-            postValue(backing);
+            update();
         }
 
         @Override
         public void set(T t) {
             backingIter.set(t);
-            postValue(backing);
+            update();
         }
 
         @Override
         public void add(T t) {
             backingIter.add(t);
-            postValue(backing);
+            update();
         }
     }
 }
