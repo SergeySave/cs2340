@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout android:id="@+id/myCoordinatorLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".RegisterActivity">
+
+    <ImageView
+        android:id="@+id/loginBack"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/user_type"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background" />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="124dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="262dp"
+            android:layout_marginTop="270dp"
+            android:background="@android:color/holo_orange_light"
+            android:scrollbars="vertical"
+            tools:layout_editor_absoluteX="78dp" />
+</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
