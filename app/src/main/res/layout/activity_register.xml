@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout android:id="@+id/myCoordinatorLayout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/myCoordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -110,16 +110,16 @@
             android:inputType="textPassword"
             android:textSize="14sp" />
 
-            <Spinner
-                android:id="@+id/userType"
-                android:layout_width="223dp"
-                android:layout_height="38dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="223dp"
-                android:background="#D3D3D3"
-                android:spinnerMode="dropdown"
-                android:textColor="#FFFFFF" />
+        <Spinner
+            android:id="@+id/userType"
+            android:layout_width="223dp"
+            android:layout_height="38dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="223dp"
+            android:background="#D3D3D3"
+            android:spinnerMode="dropdown"
+            android:textColor="#FFFFFF" />
 
 
     </RelativeLayout>
