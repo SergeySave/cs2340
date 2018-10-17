@@ -3,6 +3,7 @@ package edu.gatech.orangeblasters;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -55,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         Button mCancelButton = findViewById(R.id.cancel);
         mCancelButton.setOnClickListener(view -> finish());
+
     }
 
     private void attemptCreateAccount() {
@@ -87,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
                 break;
             case EMPLOYEE:
                 ((OrangeBlastersApplication) getApplication()).getAccounts()
-                        .add(new LocationEmployee(name, email, password, AccountState.NORMAL));
+                        .add(new LocationEmployee(name, email, password, AccountState.NORMAL, null));
                 break;
         }
         finish();
