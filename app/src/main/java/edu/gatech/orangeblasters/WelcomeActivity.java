@@ -8,6 +8,11 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.Optional;
+
+import edu.gatech.orangeblasters.account.Account;
+import edu.gatech.orangeblasters.account.LocationEmployee;
+
 /**
  * A login screen that offers login via email/password.
  */
@@ -46,9 +51,15 @@ public class WelcomeActivity extends AppCompatActivity {
     private void attemptLogin() {
         final String userStr = mUserNameView.getText().toString();
         final String passStr = mPasswordView.getText().toString();
-        if (((OrangeBlastersApplication) getApplication()).getAccounts().stream()
-                .anyMatch(acc -> acc.getEmail().equals(userStr) && acc.getPassword().equals(passStr))) {
-            startActivity(new Intent(this, LocationListActivity.class));
+        Optional<Account> optionalAccount = ((OrangeBlastersApplication) getApplication()).getAccounts().stream()
+                .filter(acc -> acc.getEmail().equals(userStr) && acc.getPassword().equals(passStr)).findAny();
+        if (optionalAccount.isPresent()) {
+            Account account = optionalAccount.get();
+            if (account instanceof LocationEmployee) {
+                startActivity(new Intent (this, LocEmployDashActivity.class));
+            } else {
+                startActivity(new Intent(this, LocationListActivity.class));
+            }
         } else {
             Snackbar mySnackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.invalid_user_pass, Snackbar.LENGTH_SHORT);
             mySnackbar.show();
