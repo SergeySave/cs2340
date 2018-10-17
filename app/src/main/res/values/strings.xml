@@ -32,4 +32,8 @@
     <string name="location_type">Location Type</string>
     <string name="location_address">Location Address</string>
     <string name="location_number">Phone Number</string>
+    <string name="comments">Comments</string>
+    <string name="upload_button">Upload</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="add_donation">Add Donation</string>
 </resources>
