@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.AdapterView;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,7 +26,7 @@ import edu.gatech.orangeblasters.location.Location;
 /**
  * A login screen that offers login via username/password.
  */
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity  {
 
     // UI references.
     private EditText mUsernameView;
@@ -38,6 +39,10 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        location = findViewById(R.id.location);
+
+        location.setVisibility(View.INVISIBLE);
+
         // Set up the login form.
         mUsernameView = findViewById(R.id.username);
 
@@ -47,6 +52,21 @@ public class RegisterActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userSpinner.setAdapter(adapter);
         userSpinner.setSelection(adapter.getPosition(AccountTypes.USER)); //User is default
+
+        userSpinner.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+                        if (userSpinner.getSelectedItem() == AccountTypes.EMPLOYEE) {
+                            location.setVisibility(View.VISIBLE);
+                        } else {
+                            location.setVisibility(View.INVISIBLE);
+                        }
+
+                    }
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
 
         location = findViewById(R.id.location);
 
