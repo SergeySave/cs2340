@@ -36,11 +36,11 @@
 
         <ImageView
             android:id="@+id/border"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="340dp"
+            android:layout_height="427dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="106dp"
+            android:layout_marginBottom="5dp"
             android:contentDescription="@string/logo"
             android:scaleType="fitCenter"
             android:src="@drawable/rec"
@@ -52,7 +52,7 @@
             android:layout_height="32dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="178dp"
+            android:layout_marginBottom="125dp"
             android:background="@drawable/rounded_button"
             android:contentDescription="@string/action_register"
             android:elevation="0dp"
@@ -66,7 +66,7 @@
             android:layout_height="32dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="128dp"
+            android:layout_marginBottom="75dp"
             android:background="@drawable/rounded_button"
             android:contentDescription="@android:string/cancel"
             android:text="@android:string/cancel"
@@ -117,6 +117,17 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="223dp"
+            android:background="#D3D3D3"
+            android:spinnerMode="dropdown"
+            android:textColor="#FFFFFF" />
+
+        <Spinner
+            android:id="@+id/location"
+            android:layout_width="223dp"
+            android:layout_height="38dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="175dp"
             android:background="#D3D3D3"
             android:spinnerMode="dropdown"
             android:textColor="#FFFFFF" />

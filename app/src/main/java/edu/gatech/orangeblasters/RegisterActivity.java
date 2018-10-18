@@ -3,6 +3,7 @@ package edu.gatech.orangeblasters;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.test.mock.MockApplication;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
@@ -10,12 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import edu.gatech.orangeblasters.account.AccountState;
 import edu.gatech.orangeblasters.account.AccountTypes;
 import edu.gatech.orangeblasters.account.Admin;
 import edu.gatech.orangeblasters.account.LocationEmployee;
 import edu.gatech.orangeblasters.account.Manager;
 import edu.gatech.orangeblasters.account.User;
+import edu.gatech.orangeblasters.location.Location;
 
 /**
  * A login screen that offers login via username/password.
@@ -26,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText mUsernameView;
     private EditText mPasswordView;
     private Spinner userSpinner;
+    private Spinner location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,14 @@ public class RegisterActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userSpinner.setAdapter(adapter);
         userSpinner.setSelection(adapter.getPosition(AccountTypes.USER)); //User is default
+
+        location = findViewById(R.id.location);
+
+        String[] names = ((OrangeBlastersApplication) getApplication()).getLocations().stream().map(Location::getName).toArray(String[]::new);
+
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, names);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        location.setAdapter(adapter2);
 
         mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
@@ -88,8 +102,12 @@ public class RegisterActivity extends AppCompatActivity {
                         .add(new Manager(name, email, password, AccountState.NORMAL));
                 break;
             case EMPLOYEE:
+                String selectedName = (String) location.getSelectedItem();
+
+                Optional<Location> location = ((OrangeBlastersApplication) getApplication()).getLocations().stream().filter(loc -> loc.getName().equals(selectedName)).findAny();
+
                 ((OrangeBlastersApplication) getApplication()).getAccounts()
-                        .add(new LocationEmployee(name, email, password, AccountState.NORMAL, null));
+                        .add(new LocationEmployee(name, email, password, AccountState.NORMAL, location.orElse(null)));
                 break;
         }
         finish();
