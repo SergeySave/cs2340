@@ -25,7 +25,7 @@ public class OrangeBlastersApplication extends Application {
         return accounts;
     }
 
-    public LiveList<Location> getLocations() {
+    public List<Location> getLocations() {
         return locations;
     }
 

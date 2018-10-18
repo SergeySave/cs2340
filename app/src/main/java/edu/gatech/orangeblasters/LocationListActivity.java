@@ -39,7 +39,8 @@ public class LocationListActivity extends AppCompatActivity {
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 
         adapter.submitList(((OrangeBlastersApplication) getApplication()).getLocations());
-        ((OrangeBlastersApplication) getApplication()).getLocations().observe(this, adapter::submitList);
+        ((OrangeBlastersApplication) getApplication()).getLocations();
+        //((OrangeBlastersApplication) getApplication()).getLocations().observe(this, adapter::submitList)
         mRecyclerView.setAdapter(adapter);
     }
 

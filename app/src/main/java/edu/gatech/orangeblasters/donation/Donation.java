@@ -1,5 +1,6 @@
 package edu.gatech.orangeblasters.donation;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.time.OffsetDateTime;
@@ -8,7 +9,7 @@ import java.util.Optional;
 
 import edu.gatech.orangeblasters.location.Location;
 
-public class Donation {
+public class Donation implements Serializable {
 
     private OffsetDateTime timestamp;
     private Location location;

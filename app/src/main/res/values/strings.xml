@@ -36,4 +36,14 @@
     <string name="upload_button">Upload</string>
     <string name="upload_image">Upload Image</string>
     <string name="add_donation">Add Donation</string>
+    <string name="donation_name">Name</string>
+    <string name="donation_type">Type</string>
+    <string name="donation_address">Address</string>
+    <string name="donation_comment">Comment</string>
+    <string name="donation_Picture">Picture</string>
+    <string name="donation_category">Category</string>
+    <string name="donation_location">Location</string>
+    <string name="donation_time">Time</string>
+    <string name="donation_ShortDes">Short Description</string>
+    <string name="donation_LongDes">Long Description</string>
 </resources>

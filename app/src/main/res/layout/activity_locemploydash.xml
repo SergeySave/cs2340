@@ -34,29 +34,25 @@
             android:src="@drawable/orange"
             android:visibility="visible" />
 
-        <ImageView
-            android:id="@+id/border"
-            android:layout_width="242dp"
-            android:layout_height="228dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="81dp"
-            android:contentDescription="@string/logo"
-            android:scaleType="fitCenter"
-            android:src="@drawable/rec"
-            android:visibility="visible" />
-
         <Button
             android:id="@+id/addDonation"
-            android:layout_width="150dp"
-            android:layout_height="30dp"
+            android:layout_width="232dp"
+            android:layout_height="81dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="188dp"
+            android:layout_marginBottom="101dp"
             android:background="@drawable/rounded_button"
-            android:text="@string/add_donation"
+            android:text="Add Donation Item"
             android:textColor="#FFFFFF"
-            android:textSize="12sp" />
+            android:textSize="18sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/donation_recycler"
+            android:layout_width="426dp"
+            android:layout_height="470dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="175dp" />
 
 
     </RelativeLayout>
