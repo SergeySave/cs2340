@@ -14,20 +14,24 @@ import java.util.stream.Collectors;
 import edu.gatech.orangeblasters.account.Account;
 import edu.gatech.orangeblasters.account.AccountState;
 import edu.gatech.orangeblasters.account.User;
+import edu.gatech.orangeblasters.donation.Donation;
 import edu.gatech.orangeblasters.location.Location;
 import edu.gatech.orangeblasters.location.LocationType;
 
 public class OrangeBlastersApplication extends Application {
     private List<Account> accounts = new ArrayList<>();
     private LiveList<Location> locations = new LiveList<>(new ArrayList<>());
+    private LiveList<Donation> donations = new LiveList<>(new ArrayList<>());
 
     public List<Account> getAccounts() {
         return accounts;
     }
 
-    public List<Location> getLocations() {
+    public LiveList<Location> getLocations() {
         return locations;
     }
+
+    public LiveList<Donation> getDonations() {return donations;}
 
     @Override
     public void onCreate() {
