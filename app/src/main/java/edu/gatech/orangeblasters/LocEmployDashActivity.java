@@ -52,8 +52,8 @@ public class LocEmployDashActivity extends AppCompatActivity {
                 mLayoutManager.getOrientation());
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        //adapter.submitList(((OrangeBlastersApplication) getApplication()));
-        ((OrangeBlastersApplication) getApplication()).getLocations();
+        adapter.submitList(((OrangeBlastersApplication) getApplication()).getDonations());
+        ((OrangeBlastersApplication) getApplication()).getDonations().observe(this, adapter::submitList);
         mRecyclerView.setAdapter(adapter);
     }
 
