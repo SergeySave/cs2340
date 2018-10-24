@@ -35,7 +35,6 @@ public class LocEmployDashActivity extends AppCompatActivity {
         Button mAddDonationButton = findViewById(R.id.addDonation);
         mAddDonationButton.setOnClickListener(view -> addingDonation());
 
-        setContentView(R.layout.activity_add_donation);
         mRecyclerView = findViewById(R.id.donation_recycler);
 
         // use a linear layout manager

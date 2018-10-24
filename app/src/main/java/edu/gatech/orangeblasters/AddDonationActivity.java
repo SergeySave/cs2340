@@ -24,9 +24,9 @@ public class AddDonationActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_donation);
 
-        imageUpload = (ImageView) findViewById(R.id.imageUpload);
-        uploadButton = (Button) findViewById(R.id.uploadButton);
-        donationComments = (EditText) findViewById(R.id.donationComments);
+        imageUpload =  findViewById(R.id.imageUpload);
+        uploadButton =  findViewById(R.id.uploadButton);
+        donationComments = findViewById(R.id.donationComments);
 
         imageUpload.setOnClickListener(this);
         uploadButton.setOnClickListener(this);
@@ -45,18 +45,20 @@ public class AddDonationActivity extends AppCompatActivity implements View.OnCli
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
-            String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
-            Cursor cursor = getContentResolver().query(selectedImage,
-                    filePathColumn, null, null, null);
-            cursor.moveToFirst();
+//            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+//
+//            Cursor cursor = getContentResolver().query(selectedImage,
+//                    filePathColumn, null, null, null);
+//            cursor.moveToFirst();
+//
+//            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//            String picturePath = cursor.getString(columnIndex);
+//            cursor.close();
 
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
-            cursor.close();
-
-            ImageView imageUpload = (ImageView) findViewById(R.id.imageUpload);
-            imageUpload.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+            ImageView imageUpload = findViewById(R.id.imageUpload);
+            imageUpload.setImageURI(selectedImage);
+//            imageUpload.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         }
     }
 }
