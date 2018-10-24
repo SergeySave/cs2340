@@ -35,10 +35,6 @@ public class LocEmployDashActivity extends AppCompatActivity {
         Button mAddDonationButton = findViewById(R.id.addDonation);
         mAddDonationButton.setOnClickListener(view -> addingDonation());
 
-        //Set up the Register form
-        Button register = findViewById(R.id.register);
-        register.setOnClickListener(v -> startActivity(new Intent(LocEmployDashActivity.this, RegisterActivity.class)));
-
         setContentView(R.layout.activity_add_donation);
         mRecyclerView = findViewById(R.id.donation_recycler);
 
