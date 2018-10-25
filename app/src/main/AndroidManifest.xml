@@ -31,7 +31,8 @@
         <activity android:name=".LocationListActivity" />
         <activity android:name=".LocEmployDashActivity" />
         <activity android:name=".LocationDetailsActivity" />
-        <activity android:name=".AddDonationActivity"></activity>
+        <activity android:name=".DonationDetailsActivity" />
+        <activity android:name=".AddDonationActivity" />
     </application>
 
 </manifest>

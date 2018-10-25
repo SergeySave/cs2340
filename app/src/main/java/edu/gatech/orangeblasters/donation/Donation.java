@@ -1,15 +1,17 @@
 package edu.gatech.orangeblasters.donation;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.math.BigDecimal;
-import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
+import edu.gatech.orangeblasters.OrangeBlastersApplication;
 import edu.gatech.orangeblasters.location.Location;
 
-public class Donation implements Serializable {
+public class Donation implements Parcelable {
 
     private OffsetDateTime timestamp;
     private Location location;
@@ -18,17 +20,17 @@ public class Donation implements Serializable {
     private BigDecimal value;
     private DonationCategory donationCategory;
     private String comments;
-    private URI pictureLocation;
+    private int pictureIndex;
 
     public Donation(OffsetDateTime timestamp, Location location, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory) {
-        this(timestamp, location, descShort, descLong, value, donationCategory, null, null);
+        this(timestamp, location, descShort, descLong, value, donationCategory, null, -1);
     }
 
     public Donation(OffsetDateTime timestamp, Location location, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory, String comments) {
-        this(timestamp, location, descShort, descLong, value, donationCategory, comments, null);
+        this(timestamp, location, descShort, descLong, value, donationCategory, comments, -1);
     }
 
-    public Donation(OffsetDateTime timestamp, Location location, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory, String comments, URI pictureLocation) {
+    public Donation(OffsetDateTime timestamp, Location location, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory, String comments, int pictureIndex) {
         this.timestamp = timestamp;
         this.location = location;
         this.descShort = descShort;
@@ -36,7 +38,48 @@ public class Donation implements Serializable {
         this.value = value;
         this.donationCategory = donationCategory;
         this.comments = comments;
-        this.pictureLocation = pictureLocation;
+        this.pictureIndex = pictureIndex;
+    }
+
+    protected Donation(Parcel in) {
+        timestamp = ((OffsetDateTime) in.readSerializable());
+        location = ((Location) in.readSerializable());
+        OrangeBlastersApplication.getInstance().getLocations().stream().filter((a) -> a.equals(this.location)).findFirst().ifPresent(location1 -> this.location = location1);
+        descShort = in.readString();
+        descLong = in.readString();
+        value = ((BigDecimal) in.readSerializable());
+        donationCategory = ((DonationCategory) in.readSerializable());
+        comments = in.readString();
+        pictureIndex = in.readInt();
+    }
+
+    public static final Creator<Donation> CREATOR = new Creator<Donation>() {
+        @Override
+        public Donation createFromParcel(Parcel in) {
+            return new Donation(in);
+        }
+
+        @Override
+        public Donation[] newArray(int size) {
+            return new Donation[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeSerializable(timestamp);
+        dest.writeSerializable(location);
+        dest.writeString(descShort);
+        dest.writeString(descLong);
+        dest.writeSerializable(value);
+        dest.writeSerializable(donationCategory);
+        dest.writeString(comments);
+        dest.writeInt(pictureIndex);
     }
 
     public OffsetDateTime getTimestamp() {
@@ -95,12 +138,12 @@ public class Donation implements Serializable {
         this.comments = comments;
     }
 
-    public Optional<URI> getPictureLocation() {
-        return Optional.ofNullable(pictureLocation);
+    public int getPictureLocation() {
+        return pictureIndex;
     }
 
-    public void setPictureLocation(URI pictureLocation) {
-        this.pictureLocation = pictureLocation;
+    public void setPictureLocation(int pictureIndex) {
+        this.pictureIndex = pictureIndex;
     }
 
     @Override
@@ -115,13 +158,13 @@ public class Donation implements Serializable {
                 Objects.equals(value, donation.value) &&
                 donationCategory == donation.donationCategory &&
                 Objects.equals(comments, donation.comments) &&
-                Objects.equals(pictureLocation, donation.pictureLocation);
+                Objects.equals(pictureIndex, donation.pictureIndex);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(timestamp, location, descShort, descLong, value, donationCategory, comments, pictureLocation);
+        return Objects.hash(timestamp, location, descShort, descLong, value, donationCategory, comments, pictureIndex);
     }
 
     @Override
@@ -134,7 +177,6 @@ public class Donation implements Serializable {
                 ", value=" + value +
                 ", donationCategory=" + donationCategory +
                 ", comments='" + comments + '\'' +
-                ", pictureLocation=" + pictureLocation +
                 '}';
     }
 }

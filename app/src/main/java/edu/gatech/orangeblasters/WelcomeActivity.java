@@ -12,6 +12,7 @@ import java.util.Optional;
 
 import edu.gatech.orangeblasters.account.Account;
 import edu.gatech.orangeblasters.account.LocationEmployee;
+import edu.gatech.orangeblasters.location.Location;
 
 /**
  * A login screen that offers login via email/password.
@@ -56,7 +57,10 @@ public class WelcomeActivity extends AppCompatActivity {
         if (optionalAccount.isPresent()) {
             Account account = optionalAccount.get();
             if (account instanceof LocationEmployee) {
-                startActivity(new Intent (this, LocEmployDashActivity.class));
+                Intent intent = new Intent(this, LocEmployDashActivity.class);
+                Location location = ((LocationEmployee) account).getLocation();
+                intent.putExtra(LocEmployDashActivity.PARAM_LOCATION_INDEX, ((OrangeBlastersApplication) getApplication()).getLocations().indexOf(location));
+                startActivity(intent);
             } else {
                 startActivity(new Intent(this, LocationListActivity.class));
             }

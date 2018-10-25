@@ -16,7 +16,6 @@ import java.util.function.UnaryOperator;
 public class LiveList<T> extends LiveData<List<T>> implements List<T> {
 
     private List<T> backing;
-    private boolean sendType = false;
 
     public LiveList(List<T> backing) {
         this.backing = backing;

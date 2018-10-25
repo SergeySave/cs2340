@@ -1,7 +1,11 @@
 package edu.gatech.orangeblasters.location;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
+
+import edu.gatech.orangeblasters.LiveList;
+import edu.gatech.orangeblasters.donation.Donation;
 
 public class Location implements Serializable {
     private String name;
@@ -10,6 +14,7 @@ public class Location implements Serializable {
     private double latitude;
     private String address;
     private String phoneNumber;
+    private transient LiveList<Donation> donations = new LiveList<>(new ArrayList<>());
 
     public Location(String name, LocationType type, double longitude, double latitude, String address, String phoneNumber) {
         this.name = name;
@@ -66,6 +71,10 @@ public class Location implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public LiveList<Donation> getDonations() {
+        return donations;
     }
 
     @Override

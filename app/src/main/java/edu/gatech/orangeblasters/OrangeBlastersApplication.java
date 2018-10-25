@@ -1,6 +1,7 @@
 package edu.gatech.orangeblasters;
 
 import android.app.Application;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -14,14 +15,15 @@ import java.util.stream.Collectors;
 import edu.gatech.orangeblasters.account.Account;
 import edu.gatech.orangeblasters.account.AccountState;
 import edu.gatech.orangeblasters.account.User;
-import edu.gatech.orangeblasters.donation.Donation;
 import edu.gatech.orangeblasters.location.Location;
 import edu.gatech.orangeblasters.location.LocationType;
 
 public class OrangeBlastersApplication extends Application {
+    private static OrangeBlastersApplication instance;
+
     private List<Account> accounts = new ArrayList<>();
     private LiveList<Location> locations = new LiveList<>(new ArrayList<>());
-    private LiveList<Donation> donations = new LiveList<>(new ArrayList<>());
+    private List<Bitmap> bitmaps = new ArrayList<>();
 
     public List<Account> getAccounts() {
         return accounts;
@@ -31,11 +33,18 @@ public class OrangeBlastersApplication extends Application {
         return locations;
     }
 
-    public LiveList<Donation> getDonations() {return donations;}
+    public List<Bitmap> getBitmaps() {
+        return bitmaps;
+    }
+
+    public static OrangeBlastersApplication getInstance() {
+        return instance;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
 
         //Add default user
         accounts.add(new User("User", "user@user.com", "pass", AccountState.NORMAL));

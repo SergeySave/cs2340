@@ -13,33 +13,99 @@
 
         <ImageView
             android:id="@+id/imageUpload"
-            android:layout_width="226dp"
-            android:layout_height="269dp"
+            android:layout_width="match_parent"
+            android:layout_height="147dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:contentDescription="@string/upload_image" />
 
+        <EditText
+            android:id="@+id/donationShortDes"
+            android:layout_width="394dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/imageUpload"
+            android:fontFamily="sans-serif"
+            android:hint="@string/donation_ShortDes"
+            android:inputType=""
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/donationLongDes"
+            android:layout_width="394dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/donationShortDes"
+            android:fontFamily="sans-serif"
+            android:hint="@string/donation_LongDes"
+            android:inputType=""
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/donationComments"
+            android:layout_width="394dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/donationLongDes"
+            android:fontFamily="sans-serif"
+            android:hint="@string/donation_comment"
+            android:inputType=""
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/donationPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/donationComments"
+            android:ems="10"
+            android:hint="@string/donation_price"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/donationDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/donationPrice"
+            android:ems="10"
+            android:inputType="date" />
+
+        <EditText
+            android:id="@+id/donationTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/donationDate"
+            android:layout_alignParentStart="true"
+            android:ems="10"
+            android:inputType="time" />
+
+        <Spinner
+            android:id="@+id/donationCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/donationTime" />
+
         <Button
             android:id="@+id/uploadButton"
-            android:layout_width="match_parent"
+            android:layout_width="184dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="121dp"
             android:text="@string/upload_button" />
 
-        <EditText
-            android:id="@+id/donationComments"
-            android:layout_width="394dp"
-            android:layout_height="143dp"
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="184dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/imageUpload"
-            android:fontFamily="sans-serif-smallcaps"
-            android:hint="@string/comments"
-            android:inputType=""
-            android:text="@string/comments"
-            android:textSize="24sp" />
+            android:layout_marginBottom="121dp"
+            android:layout_marginStart="200dp"
+            android:text="@string/save" />
 
     </RelativeLayout>
 

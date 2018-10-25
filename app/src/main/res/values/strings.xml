@@ -32,7 +32,6 @@
     <string name="location_type">Location Type</string>
     <string name="location_address">Location Address</string>
     <string name="location_number">Phone Number</string>
-    <string name="comments">Comments</string>
     <string name="upload_button">Upload</string>
     <string name="upload_image">Upload Image</string>
     <string name="add_donation">Add Donation</string>
@@ -43,7 +42,10 @@
     <string name="donation_Picture">Picture</string>
     <string name="donation_category">Category</string>
     <string name="donation_location">Location</string>
-    <string name="donation_time">Time</string>
+    <string name="donation_price">Price</string>
     <string name="donation_ShortDes">Short Description</string>
     <string name="donation_LongDes">Long Description</string>
+    <string name="donation_date">Date</string>
+    <string name="donation_time">Time</string>
+    <string name="save">Save</string>
 </resources>
