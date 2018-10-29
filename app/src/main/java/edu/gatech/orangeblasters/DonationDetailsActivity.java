@@ -1,5 +1,6 @@
 package edu.gatech.orangeblasters;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -37,7 +38,7 @@ public class DonationDetailsActivity extends AppCompatActivity {
         TextView donCategory = findViewById(R.id.donationCategory);
         TextView donComments = findViewById(R.id.donationComments);
         TextView donLongDes = findViewById(R.id.donationLongDes);
-        ImageView iamge = findViewById(R.id.imageDisplay);
+        ImageView image = findViewById(R.id.imageDisplay);
 
         donTime.setText(dateTimeFormatter.format(donation.getTimestamp()));
         donLocation.setText(location.getName());
@@ -51,13 +52,18 @@ public class DonationDetailsActivity extends AppCompatActivity {
             donComments.setVisibility(View.INVISIBLE);
         }
         donLongDes.setText(donation.getDescLong());
-        int pictureLocation = donation.getPictureLocation();
-        if (pictureLocation >= 0) {
-            iamge.setImageBitmap(((OrangeBlastersApplication) getApplication()).getBitmaps().get(pictureLocation));
+        Optional<String> pictureId = donation.getPictureId();
+        if (pictureId.isPresent()) {
+            Optional<Bitmap> bitmap = OrangeBlastersApplication.getInstance().getBitmapService().getBitmap(pictureId.get());
+            if (bitmap.isPresent()) {
+                image.setImageBitmap(bitmap.get());
 
-            iamge.setVisibility(View.VISIBLE);
+                image.setVisibility(View.VISIBLE);
+            } else {
+                image.setVisibility(View.INVISIBLE);
+            }
         } else {
-            iamge.setVisibility(View.INVISIBLE);
+            image.setVisibility(View.INVISIBLE);
         }
     }
 }

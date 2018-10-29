@@ -137,16 +137,19 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        int bitmap = data.getIntExtra(AddDonationActivity.RETURN_IMAGE, -1);
-        String shortDesc = (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_SHORT);
-        String longDesc = (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_LONG);
-        String price = (String) data.getSerializableExtra(AddDonationActivity.RETURN_PRICE);
-        DonationCategory category = (DonationCategory) data.getSerializableExtra(AddDonationActivity.RETURN_CATEGORY);
-        String comments = (String) data.getSerializableExtra(AddDonationActivity.RETURN_COMMENTS);
-        OffsetDateTime dateTime = (OffsetDateTime) data.getSerializableExtra(AddDonationActivity.RETURN_TIME);
+        //This shouldnt be here
+        if (resultCode == RESULT_OK && null != data) {
+            String bitmapId = data.getStringExtra(AddDonationActivity.RETURN_IMAGE);
+            String shortDesc = (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_SHORT);
+            String longDesc = (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_LONG);
+            String price = (String) data.getSerializableExtra(AddDonationActivity.RETURN_PRICE);
+            DonationCategory category = (DonationCategory) data.getSerializableExtra(AddDonationActivity.RETURN_CATEGORY);
+            String comments = (String) data.getSerializableExtra(AddDonationActivity.RETURN_COMMENTS);
+            OffsetDateTime dateTime = (OffsetDateTime) data.getSerializableExtra(AddDonationActivity.RETURN_TIME);
 
-        location.getDonations().add(new Donation(dateTime, location, shortDesc, longDesc, new BigDecimal(price), category, comments, bitmap));
-        adapter.submitList(new ArrayList<>(location.getDonations()));
-        mRecyclerView.setAdapter(adapter);
+            location.getDonations().add(new Donation(dateTime, location, shortDesc, longDesc, new BigDecimal(price), category, comments, bitmapId));
+            adapter.submitList(new ArrayList<>(location.getDonations()));
+            mRecyclerView.setAdapter(adapter);
+        }
     }
 }

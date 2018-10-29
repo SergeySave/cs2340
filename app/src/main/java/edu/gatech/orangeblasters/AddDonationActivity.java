@@ -97,10 +97,13 @@ public class AddDonationActivity extends AppCompatActivity {
 
     private void returnDonation(View v) {
         Intent data = new Intent();
-//        data.setData(uri);
-        int index = OrangeBlastersApplication.getInstance().getBitmaps().size();
-        OrangeBlastersApplication.getInstance().getBitmaps().add(bitmap);
-        data.putExtra(RETURN_IMAGE, index);
+
+        if (bitmap != null) {
+            String id = OrangeBlastersApplication.getInstance().getBitmapService().addBitmap(bitmap);
+            data.putExtra(RETURN_IMAGE, id);
+        } else {
+            data.putExtra(RETURN_IMAGE, (String)null);
+        }
         data.putExtra(RETURN_DESC_SHORT, shortDesc.getText().toString());
         data.putExtra(RETURN_DESC_LONG, longDesc.getText().toString());
         data.putExtra(RETURN_PRICE, price.getText().toString());

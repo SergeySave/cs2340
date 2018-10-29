@@ -146,7 +146,7 @@ public class LocEmployDashActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && null != data) {
-            int bitmap = data.getIntExtra(AddDonationActivity.RETURN_IMAGE, -1);
+            String bitmapId = data.getStringExtra(AddDonationActivity.RETURN_IMAGE);
             String shortDesc = (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_SHORT);
             String longDesc = (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_LONG);
             String price = (String) data.getSerializableExtra(AddDonationActivity.RETURN_PRICE);
@@ -154,7 +154,7 @@ public class LocEmployDashActivity extends AppCompatActivity {
             String comments = (String) data.getSerializableExtra(AddDonationActivity.RETURN_COMMENTS);
             OffsetDateTime dateTime = (OffsetDateTime) data.getSerializableExtra(AddDonationActivity.RETURN_TIME);
 
-            location.getDonations().add(new Donation(dateTime, location, shortDesc, longDesc, new BigDecimal(price), category, comments, bitmap));
+            location.getDonations().add(new Donation(dateTime, location, shortDesc, longDesc, new BigDecimal(price), category, comments, bitmapId));
             adapter.submitList(new ArrayList<>(location.getDonations()));
             mRecyclerView.setAdapter(adapter);
         }

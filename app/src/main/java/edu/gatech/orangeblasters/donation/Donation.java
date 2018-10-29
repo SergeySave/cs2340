@@ -17,17 +17,17 @@ public class Donation implements Serializable {
     private BigDecimal value;
     private DonationCategory donationCategory;
     private String comments;
-    private int pictureIndex;
+    private String pictureId;
 
     public Donation(OffsetDateTime timestamp, Location location, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory) {
-        this(timestamp, location, descShort, descLong, value, donationCategory, null, -1);
+        this(timestamp, location, descShort, descLong, value, donationCategory, null, null);
     }
 
     public Donation(OffsetDateTime timestamp, Location location, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory, String comments) {
-        this(timestamp, location, descShort, descLong, value, donationCategory, comments, -1);
+        this(timestamp, location, descShort, descLong, value, donationCategory, comments, null);
     }
 
-    public Donation(OffsetDateTime timestamp, Location location, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory, String comments, int pictureIndex) {
+    public Donation(OffsetDateTime timestamp, Location location, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory, String comments, String pictureId) {
         this.timestamp = timestamp;
         this.locationId = location.getId();
         this.descShort = descShort;
@@ -35,7 +35,7 @@ public class Donation implements Serializable {
         this.value = value;
         this.donationCategory = donationCategory;
         this.comments = comments;
-        this.pictureIndex = pictureIndex;
+        this.pictureId = pictureId;
     }
 
     public OffsetDateTime getTimestamp() {
@@ -94,12 +94,12 @@ public class Donation implements Serializable {
         this.comments = comments;
     }
 
-    public int getPictureLocation() {
-        return pictureIndex;
+    public Optional<String> getPictureId() {
+        return Optional.ofNullable(pictureId);
     }
 
-    public void setPictureLocation(int pictureIndex) {
-        this.pictureIndex = pictureIndex;
+    public void setPictureId(String pictureId) {
+        this.pictureId = pictureId;
     }
 
     @Override
@@ -114,13 +114,13 @@ public class Donation implements Serializable {
                 Objects.equals(value, donation.value) &&
                 donationCategory == donation.donationCategory &&
                 Objects.equals(comments, donation.comments) &&
-                Objects.equals(pictureIndex, donation.pictureIndex);
+                Objects.equals(pictureId, donation.pictureId);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(timestamp, locationId, descShort, descLong, value, donationCategory, comments, pictureIndex);
+        return Objects.hash(timestamp, locationId, descShort, descLong, value, donationCategory, comments, pictureId);
     }
 
     @Override
