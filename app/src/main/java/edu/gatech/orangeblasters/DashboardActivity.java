@@ -14,10 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.Optional;
 
 import edu.gatech.orangeblasters.donation.Donation;
 import edu.gatech.orangeblasters.donation.DonationCategory;
@@ -28,12 +25,12 @@ import edu.gatech.orangeblasters.location.Location;
  */
 public class DashboardActivity extends AppCompatActivity {
 
-    private static final int RESULT_ADD_DONATION = 1;
-    public static final String PARAM_LOCATION_ID = "LOCATION_ID";
+    public static final String PARAM_LOCATION_INDEX = "LOCATION_INDEX";
 
-    private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
-    private DonationAdapter adapter;
+    private RecyclerView donRecyclerView;
+    private RecyclerView locRecyclerView;
+    private LinearLayoutManager donLayoutManager;
+    private LinearLayoutManager locLayoutManager;
 
     private Location location;
 
@@ -41,33 +38,38 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String locationId = getIntent().getStringExtra(PARAM_LOCATION_ID);
-        if (locationId == null) {
+        int locationIndex = getIntent().getIntExtra(PARAM_LOCATION_INDEX, -1);
+        if (locationIndex < 0) {
             finish();
         }
-        Optional<Location> optionalLocation = OrangeBlastersApplication.getInstance().getLocationService().getLocation(locationId);
-        if (!optionalLocation.isPresent()) {
-            finish();
-        } else {
-            this.location = optionalLocation.get();
+//        location = ((OrangeBlastersApplication) getApplication()).getLocations().get(locationIndex);
 
-            setContentView(R.layout.activity_dashboard);
+        setContentView(R.layout.activity_dashboard);
 
-            mRecyclerView = findViewById(R.id.donation_recycler);
+        donRecyclerView = findViewById(R.id.donation_recycler);
+        locRecyclerView = findViewById(R.id.location_recycler);
 
-            // use a linear layout manager
-            mLayoutManager = new LinearLayoutManager(this);
-            mRecyclerView.setLayoutManager(mLayoutManager);
+        // use a linear layout manager
+        locLayoutManager = new LinearLayoutManager(this);
+        locRecyclerView.setLayoutManager(locLayoutManager);
+        donLayoutManager = new LinearLayoutManager(this);
+        donRecyclerView.setLayoutManager(donLayoutManager);
 
-            adapter = new DonationAdapter();
+        DashboardActivity.DonationAdapter donadapter = new DonationAdapter();
+        DashboardActivity.LocationAdapter locadapter = new LocationAdapter();
 
-            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
-                    mLayoutManager.getOrientation());
-            mRecyclerView.addItemDecoration(dividerItemDecoration);
+        DividerItemDecoration locdividerItemDecoration = new DividerItemDecoration(locRecyclerView.getContext(),
+                locLayoutManager.getOrientation());
+        locRecyclerView.addItemDecoration(locdividerItemDecoration);
 
-            adapter.submitList(this.location.getDonations());
-            mRecyclerView.setAdapter(adapter);
-        }
+        DividerItemDecoration dondividerItemDecoration = new DividerItemDecoration(donRecyclerView.getContext(),
+                donLayoutManager.getOrientation());
+        donRecyclerView.addItemDecoration(dondividerItemDecoration);
+
+//        donadapter.submitList(((OrangeBlastersApplication) getApplication()).getDonations());
+//        locadapter.submitList(((OrangeBlastersApplication) getApplication()).getLocations());
+        donRecyclerView.setAdapter(donadapter);
+        locRecyclerView.setAdapter(locadapter);
     }
 
     public static class DonationAdapter extends ListAdapter<Donation, DashboardActivity.DonationAdapter.DonationViewHolder> {
@@ -90,16 +92,17 @@ public class DashboardActivity extends AppCompatActivity {
             holder.bind(getItem(position));
         }
 
+
         public static final DiffUtil.ItemCallback<Donation> DIFF_CALLBACK =
                 new DiffUtil.ItemCallback<Donation>() {
                     @Override
                     public boolean areItemsTheSame(Donation oldItem, Donation newItem) {
-                        return oldItem == newItem;
+                        return false;
                     }
 
                     @Override
                     public boolean areContentsTheSame(Donation oldItem, Donation newItem) {
-                        return oldItem.equals(newItem);
+                        return false;
                     }
                 };
 
@@ -133,23 +136,81 @@ public class DashboardActivity extends AppCompatActivity {
         }
     }
 
+    public static class LocationAdapter extends ListAdapter<Location, LocationListActivity.LocationAdapter.LocationViewHolder> {
+
+        public LocationAdapter() {
+            super(DIFF_CALLBACK);
+        }
+
+        @NonNull
+        @Override
+        public LocationListActivity.LocationAdapter.LocationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View v = (View) LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.location_row, parent, false);
+            LocationListActivity.LocationAdapter.LocationViewHolder vh = new LocationListActivity.LocationAdapter.LocationViewHolder(v);
+            return vh;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull LocationListActivity.LocationAdapter.LocationViewHolder holder, int position) {
+            holder.bind(getItem(position));
+
+        }
+
+        public static final DiffUtil.ItemCallback<Location> DIFF_CALLBACK =
+                new DiffUtil.ItemCallback<Location>() {
+                    @Override
+                    public boolean areItemsTheSame(
+                            @NonNull Location oldUser, @NonNull Location newUser) {
+                        return oldUser.getName().equals(newUser.getName());
+                    }
+                    @Override
+                    public boolean areContentsTheSame(
+                            @NonNull Location oldUser, @NonNull Location newUser) {
+                        return oldUser.equals(newUser);
+                    }
+                };
+
+        public static class LocationViewHolder extends RecyclerView.ViewHolder {
+            private final TextView textView;
+            private Location location;
+
+            public LocationViewHolder(View v) {
+                super(v);
+                // Define click listener for the ViewHolder's View.
+                v.setOnClickListener(v1 -> {
+                    Intent intent = new Intent(v.getContext(), LocationDetailsActivity.class);
+//                    intent.putExtra(LocationDetailsActivity.EXTRA_LOCATION, location);
+                    v.getContext().startActivity(intent);
+                });
+                textView = v.findViewById(R.id.textView);
+            }
+
+            public TextView getTextView() {
+                return textView;
+            }
+
+            public void bind(Location item) {
+                location = item;
+                textView.setText(item.getName());
+            }
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        //This shouldnt be here
-        if (resultCode == RESULT_OK && null != data) {
-            String bitmapId = data.getStringExtra(AddDonationActivity.RETURN_IMAGE);
-            String shortDesc = (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_SHORT);
-            String longDesc = (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_LONG);
-            String price = (String) data.getSerializableExtra(AddDonationActivity.RETURN_PRICE);
-            DonationCategory category = (DonationCategory) data.getSerializableExtra(AddDonationActivity.RETURN_CATEGORY);
-            String comments = (String) data.getSerializableExtra(AddDonationActivity.RETURN_COMMENTS);
-            OffsetDateTime dateTime = (OffsetDateTime) data.getSerializableExtra(AddDonationActivity.RETURN_TIME);
+//        Uri uri = data.getData();
+//        Bitmap bitmap = data.getParcelableExtra(AddDonationActivity.RETURN_IMAGE);
+        int bitmap = data.getIntExtra(AddDonationActivity.RETURN_IMAGE, -1);
+        String shortDesc = (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_SHORT);
+        String longDesc = (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_LONG);
+        String price = (String) data.getSerializableExtra(AddDonationActivity.RETURN_PRICE);
+        DonationCategory category = (DonationCategory) data.getSerializableExtra(AddDonationActivity.RETURN_CATEGORY);
+        String comments = (String) data.getSerializableExtra(AddDonationActivity.RETURN_COMMENTS);
+        OffsetDateTime dateTime = (OffsetDateTime) data.getSerializableExtra(AddDonationActivity.RETURN_TIME);
 
-            location.getDonations().add(new Donation(dateTime, location, shortDesc, longDesc, new BigDecimal(price), category, comments, bitmapId));
-            adapter.submitList(new ArrayList<>(location.getDonations()));
-            mRecyclerView.setAdapter(adapter);
-        }
+//        location.getDonations().add(new Donation(dateTime, location, shortDesc, longDesc, new BigDecimal(price), category, comments, bitmap));
     }
 }

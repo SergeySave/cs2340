@@ -48,7 +48,7 @@
     <string name="donation_date">Date</string>
     <string name="donation_time">Time</string>
     <string name="save">Save</string>
-    <string name="app_label">searchbar</string>
+    <string name="app_label">searchBar</string>
     <string name="search_hint">Search</string>
     <string name="add_donation_button">Add Donation</string>
     <string name="locations_dash">Locations</string>
