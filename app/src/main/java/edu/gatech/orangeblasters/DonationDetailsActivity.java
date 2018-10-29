@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import edu.gatech.orangeblasters.donation.Donation;
+import edu.gatech.orangeblasters.location.Location;
 
 public class DonationDetailsActivity extends AppCompatActivity {
 
@@ -22,7 +23,13 @@ public class DonationDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donation_details);
 
-        Donation donation = getIntent().getParcelableExtra(EXTRA_DONATION);
+        Donation donation = ((Donation) getIntent().getSerializableExtra(EXTRA_DONATION));
+
+        Location location = OrangeBlastersApplication.getInstance().getLocationService()
+                .getLocation(donation.getLocationId()).orElse(null);
+        if (location == null) {
+            finish();
+        }
 
         TextView donTime = findViewById(R.id.donationTime);
         TextView donShortDes = findViewById(R.id.donationShortDes);
@@ -33,7 +40,7 @@ public class DonationDetailsActivity extends AppCompatActivity {
         ImageView iamge = findViewById(R.id.imageDisplay);
 
         donTime.setText(dateTimeFormatter.format(donation.getTimestamp()));
-        donLocation.setText(donation.getLocation().getName());
+        donLocation.setText(location.getName());
         donCategory.setText(donation.getDonationCategory().getFullName());
         donShortDes.setText(donation.getDescShort());
         Optional<String> comments = donation.getComments();

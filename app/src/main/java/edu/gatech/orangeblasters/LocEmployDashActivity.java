@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import edu.gatech.orangeblasters.donation.Donation;
@@ -33,6 +34,7 @@ public class LocEmployDashActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
+    private DonationAdapter adapter;
 
     private Location location;
 
@@ -62,14 +64,13 @@ public class LocEmployDashActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        LocEmployDashActivity.DonationAdapter adapter = new DonationAdapter();
+        adapter = new DonationAdapter();
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
                 mLayoutManager.getOrientation());
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 
         adapter.submitList(this.location.getDonations());
-        this.location.getDonations().observe(this, adapter::submitList);
         mRecyclerView.setAdapter(adapter);
     }
 
@@ -93,17 +94,16 @@ public class LocEmployDashActivity extends AppCompatActivity {
             holder.bind(getItem(position));
         }
 
-
         public static final DiffUtil.ItemCallback<Donation> DIFF_CALLBACK =
                 new DiffUtil.ItemCallback<Donation>() {
                     @Override
                     public boolean areItemsTheSame(Donation oldItem, Donation newItem) {
-                        return false;
+                        return oldItem == newItem;
                     }
 
                     @Override
                     public boolean areContentsTheSame(Donation oldItem, Donation newItem) {
-                        return false;
+                        return oldItem.equals(newItem);
                     }
                 };
 
@@ -146,9 +146,6 @@ public class LocEmployDashActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && null != data) {
-
-//        Uri uri = data.getData();
-//        Bitmap bitmap = data.getParcelableExtra(AddDonationActivity.RETURN_IMAGE);
             int bitmap = data.getIntExtra(AddDonationActivity.RETURN_IMAGE, -1);
             String shortDesc = (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_SHORT);
             String longDesc = (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_LONG);
@@ -158,6 +155,8 @@ public class LocEmployDashActivity extends AppCompatActivity {
             OffsetDateTime dateTime = (OffsetDateTime) data.getSerializableExtra(AddDonationActivity.RETURN_TIME);
 
             location.getDonations().add(new Donation(dateTime, location, shortDesc, longDesc, new BigDecimal(price), category, comments, bitmap));
+            adapter.submitList(new ArrayList<>(location.getDonations()));
+            mRecyclerView.setAdapter(adapter);
         }
     }
 }

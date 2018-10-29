@@ -1,9 +1,9 @@
 package edu.gatech.orangeblasters.location;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-import edu.gatech.orangeblasters.LiveList;
 import edu.gatech.orangeblasters.donation.Donation;
 
 public class Location {
@@ -16,7 +16,7 @@ public class Location {
     private double latitude;
     private String address;
     private String phoneNumber;
-    private LiveList<Donation> donations = new LiveList<>(new ArrayList<>());
+    private List<Donation> donations = new ArrayList<>();
 
     public Location(String id, String name, LocationType type, double longitude, double latitude, String address, String phoneNumber) {
         this.id = id;
@@ -80,7 +80,7 @@ public class Location {
         this.phoneNumber = phoneNumber;
     }
 
-    public LiveList<Donation> getDonations() {
+    public List<Donation> getDonations() {
         return donations;
     }
 
