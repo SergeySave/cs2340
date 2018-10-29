@@ -12,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
@@ -27,11 +26,12 @@ import edu.gatech.orangeblasters.location.Location;
  */
 public class DashboardActivity extends AppCompatActivity {
 
-    private static final int RESULT_ADD_DONATION = 1;
     public static final String PARAM_LOCATION_INDEX = "LOCATION_INDEX";
 
-    private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
+    private RecyclerView donRecyclerView;
+    private RecyclerView locRecyclerView;
+    private LinearLayoutManager donLayoutManager;
+    private LinearLayoutManager locLayoutManager;
 
     private Location location;
 
@@ -47,21 +47,31 @@ public class DashboardActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_dashboard);
 
-        mRecyclerView = findViewById(R.id.donation_recycler);
+        donRecyclerView = findViewById(R.id.donation_recycler);
+        locRecyclerView = findViewById(R.id.location_recycler);
 
         // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        locLayoutManager = new LinearLayoutManager(this);
+        locRecyclerView.setLayoutManager(locLayoutManager);
+        donLayoutManager = new LinearLayoutManager(this);
+        donRecyclerView.setLayoutManager(donLayoutManager);
 
-        DashboardActivity.DonationAdapter adapter = new DonationAdapter();
+        DashboardActivity.DonationAdapter donadapter = new DonationAdapter();
+        DashboardActivity.LocationAdapter locadapter = new LocationAdapter();
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
-                mLayoutManager.getOrientation());
-        mRecyclerView.addItemDecoration(dividerItemDecoration);
+        DividerItemDecoration locdividerItemDecoration = new DividerItemDecoration(locRecyclerView.getContext(),
+                locLayoutManager.getOrientation());
+        locRecyclerView.addItemDecoration(locdividerItemDecoration);
 
-        adapter.submitList(location.getDonations());
-        location.getDonations().observe(this, adapter::submitList);
-        mRecyclerView.setAdapter(adapter);
+        DividerItemDecoration dondividerItemDecoration = new DividerItemDecoration(donRecyclerView.getContext(),
+                donLayoutManager.getOrientation());
+        donRecyclerView.addItemDecoration(dondividerItemDecoration);
+
+        donadapter.submitList(((OrangeBlastersApplication) getApplication()).getDonations());
+        locadapter.submitList(((OrangeBlastersApplication) getApplication()).getLocations());
+        location.getDonations().observe(this, donadapter::submitList);
+        donRecyclerView.setAdapter(donadapter);
+        locRecyclerView.setAdapter(locadapter);
     }
 
     public static class DonationAdapter extends ListAdapter<Donation, DashboardActivity.DonationAdapter.DonationViewHolder> {
@@ -124,6 +134,67 @@ public class DashboardActivity extends AppCompatActivity {
             public void bind(Donation item) {
                 donation = item;
                 textView.setText(item.getDescShort());
+            }
+        }
+    }
+
+    public static class LocationAdapter extends ListAdapter<Location, LocationListActivity.LocationAdapter.LocationViewHolder> {
+
+        public LocationAdapter() {
+            super(DIFF_CALLBACK);
+        }
+
+        @NonNull
+        @Override
+        public LocationListActivity.LocationAdapter.LocationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View v = (View) LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.location_row, parent, false);
+            LocationListActivity.LocationAdapter.LocationViewHolder vh = new LocationListActivity.LocationAdapter.LocationViewHolder(v);
+            return vh;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull LocationListActivity.LocationAdapter.LocationViewHolder holder, int position) {
+            holder.bind(getItem(position));
+
+        }
+
+        public static final DiffUtil.ItemCallback<Location> DIFF_CALLBACK =
+                new DiffUtil.ItemCallback<Location>() {
+                    @Override
+                    public boolean areItemsTheSame(
+                            @NonNull Location oldUser, @NonNull Location newUser) {
+                        return oldUser.getName().equals(newUser.getName());
+                    }
+                    @Override
+                    public boolean areContentsTheSame(
+                            @NonNull Location oldUser, @NonNull Location newUser) {
+                        return oldUser.equals(newUser);
+                    }
+                };
+
+        public static class LocationViewHolder extends RecyclerView.ViewHolder {
+            private final TextView textView;
+            private Location location;
+
+            public LocationViewHolder(View v) {
+                super(v);
+                // Define click listener for the ViewHolder's View.
+                v.setOnClickListener(v1 -> {
+                    Intent intent = new Intent(v.getContext(), LocationDetailsActivity.class);
+                    intent.putExtra(LocationDetailsActivity.EXTRA_LOCATION, location);
+                    v.getContext().startActivity(intent);
+                });
+                textView = v.findViewById(R.id.textView);
+            }
+
+            public TextView getTextView() {
+                return textView;
+            }
+
+            public void bind(Location item) {
+                location = item;
+                textView.setText(item.getName());
             }
         }
     }
