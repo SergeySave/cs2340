@@ -9,7 +9,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".LocEmployDashActivityActivity">
+        tools:context=".DashboardActivity">
 
         <ImageView
             android:id="@+id/loginBack"
@@ -21,6 +21,15 @@
             android:contentDescription="@string/background"
             android:scaleType="centerCrop"
             android:src="@drawable/background" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/location_recycler"
+            android:layout_width="426dp"
+            android:layout_height="175dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="174dp" />
 
         <ImageView
             android:id="@+id/loginLogo"
@@ -34,18 +43,6 @@
             android:src="@drawable/orange"
             android:visibility="visible" />
 
-        <Button
-            android:id="@+id/addDonation"
-            android:layout_width="232dp"
-            android:layout_height="81dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="101dp"
-            android:background="@drawable/rounded_button"
-            android:text="@string/add_donation_button"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
-
         <SearchView
             android:layout_width="match_parent"
             android:layout_height="46dp"
@@ -57,10 +54,32 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/donation_recycler"
             android:layout_width="426dp"
-            android:layout_height="470dp"
+            android:layout_height="175dp"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="175dp" />
+            android:layout_marginTop="392dp" />
+
+        <EditText
+            android:id="@+id/locations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="126dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/locations_dash" />
+
+        <EditText
+            android:id="@+id/donations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/location_recycler"
+            android:layout_alignParentStart="true"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/donations_dash" />
 
 
     </RelativeLayout>
