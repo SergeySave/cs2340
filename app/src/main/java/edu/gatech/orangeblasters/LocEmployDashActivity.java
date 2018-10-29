@@ -139,16 +139,19 @@ public class LocEmployDashActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if (resultCode == RESULT_OK && null != data) {
+
 //        Uri uri = data.getData();
 //        Bitmap bitmap = data.getParcelableExtra(AddDonationActivity.RETURN_IMAGE);
-        int bitmap = data.getIntExtra(AddDonationActivity.RETURN_IMAGE, -1);
-        String shortDesc = (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_SHORT);
-        String longDesc = (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_LONG);
-        String price = (String) data.getSerializableExtra(AddDonationActivity.RETURN_PRICE);
-        DonationCategory category = (DonationCategory) data.getSerializableExtra(AddDonationActivity.RETURN_CATEGORY);
-        String comments = (String) data.getSerializableExtra(AddDonationActivity.RETURN_COMMENTS);
-        OffsetDateTime dateTime = (OffsetDateTime) data.getSerializableExtra(AddDonationActivity.RETURN_TIME);
+            int bitmap = data.getIntExtra(AddDonationActivity.RETURN_IMAGE, -1);
+            String shortDesc = (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_SHORT);
+            String longDesc = (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_LONG);
+            String price = (String) data.getSerializableExtra(AddDonationActivity.RETURN_PRICE);
+            DonationCategory category = (DonationCategory) data.getSerializableExtra(AddDonationActivity.RETURN_CATEGORY);
+            String comments = (String) data.getSerializableExtra(AddDonationActivity.RETURN_COMMENTS);
+            OffsetDateTime dateTime = (OffsetDateTime) data.getSerializableExtra(AddDonationActivity.RETURN_TIME);
 
-        location.getDonations().add(new Donation(dateTime, location, shortDesc, longDesc, new BigDecimal(price), category, comments, bitmap));
+            location.getDonations().add(new Donation(dateTime, location, shortDesc, longDesc, new BigDecimal(price), category, comments, bitmap));
+        }
     }
 }
