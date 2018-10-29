@@ -13,6 +13,7 @@ import java.util.Spliterator;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
+@Deprecated //This is deprecated because it is no longer needed
 public class LiveList<T> extends LiveData<List<T>> implements List<T> {
 
     private List<T> backing;

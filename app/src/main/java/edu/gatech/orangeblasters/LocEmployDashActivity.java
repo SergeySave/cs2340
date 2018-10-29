@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 
 import edu.gatech.orangeblasters.donation.Donation;
 import edu.gatech.orangeblasters.donation.DonationCategory;
@@ -28,7 +29,7 @@ import edu.gatech.orangeblasters.location.Location;
 public class LocEmployDashActivity extends AppCompatActivity {
 
     private static final int RESULT_ADD_DONATION = 1;
-    public static final String PARAM_LOCATION_INDEX = "LOCATION_INDEX";
+    public static final String PARAM_LOCATION_ID = "LOCATION_INDEX";
 
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
@@ -39,11 +40,16 @@ public class LocEmployDashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        int locationIndex = getIntent().getIntExtra(PARAM_LOCATION_INDEX, -1);
-        if (locationIndex < 0) {
+        String locationId = getIntent().getStringExtra(PARAM_LOCATION_ID);
+        if (locationId == null) {
             finish();
         }
-        location = ((OrangeBlastersApplication) getApplication()).getLocations().get(locationIndex);
+        Optional<Location> optionalLocation = OrangeBlastersApplication.getInstance().getLocationService().getLocation(locationId);
+        if (optionalLocation.isPresent()) {
+            location = optionalLocation.get();
+        } else {
+            finish();
+        }
 
         setContentView(R.layout.activity_locemploydash);
 
@@ -62,8 +68,8 @@ public class LocEmployDashActivity extends AppCompatActivity {
                 mLayoutManager.getOrientation());
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        adapter.submitList(location.getDonations());
-        location.getDonations().observe(this, adapter::submitList);
+        adapter.submitList(this.location.getDonations());
+        this.location.getDonations().observe(this, adapter::submitList);
         mRecyclerView.setAdapter(adapter);
     }
 

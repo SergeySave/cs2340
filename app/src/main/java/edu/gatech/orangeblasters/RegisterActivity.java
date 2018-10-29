@@ -3,16 +3,15 @@ package edu.gatech.orangeblasters;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.test.mock.MockApplication;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.AdapterView;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import edu.gatech.orangeblasters.account.AccountState;
@@ -70,9 +69,9 @@ public class RegisterActivity extends AppCompatActivity  {
 
         location = findViewById(R.id.location);
 
-        String[] names = ((OrangeBlastersApplication) getApplication()).getLocations().stream().map(Location::getName).toArray(String[]::new);
+        List<Location> names = OrangeBlastersApplication.getInstance().getLocationService().getLocations().collect(Collectors.toList());
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, names);
+        ArrayAdapter<Location> adapter2 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, names);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         location.setAdapter(adapter2);
 
@@ -122,12 +121,10 @@ public class RegisterActivity extends AppCompatActivity  {
                         .add(new Manager(name, email, password, AccountState.NORMAL));
                 break;
             case EMPLOYEE:
-                String selectedName = (String) location.getSelectedItem();
-
-                Optional<Location> location = ((OrangeBlastersApplication) getApplication()).getLocations().stream().filter(loc -> loc.getName().equals(selectedName)).findAny();
+                Location selectedItem = (Location) location.getSelectedItem();
 
                 ((OrangeBlastersApplication) getApplication()).getAccounts()
-                        .add(new LocationEmployee(name, email, password, AccountState.NORMAL, location.orElse(null)));
+                        .add(new LocationEmployee(name, email, password, AccountState.NORMAL, selectedItem));
                 break;
         }
         finish();

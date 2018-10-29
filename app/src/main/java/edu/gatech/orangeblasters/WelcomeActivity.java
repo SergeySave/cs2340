@@ -59,7 +59,7 @@ public class WelcomeActivity extends AppCompatActivity {
             if (account instanceof LocationEmployee) {
                 Intent intent = new Intent(this, LocEmployDashActivity.class);
                 Location location = ((LocationEmployee) account).getLocation();
-                intent.putExtra(LocEmployDashActivity.PARAM_LOCATION_INDEX, ((OrangeBlastersApplication) getApplication()).getLocations().indexOf(location));
+                intent.putExtra(LocEmployDashActivity.PARAM_LOCATION_ID, location.getId());
                 startActivity(intent);
             } else {
                 startActivity(new Intent(this, LocationListActivity.class));

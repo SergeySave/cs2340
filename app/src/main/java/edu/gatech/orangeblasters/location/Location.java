@@ -1,28 +1,35 @@
 package edu.gatech.orangeblasters.location;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
 import edu.gatech.orangeblasters.LiveList;
 import edu.gatech.orangeblasters.donation.Donation;
 
-public class Location implements Serializable {
+public class Location {
+
+    private final String id;
+
     private String name;
     private LocationType type;
     private double longitude;
     private double latitude;
     private String address;
     private String phoneNumber;
-    private transient LiveList<Donation> donations = new LiveList<>(new ArrayList<>());
+    private LiveList<Donation> donations = new LiveList<>(new ArrayList<>());
 
-    public Location(String name, LocationType type, double longitude, double latitude, String address, String phoneNumber) {
+    public Location(String id, String name, LocationType type, double longitude, double latitude, String address, String phoneNumber) {
+        this.id = id;
         this.name = name;
         this.type = type;
         this.longitude = longitude;
         this.latitude = latitude;
         this.address = address;
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {
@@ -98,13 +105,6 @@ public class Location implements Serializable {
 
     @Override
     public String toString() {
-        return "Location{" +
-                "name='" + name + '\'' +
-                ", type=" + type +
-                ", longitude=" + longitude +
-                ", latitude=" + latitude +
-                ", address='" + address + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
+        return getName();
     }
 }

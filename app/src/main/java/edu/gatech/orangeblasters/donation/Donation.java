@@ -43,8 +43,10 @@ public class Donation implements Parcelable {
 
     protected Donation(Parcel in) {
         timestamp = ((OffsetDateTime) in.readSerializable());
-        location = ((Location) in.readSerializable());
-        OrangeBlastersApplication.getInstance().getLocations().stream().filter((a) -> a.equals(this.location)).findFirst().ifPresent(location1 -> this.location = location1);
+        String locationID = in.readString();
+        //If we find the location then set it
+        OrangeBlastersApplication.getInstance().getLocationService().getLocation(locationID)
+                .ifPresent(loc -> location = loc);
         descShort = in.readString();
         descLong = in.readString();
         value = ((BigDecimal) in.readSerializable());
@@ -73,7 +75,7 @@ public class Donation implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeSerializable(timestamp);
-        dest.writeSerializable(location);
+        dest.writeString(location.getId());
         dest.writeString(descShort);
         dest.writeString(descLong);
         dest.writeSerializable(value);
