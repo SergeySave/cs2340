@@ -14,12 +14,8 @@ import android.widget.Spinner;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import edu.gatech.orangeblasters.account.AccountState;
+import edu.gatech.orangeblasters.account.AccountService;
 import edu.gatech.orangeblasters.account.AccountTypes;
-import edu.gatech.orangeblasters.account.Admin;
-import edu.gatech.orangeblasters.account.LocationEmployee;
-import edu.gatech.orangeblasters.account.Manager;
-import edu.gatech.orangeblasters.account.User;
 import edu.gatech.orangeblasters.location.Location;
 
 /**
@@ -107,24 +103,22 @@ public class RegisterActivity extends AppCompatActivity  {
             return;
         }
 
+        AccountService accountService = OrangeBlastersApplication.getInstance().getAccountService();
+
         switch (((AccountTypes) userSpinner.getSelectedItem())) {
             case USER:
-                ((OrangeBlastersApplication) getApplication()).getAccounts()
-                        .add(new User(name, email, password, AccountState.NORMAL));
+                accountService.createUser(name, email, password);
                 break;
             case ADMIN:
-                ((OrangeBlastersApplication) getApplication()).getAccounts()
-                        .add(new Admin(name, email, password, AccountState.NORMAL));
+                accountService.createAdmin(name, email, password);
                 break;
             case MANAGER:
-                ((OrangeBlastersApplication) getApplication()).getAccounts()
-                        .add(new Manager(name, email, password, AccountState.NORMAL));
+                accountService.createManager(name, email, password);
                 break;
             case EMPLOYEE:
                 Location selectedItem = (Location) location.getSelectedItem();
 
-                ((OrangeBlastersApplication) getApplication()).getAccounts()
-                        .add(new LocationEmployee(name, email, password, AccountState.NORMAL, selectedItem));
+                accountService.createLocationEmployee(name, email, password, selectedItem.getId());
                 break;
         }
         finish();

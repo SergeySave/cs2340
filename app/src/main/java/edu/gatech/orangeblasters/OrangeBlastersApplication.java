@@ -6,21 +6,20 @@ import android.graphics.Bitmap;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.gatech.orangeblasters.account.Account;
-import edu.gatech.orangeblasters.account.AccountState;
-import edu.gatech.orangeblasters.account.User;
+import edu.gatech.orangeblasters.account.AccountService;
+import edu.gatech.orangeblasters.account.impl.AccountServiceInMemoryImpl;
 import edu.gatech.orangeblasters.location.LocationService;
 import edu.gatech.orangeblasters.location.impl.LocationServiceInMemoryImpl;
 
 public class OrangeBlastersApplication extends Application {
     private static OrangeBlastersApplication instance;
 
-    private List<Account> accounts = new ArrayList<>();
+    private AccountService accountService;
     private List<Bitmap> bitmaps = new ArrayList<>();
     private LocationService locationService;
 
-    public List<Account> getAccounts() {
-        return accounts;
+    public AccountService getAccountService() {
+        return accountService;
     }
 
     public LocationService getLocationService() {
@@ -40,9 +39,10 @@ public class OrangeBlastersApplication extends Application {
         super.onCreate();
         instance = this;
 
-        //Add default user
-        accounts.add(new User("User", "user@user.com", "pass", AccountState.NORMAL));
-
+        accountService = new AccountServiceInMemoryImpl();
         locationService = new LocationServiceInMemoryImpl(getResources().openRawResource(R.raw.location_data));
+
+        //Add default user
+        accountService.createUser("User", "user@user.com", "pass");
     }
 }

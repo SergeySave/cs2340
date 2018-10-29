@@ -32,6 +32,7 @@
         <activity android:name=".LocEmployDashActivity" />
         <activity android:name=".LocationDetailsActivity" />
         <activity android:name=".DonationDetailsActivity" />
+        <activity android:name=".DashboardActivity" />
         <activity android:name=".AddDonationActivity" />
     </application>
 
