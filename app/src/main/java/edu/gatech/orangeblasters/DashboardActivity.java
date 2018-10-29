@@ -69,7 +69,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         donadapter.submitList(((OrangeBlastersApplication) getApplication()).getDonations());
         locadapter.submitList(((OrangeBlastersApplication) getApplication()).getLocations());
-        location.getDonations().observe(this, donadapter::submitList);
         donRecyclerView.setAdapter(donadapter);
         locRecyclerView.setAdapter(locadapter);
     }
