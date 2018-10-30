@@ -61,7 +61,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 intent.putExtra(LocEmployDashActivity.PARAM_LOCATION_ID, locationId);
                 startActivity(intent);
             } else {
-                startActivity(new Intent(this, LocationListActivity.class));
+                startActivity(new Intent(this, MapsActivity.class));
             }
         } else {
             Snackbar mySnackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.invalid_user_pass, Snackbar.LENGTH_SHORT);

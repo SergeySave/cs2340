@@ -53,4 +53,5 @@
     <string name="add_donation_button">Add Donation</string>
     <string name="locations_dash">Locations</string>
     <string name="donations_dash">Donations</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
