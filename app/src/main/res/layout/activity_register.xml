@@ -134,11 +134,11 @@
 
         <Button
             android:id="@+id/register"
-            android:layout_width="287dp"
-            android:layout_height="46dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="127dp"
+            android:layout_marginBottom="161dp"
             android:background="@drawable/registerbtn"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -149,8 +149,8 @@
 
         <Button
             android:id="@+id/cancel"
-            android:layout_width="285dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="56dp"
