@@ -3,16 +3,24 @@ package edu.gatech.orangeblasters.account;
 import java.io.Serializable;
 
 public abstract class Account implements Serializable {
+
+    private final String id;
+
     private String name;
     private String password;
     private String email;
     private AccountState accountState;
 
-    public Account(String name, String email, String password, AccountState accountState) {
+    public Account(String id, String name, String email, String password, AccountState accountState) {
+        this.id = id;
         this.name = name;
         this.password = password;
         this.email = email;
         this.accountState = accountState;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {

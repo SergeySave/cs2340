@@ -1,20 +1,18 @@
 package edu.gatech.orangeblasters.account;
 
-import edu.gatech.orangeblasters.location.Location;
-
 public class LocationEmployee extends Account {
-    private Location location;
+    private String locationId;
 
-    public LocationEmployee(String name, String email, String password, AccountState accountState, Location location) {
-        super(name, email, password, accountState);
-        this.location = location;
+    public LocationEmployee(String id, String name, String email, String password, AccountState accountState, String locationId) {
+        super(id, name, email, password, accountState);
+        this.locationId = locationId;
     }
 
-    public Location getLocation(){
-        return location;
+    public String getLocation(){
+        return locationId;
     }
 
-    public void setLocation(Location location){
-        this.location = location;
+    public void setLocation(String locationId){
+        this.locationId = locationId;
     }
 }

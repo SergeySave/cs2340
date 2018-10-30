@@ -1,85 +1,41 @@
 package edu.gatech.orangeblasters.donation;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
-import edu.gatech.orangeblasters.OrangeBlastersApplication;
 import edu.gatech.orangeblasters.location.Location;
 
-public class Donation implements Parcelable {
+public class Donation implements Serializable {
 
     private OffsetDateTime timestamp;
-    private Location location;
+    private String locationId;
     private String descShort;
     private String descLong;
     private BigDecimal value;
     private DonationCategory donationCategory;
     private String comments;
-    private int pictureIndex;
+    private String pictureId;
 
     public Donation(OffsetDateTime timestamp, Location location, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory) {
-        this(timestamp, location, descShort, descLong, value, donationCategory, null, -1);
+        this(timestamp, location, descShort, descLong, value, donationCategory, null, null);
     }
 
     public Donation(OffsetDateTime timestamp, Location location, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory, String comments) {
-        this(timestamp, location, descShort, descLong, value, donationCategory, comments, -1);
+        this(timestamp, location, descShort, descLong, value, donationCategory, comments, null);
     }
 
-    public Donation(OffsetDateTime timestamp, Location location, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory, String comments, int pictureIndex) {
+    public Donation(OffsetDateTime timestamp, Location location, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory, String comments, String pictureId) {
         this.timestamp = timestamp;
-        this.location = location;
+        this.locationId = location.getId();
         this.descShort = descShort;
         this.descLong = descLong;
         this.value = value;
         this.donationCategory = donationCategory;
         this.comments = comments;
-        this.pictureIndex = pictureIndex;
-    }
-
-    protected Donation(Parcel in) {
-        timestamp = ((OffsetDateTime) in.readSerializable());
-        location = ((Location) in.readSerializable());
-        OrangeBlastersApplication.getInstance().getLocations().stream().filter((a) -> a.equals(this.location)).findFirst().ifPresent(location1 -> this.location = location1);
-        descShort = in.readString();
-        descLong = in.readString();
-        value = ((BigDecimal) in.readSerializable());
-        donationCategory = ((DonationCategory) in.readSerializable());
-        comments = in.readString();
-        pictureIndex = in.readInt();
-    }
-
-    public static final Creator<Donation> CREATOR = new Creator<Donation>() {
-        @Override
-        public Donation createFromParcel(Parcel in) {
-            return new Donation(in);
-        }
-
-        @Override
-        public Donation[] newArray(int size) {
-            return new Donation[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeSerializable(timestamp);
-        dest.writeSerializable(location);
-        dest.writeString(descShort);
-        dest.writeString(descLong);
-        dest.writeSerializable(value);
-        dest.writeSerializable(donationCategory);
-        dest.writeString(comments);
-        dest.writeInt(pictureIndex);
+        this.pictureId = pictureId;
     }
 
     public OffsetDateTime getTimestamp() {
@@ -90,12 +46,12 @@ public class Donation implements Parcelable {
         this.timestamp = timestamp;
     }
 
-    public Location getLocation() {
-        return location;
+    public String getLocationId() {
+        return locationId;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLocationId(String id) {
+        this.locationId = id;
     }
 
     public String getDescShort() {
@@ -138,12 +94,12 @@ public class Donation implements Parcelable {
         this.comments = comments;
     }
 
-    public int getPictureLocation() {
-        return pictureIndex;
+    public Optional<String> getPictureId() {
+        return Optional.ofNullable(pictureId);
     }
 
-    public void setPictureLocation(int pictureIndex) {
-        this.pictureIndex = pictureIndex;
+    public void setPictureId(String pictureId) {
+        this.pictureId = pictureId;
     }
 
     @Override
@@ -152,26 +108,26 @@ public class Donation implements Parcelable {
         if (o == null || getClass() != o.getClass()) return false;
         Donation donation = (Donation) o;
         return Objects.equals(timestamp, donation.timestamp) &&
-                Objects.equals(location, donation.location) &&
+                Objects.equals(locationId, donation.locationId) &&
                 Objects.equals(descShort, donation.descShort) &&
                 Objects.equals(descLong, donation.descLong) &&
                 Objects.equals(value, donation.value) &&
                 donationCategory == donation.donationCategory &&
                 Objects.equals(comments, donation.comments) &&
-                Objects.equals(pictureIndex, donation.pictureIndex);
+                Objects.equals(pictureId, donation.pictureId);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(timestamp, location, descShort, descLong, value, donationCategory, comments, pictureIndex);
+        return Objects.hash(timestamp, locationId, descShort, descLong, value, donationCategory, comments, pictureId);
     }
 
     @Override
     public String toString() {
         return "Donation{" +
                 "timestamp=" + timestamp +
-                ", location=" + location +
+                ", locationId=" + locationId +
                 ", descShort='" + descShort + '\'' +
                 ", descLong='" + descLong + '\'' +
                 ", value=" + value +

@@ -38,12 +38,12 @@ public class LocationListActivity extends AppCompatActivity {
                 mLayoutManager.getOrientation());
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        adapter.submitList(((OrangeBlastersApplication) getApplication()).getLocations());
-        ((OrangeBlastersApplication) getApplication()).getLocations().observe(this, adapter::submitList);
+        adapter.submitList(OrangeBlastersApplication.getInstance().getLocationService().getLiveIDList().getValue());
+        OrangeBlastersApplication.getInstance().getLocationService().getLiveIDList().observe(this, adapter::submitList);
         mRecyclerView.setAdapter(adapter);
     }
 
-    public static class LocationAdapter extends ListAdapter<Location, LocationAdapter.LocationViewHolder> {
+    public static class LocationAdapter extends ListAdapter<String, LocationAdapter.LocationViewHolder> {
 
         public LocationAdapter() {
             super(DIFF_CALLBACK);
@@ -60,20 +60,20 @@ public class LocationListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull LocationViewHolder holder, int position) {
-            holder.bind(getItem(position));
+            holder.bind(OrangeBlastersApplication.getInstance().getLocationService().getLocation(getItem(position)).orElse(null));
 
         }
 
-        public static final DiffUtil.ItemCallback<Location> DIFF_CALLBACK =
-                new DiffUtil.ItemCallback<Location>() {
+        public static final DiffUtil.ItemCallback<String> DIFF_CALLBACK =
+                new DiffUtil.ItemCallback<String>() {
                     @Override
                     public boolean areItemsTheSame(
-                            @NonNull Location oldUser, @NonNull Location newUser) {
-                        return oldUser.getName().equals(newUser.getName());
+                            @NonNull String oldUser, @NonNull String newUser) {
+                        return oldUser.equals(newUser);
                     }
                     @Override
                     public boolean areContentsTheSame(
-                            @NonNull Location oldUser, @NonNull Location newUser) {
+                            @NonNull String oldUser, @NonNull String newUser) {
                         return oldUser.equals(newUser);
                     }
                 };
@@ -87,7 +87,7 @@ public class LocationListActivity extends AppCompatActivity {
                 // Define click listener for the ViewHolder's View.
                 v.setOnClickListener(v1 -> {
                     Intent intent = new Intent(v.getContext(), LocationDetailsActivity.class);
-                    intent.putExtra(LocationDetailsActivity.EXTRA_LOCATION, location);
+                    intent.putExtra(LocationDetailsActivity.EXTRA_LOCATION_ID, location.getId());
                     v.getContext().startActivity(intent);
                 });
                 textView = v.findViewById(R.id.textView);

@@ -3,24 +3,19 @@ package edu.gatech.orangeblasters;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.test.mock.MockApplication;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.AdapterView;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.stream.Collectors;
 
-import edu.gatech.orangeblasters.account.AccountState;
+import edu.gatech.orangeblasters.account.AccountService;
 import edu.gatech.orangeblasters.account.AccountTypes;
-import edu.gatech.orangeblasters.account.Admin;
-import edu.gatech.orangeblasters.account.LocationEmployee;
-import edu.gatech.orangeblasters.account.Manager;
-import edu.gatech.orangeblasters.account.User;
 import edu.gatech.orangeblasters.location.Location;
 
 /**
@@ -70,9 +65,9 @@ public class RegisterActivity extends AppCompatActivity  {
 
         location = findViewById(R.id.location);
 
-        String[] names = ((OrangeBlastersApplication) getApplication()).getLocations().stream().map(Location::getName).toArray(String[]::new);
+        List<Location> names = OrangeBlastersApplication.getInstance().getLocationService().getLocations().collect(Collectors.toList());
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, names);
+        ArrayAdapter<Location> adapter2 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, names);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         location.setAdapter(adapter2);
 
@@ -108,26 +103,22 @@ public class RegisterActivity extends AppCompatActivity  {
             return;
         }
 
+        AccountService accountService = OrangeBlastersApplication.getInstance().getAccountService();
+
         switch (((AccountTypes) userSpinner.getSelectedItem())) {
             case USER:
-                ((OrangeBlastersApplication) getApplication()).getAccounts()
-                        .add(new User(name, email, password, AccountState.NORMAL));
+                accountService.createUser(name, email, password);
                 break;
             case ADMIN:
-                ((OrangeBlastersApplication) getApplication()).getAccounts()
-                        .add(new Admin(name, email, password, AccountState.NORMAL));
+                accountService.createAdmin(name, email, password);
                 break;
             case MANAGER:
-                ((OrangeBlastersApplication) getApplication()).getAccounts()
-                        .add(new Manager(name, email, password, AccountState.NORMAL));
+                accountService.createManager(name, email, password);
                 break;
             case EMPLOYEE:
-                String selectedName = (String) location.getSelectedItem();
+                Location selectedItem = (Location) location.getSelectedItem();
 
-                Optional<Location> location = ((OrangeBlastersApplication) getApplication()).getLocations().stream().filter(loc -> loc.getName().equals(selectedName)).findAny();
-
-                ((OrangeBlastersApplication) getApplication()).getAccounts()
-                        .add(new LocationEmployee(name, email, password, AccountState.NORMAL, location.orElse(null)));
+                accountService.createLocationEmployee(name, email, password, selectedItem.getId());
                 break;
         }
         finish();
