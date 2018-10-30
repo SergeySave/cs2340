@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout android:id="@+id/myCoordinatorLayout"
+<android.support.design.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/myCoordinatorLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,16 +13,6 @@
         android:layout_height="match_parent"
         tools:context=".WelcomeActivity">
 
-        <ImageView
-            android:id="@+id/loginBack"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:contentDescription="@string/background"
-            android:scaleType="centerCrop"
-            android:src="@drawable/background" />
 
         <ImageView
             android:id="@+id/loginLogo"
@@ -34,76 +26,103 @@
             android:src="@drawable/orange"
             android:visibility="visible" />
 
-        <ImageView
-            android:id="@+id/border"
-            android:layout_width="242dp"
-            android:layout_height="228dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="81dp"
-            android:contentDescription="@string/logo"
-            android:scaleType="fitCenter"
-            android:src="@drawable/rec"
-            android:visibility="visible" />
-
-        <Button
-            android:id="@+id/signin"
-            android:layout_width="150dp"
-            android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="165dp"
-            android:background="@drawable/rounded_button"
-            android:text="@string/action_sign_in_short"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp" />
-
-        <Button
-            android:id="@+id/register"
-            android:layout_width="150dp"
-            android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="122dp"
-            android:background="@drawable/rounded_button"
-            android:text="@string/action_register"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp" />
-
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="256dp"
+            android:layout_height="40dp"
+            android:layout_above="@+id/username"
+            android:layout_alignStart="@+id/username"
+            android:layout_marginBottom="-191dp"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/prompt_username"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@+id/loginLogo"
+            tools:text="username" />
 
         <EditText
             android:id="@+id/username"
-            android:layout_width="180dp"
-            android:layout_height="25dp"
-            android:layout_alignParentBottom="true"
+            android:layout_width="273dp"
+            android:layout_height="48dp"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="244dp"
-            android:background="@drawable/rounded_text"
-            android:fontFamily="monospace"
+            android:layout_marginTop="191dp"
+            android:background="@drawable/blankbar"
+            android:fontFamily="@font/montserrat"
             android:hint="@string/prompt_username"
             android:imeActionId="6"
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionUnspecified"
             android:inputType="textEmailAddress"
-            android:textColor="@android:color/white"
-            android:textSize="15sp" />
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
 
+
+        <TextView
+            android:id="@+id/pass"
+            android:layout_width="269dp"
+            android:layout_height="40dp"
+            android:layout_above="@+id/password"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="-283dp"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/password"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@+id/username"
+            tools:text="password" />
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="180dp"
-            android:layout_height="25dp"
-            android:layout_alignParentBottom="true"
+            android:layout_width="272dp"
+            android:layout_height="48dp"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="210dp"
-            android:background="@drawable/rounded_text"
-            android:fontFamily="monospace"
+            android:layout_marginTop="283dp"
+            android:background="@drawable/blankbar"
+            android:fontFamily="@font/montserrat"
             android:hint="@string/password"
             android:imeActionId="6"
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionUnspecified"
             android:inputType="textPassword"
-            android:textSize="14sp" />
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/pass" />
+
+
+        <Button
+            android:id="@+id/signin"
+            android:layout_width="272dp"
+            android:layout_height="78dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="308dp"
+            android:background="@drawable/login"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password" />
+
+        <Button
+            android:id="@+id/register"
+            android:layout_width="272dp"
+            android:layout_height="78dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="216dp"
+            android:background="@drawable/registerbtn"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signin" />
 
 
     </RelativeLayout>
