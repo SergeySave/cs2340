@@ -28,8 +28,8 @@
 
         <TextView
             android:id="@+id/name"
-            android:layout_width="256dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_above="@+id/username"
             android:layout_alignStart="@+id/username"
             android:layout_marginBottom="-191dp"
@@ -43,8 +43,8 @@
 
         <EditText
             android:id="@+id/username"
-            android:layout_width="273dp"
-            android:layout_height="48dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="191dp"
@@ -62,24 +62,23 @@
 
         <TextView
             android:id="@+id/pass"
-            android:layout_width="269dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_above="@+id/password"
-            android:layout_centerHorizontal="true"
+            android:layout_alignStart="@+id/username"
             android:layout_marginBottom="-283dp"
             android:fontFamily="@font/montserrat"
             android:text="@string/password"
             android:textColor="@android:color/black"
             android:textSize="24sp"
             android:visibility="visible"
-            app:layout_constraintTop_toBottomOf="@+id/username"
+            app:layout_constraintTop_toBottomOf="@+id/loginLogo"
             tools:text="password" />
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="272dp"
-            android:layout_height="48dp"
-            android:layout_alignParentTop="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="283dp"
             android:background="@drawable/blankbar"
@@ -96,11 +95,11 @@
 
         <Button
             android:id="@+id/signin"
-            android:layout_width="272dp"
-            android:layout_height="78dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="308dp"
+            android:layout_marginBottom="210dp"
             android:background="@drawable/login"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -111,11 +110,11 @@
 
         <Button
             android:id="@+id/register"
-            android:layout_width="272dp"
-            android:layout_height="78dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="216dp"
+            android:layout_marginBottom="100dp"
             android:background="@drawable/registerbtn"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
