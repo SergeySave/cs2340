@@ -8,8 +8,10 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import edu.gatech.orangeblasters.bitmap.BitmapCallback;
 import edu.gatech.orangeblasters.bitmap.BitmapService;
 
+@Deprecated
 public class BitmapInMemoryService implements BitmapService {
 
     private Map<String, Bitmap> bitmaps = new HashMap<>();
@@ -27,7 +29,7 @@ public class BitmapInMemoryService implements BitmapService {
     }
 
     @Override
-    public Optional<Bitmap> getBitmap(String id) {
-        return Optional.ofNullable(bitmaps.get(id));
+    public void getBitmap(String id, BitmapCallback callback) {
+        callback.onComplete(Optional.ofNullable(bitmaps.get(id)));
     }
 }

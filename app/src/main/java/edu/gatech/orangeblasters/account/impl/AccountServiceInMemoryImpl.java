@@ -15,6 +15,7 @@ import edu.gatech.orangeblasters.account.LocationEmployee;
 import edu.gatech.orangeblasters.account.Manager;
 import edu.gatech.orangeblasters.account.User;
 
+@Deprecated
 public class AccountServiceInMemoryImpl implements AccountService {
 
     private Map<String, Account> accounts = new HashMap<>();

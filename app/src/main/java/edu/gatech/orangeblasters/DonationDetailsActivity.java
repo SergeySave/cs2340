@@ -1,6 +1,5 @@
 package edu.gatech.orangeblasters;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -53,17 +52,13 @@ public class DonationDetailsActivity extends AppCompatActivity {
         }
         donLongDes.setText(donation.getDescLong());
         Optional<String> pictureId = donation.getPictureId();
-        if (pictureId.isPresent()) {
-            Optional<Bitmap> bitmap = OrangeBlastersApplication.getInstance().getBitmapService().getBitmap(pictureId.get());
-            if (bitmap.isPresent()) {
-                image.setImageBitmap(bitmap.get());
+        image.setVisibility(View.INVISIBLE);
+        pictureId.ifPresent(s -> OrangeBlastersApplication.getInstance().getBitmapService().getBitmap(s, bitmap -> {
+            bitmap.ifPresent(bm -> {
+                image.setImageBitmap(bm);
 
                 image.setVisibility(View.VISIBLE);
-            } else {
-                image.setVisibility(View.INVISIBLE);
-            }
-        } else {
-            image.setVisibility(View.INVISIBLE);
-        }
+            });
+        }));
     }
 }

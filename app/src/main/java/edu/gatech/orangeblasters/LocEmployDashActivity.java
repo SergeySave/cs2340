@@ -154,7 +154,11 @@ public class LocEmployDashActivity extends AppCompatActivity {
             String comments = (String) data.getSerializableExtra(AddDonationActivity.RETURN_COMMENTS);
             OffsetDateTime dateTime = (OffsetDateTime) data.getSerializableExtra(AddDonationActivity.RETURN_TIME);
 
-            location.getDonations().add(new Donation(dateTime, location, shortDesc, longDesc, new BigDecimal(price), category, comments, bitmapId));
+            Donation donation = OrangeBlastersApplication.getInstance().getDonationService()
+                    .createDonation(dateTime, location.getId(), shortDesc, longDesc, new BigDecimal(price), category, comments, bitmapId);
+            location.getDonations().add(donation);
+            OrangeBlastersApplication.getInstance().getLocationService().update(location);
+
             adapter.submitList(new ArrayList<>(location.getDonations()));
             mRecyclerView.setAdapter(adapter);
         }

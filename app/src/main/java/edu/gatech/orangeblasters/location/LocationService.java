@@ -11,4 +11,5 @@ public interface LocationService {
     Optional<Location> getLocation(String id);
     Stream<Location> getLocations();
     LiveData<List<String>> getLiveIDList();
+    void update(Location location);
 }
