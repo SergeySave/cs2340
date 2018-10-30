@@ -2,7 +2,8 @@
 <android.support.design.widget.CoordinatorLayout android:id="@+id/myCoordinatorLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -10,16 +11,6 @@
         android:layout_height="match_parent"
         tools:context=".RegisterActivity">
 
-        <ImageView
-            android:id="@+id/loginBack"
-            android:layout_width="match_parent"
-
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:contentDescription="@string/user_type"
-            android:scaleType="centerCrop"
-            android:src="@drawable/background" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/location_recycler"

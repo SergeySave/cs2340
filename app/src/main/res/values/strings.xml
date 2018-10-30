@@ -38,7 +38,7 @@
     <string name="donation_name">Name</string>
     <string name="donation_type">Type</string>
     <string name="donation_address">Address</string>
-    <string name="donation_comment">Comment</string>
+    <string name="donation_comment">comment</string>
     <string name="donation_Picture">Picture</string>
     <string name="donation_category">Category</string>
     <string name="donation_location">Location</string>
@@ -53,4 +53,8 @@
     <string name="add_donation_button">Add Donation</string>
     <string name="locations_dash">Locations</string>
     <string name="donations_dash">Donations</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="itemname">item name</string>
+    <string name="longdes">description</string>
+    <string name="price">price</string>
 </resources>
