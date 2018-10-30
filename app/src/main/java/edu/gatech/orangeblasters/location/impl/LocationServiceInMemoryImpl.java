@@ -20,6 +20,7 @@ import edu.gatech.orangeblasters.location.Location;
 import edu.gatech.orangeblasters.location.LocationService;
 import edu.gatech.orangeblasters.location.LocationType;
 
+@Deprecated
 public class LocationServiceInMemoryImpl implements LocationService {
 
     //A linked hash map is used to ensure that the order stays constant
@@ -97,5 +98,9 @@ public class LocationServiceInMemoryImpl implements LocationService {
     @Override
     public LiveData<List<String>> getLiveIDList() {
         return idList;
+    }
+
+    @Override
+    public void update(Location location) {
     }
 }

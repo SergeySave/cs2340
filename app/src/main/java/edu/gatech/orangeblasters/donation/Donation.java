@@ -6,9 +6,9 @@ import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
-import edu.gatech.orangeblasters.location.Location;
-
 public class Donation implements Serializable {
+
+    private final String id;
 
     private OffsetDateTime timestamp;
     private String locationId;
@@ -19,23 +19,28 @@ public class Donation implements Serializable {
     private String comments;
     private String pictureId;
 
-    public Donation(OffsetDateTime timestamp, Location location, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory) {
-        this(timestamp, location, descShort, descLong, value, donationCategory, null, null);
+    public Donation(String id, OffsetDateTime timestamp, String locationId, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory) {
+        this(id, timestamp, locationId, descShort, descLong, value, donationCategory, null, null);
     }
 
-    public Donation(OffsetDateTime timestamp, Location location, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory, String comments) {
-        this(timestamp, location, descShort, descLong, value, donationCategory, comments, null);
+    public Donation(String id, OffsetDateTime timestamp, String locationId, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory, String comments) {
+        this(id, timestamp, locationId, descShort, descLong, value, donationCategory, comments, null);
     }
 
-    public Donation(OffsetDateTime timestamp, Location location, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory, String comments, String pictureId) {
+    public Donation(String id, OffsetDateTime timestamp, String locationId, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory, String comments, String pictureId) {
+        this.id = id;
         this.timestamp = timestamp;
-        this.locationId = location.getId();
+        this.locationId = locationId;
         this.descShort = descShort;
         this.descLong = descLong;
         this.value = value;
         this.donationCategory = donationCategory;
         this.comments = comments;
         this.pictureId = pictureId;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public OffsetDateTime getTimestamp() {

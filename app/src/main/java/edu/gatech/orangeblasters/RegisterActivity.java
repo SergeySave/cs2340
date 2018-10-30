@@ -14,8 +14,10 @@ import android.widget.Spinner;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import edu.gatech.orangeblasters.account.Account;
+import edu.gatech.orangeblasters.account.AccountCallback;
 import edu.gatech.orangeblasters.account.AccountService;
-import edu.gatech.orangeblasters.account.AccountTypes;
+import edu.gatech.orangeblasters.account.AccountType;
 import edu.gatech.orangeblasters.location.Location;
 
 /**
@@ -43,16 +45,16 @@ public class RegisterActivity extends AppCompatActivity  {
 
         //set up the spinner
         userSpinner = findViewById(R.id.userType);
-        ArrayAdapter<AccountTypes> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, AccountTypes.values());
+        ArrayAdapter<AccountType> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, AccountType.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userSpinner.setAdapter(adapter);
-        userSpinner.setSelection(adapter.getPosition(AccountTypes.USER)); //User is default
+        userSpinner.setSelection(adapter.getPosition(AccountType.USER)); //User is default
 
         userSpinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
                     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
-                        if (userSpinner.getSelectedItem() == AccountTypes.EMPLOYEE) {
+                        if (userSpinner.getSelectedItem() == AccountType.EMPLOYEE) {
                             location.setVisibility(View.VISIBLE);
                         } else {
                             location.setVisibility(View.INVISIBLE);
@@ -105,23 +107,26 @@ public class RegisterActivity extends AppCompatActivity  {
 
         AccountService accountService = OrangeBlastersApplication.getInstance().getAccountService();
 
-        switch (((AccountTypes) userSpinner.getSelectedItem())) {
+        //finish will be called if an account is created
+        //if not nothing will happen (this maybe should be fixed)
+        AccountCallback<Account> accountCreationCallback = result -> result.ifPresent(__->finish());
+
+        switch (((AccountType) userSpinner.getSelectedItem())) {
             case USER:
-                accountService.createUser(name, email, password);
+                accountService.createUser(name, email, password, accountCreationCallback);
                 break;
             case ADMIN:
-                accountService.createAdmin(name, email, password);
+                accountService.createAdmin(name, email, password, accountCreationCallback);
                 break;
             case MANAGER:
-                accountService.createManager(name, email, password);
+                accountService.createManager(name, email, password, accountCreationCallback);
                 break;
             case EMPLOYEE:
                 Location selectedItem = (Location) location.getSelectedItem();
 
-                accountService.createLocationEmployee(name, email, password, selectedItem.getId());
+                accountService.createLocationEmployee(name, email, password, selectedItem.getId(), accountCreationCallback);
                 break;
         }
-        finish();
     }
 }
 

@@ -8,8 +8,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.Optional;
-
 import edu.gatech.orangeblasters.account.Account;
 import edu.gatech.orangeblasters.account.LocationEmployee;
 
@@ -51,22 +49,26 @@ public class WelcomeActivity extends AppCompatActivity {
     private void attemptLogin() {
         final String userStr = mUserNameView.getText().toString();
         final String passStr = mPasswordView.getText().toString();
-        Optional<Account> optionalAccount = OrangeBlastersApplication.getInstance().getAccountService()
-                .tryLogin(userStr, passStr);
-        if (optionalAccount.isPresent()) {
-            Account account = optionalAccount.get();
-            if (account instanceof LocationEmployee) {
-                Intent intent = new Intent(this, LocEmployDashActivity.class);
-                String locationId = ((LocationEmployee) account).getLocation();
-                intent.putExtra(LocEmployDashActivity.PARAM_LOCATION_ID, locationId);
-                startActivity(intent);
-            } else {
-                startActivity(new Intent(this, LocationListActivity.class));
-            }
-        } else {
-            Snackbar mySnackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.invalid_user_pass, Snackbar.LENGTH_SHORT);
-            mySnackbar.show();
-        }
+
+        //Try logging in
+        OrangeBlastersApplication.getInstance().getAccountService()
+                .tryLogin(userStr, passStr, (optionalAccount -> {
+                    //When the login attempt is processed
+                    if (optionalAccount.isPresent()) {
+                        Account account = optionalAccount.get();
+                        if (account instanceof LocationEmployee) {
+                            Intent intent = new Intent(this, LocEmployDashActivity.class);
+                            String locationId = ((LocationEmployee) account).getLocation();
+                            intent.putExtra(LocEmployDashActivity.PARAM_LOCATION_ID, locationId);
+                            startActivity(intent);
+                        } else {
+                            startActivity(new Intent(this, LocationListActivity.class));
+                        }
+                    } else {
+                        Snackbar mySnackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.invalid_user_pass, Snackbar.LENGTH_SHORT);
+                        mySnackbar.show();
+                    }
+                }));
     }
 }
 

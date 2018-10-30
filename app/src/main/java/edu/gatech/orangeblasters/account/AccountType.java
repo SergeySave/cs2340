@@ -1,6 +1,6 @@
 package edu.gatech.orangeblasters.account;
 
-public enum AccountTypes {
+public enum AccountType {
     ADMIN("Admin"),
     MANAGER("Manager"),
     EMPLOYEE("Location Employee"),
@@ -16,7 +16,7 @@ public enum AccountTypes {
      *
      * @param userType the user type
      */
-    AccountTypes(String userType) {
+    AccountType(String userType) {
         this.userType = userType;
     }
 
