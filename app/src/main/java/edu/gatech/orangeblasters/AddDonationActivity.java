@@ -23,7 +23,7 @@ import edu.gatech.orangeblasters.donation.DonationCategory;
 
 public class AddDonationActivity extends AppCompatActivity {
     private ImageView imageUpload;
-    private Button uploadButton;
+    //private Button uploadButton;
     private EditText donationComments;
     private EditText shortDesc;
     private EditText longDesc;
@@ -53,7 +53,7 @@ public class AddDonationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_donation);
 
         imageUpload =  findViewById(R.id.imageUpload);
-        uploadButton =  findViewById(R.id.uploadButton);
+        //uploadButton =  findViewById(R.id.uploadButton);
         shortDesc = findViewById(R.id.donationShortDes);
         longDesc = findViewById(R.id.donationLongDes);
         price = findViewById(R.id.donationPrice);
@@ -69,7 +69,7 @@ public class AddDonationActivity extends AppCompatActivity {
         category.setSelection(0);
 
         imageUpload.setOnClickListener(this::uploadImage);
-        uploadButton.setOnClickListener(this::uploadImage);
+        //uploadButton.setOnClickListener(this::uploadImage);
         saveButton.setOnClickListener(this::returnDonation);
     }
 
