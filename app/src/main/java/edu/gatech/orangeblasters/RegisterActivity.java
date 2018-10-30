@@ -14,6 +14,8 @@ import android.widget.Spinner;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import edu.gatech.orangeblasters.account.Account;
+import edu.gatech.orangeblasters.account.AccountCallback;
 import edu.gatech.orangeblasters.account.AccountService;
 import edu.gatech.orangeblasters.account.AccountTypes;
 import edu.gatech.orangeblasters.location.Location;
@@ -105,23 +107,26 @@ public class RegisterActivity extends AppCompatActivity  {
 
         AccountService accountService = OrangeBlastersApplication.getInstance().getAccountService();
 
+        //finish will be called if an account is created
+        //if not nothing will happen (this maybe should be fixed)
+        AccountCallback<Account> accountCreationCallback = result -> result.ifPresent(__->finish());
+
         switch (((AccountTypes) userSpinner.getSelectedItem())) {
             case USER:
-                accountService.createUser(name, email, password);
+                accountService.createUser(name, email, password, accountCreationCallback);
                 break;
             case ADMIN:
-                accountService.createAdmin(name, email, password);
+                accountService.createAdmin(name, email, password, accountCreationCallback);
                 break;
             case MANAGER:
-                accountService.createManager(name, email, password);
+                accountService.createManager(name, email, password, accountCreationCallback);
                 break;
             case EMPLOYEE:
                 Location selectedItem = (Location) location.getSelectedItem();
 
-                accountService.createLocationEmployee(name, email, password, selectedItem.getId());
+                accountService.createLocationEmployee(name, email, password, selectedItem.getId(), accountCreationCallback);
                 break;
         }
-        finish();
     }
 }
 

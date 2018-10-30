@@ -42,6 +42,6 @@ public class OrangeBlastersApplication extends Application {
         bitmapService = new BitmapInMemoryService();
 
         //Add default user
-        accountService.createUser("User", "user@user.com", "pass");
+        accountService.createUser("User", "user@user.com", "pass", __->{});
     }
 }

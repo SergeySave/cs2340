@@ -1,13 +1,11 @@
 package edu.gatech.orangeblasters.account;
 
-import java.util.Optional;
-
 public interface AccountService {
 
-    Optional<Account> tryLogin(String email, String password);
+    void tryLogin(String email, String password, AccountCallback<Account> callback);
 
-    User createUser(String name, String email, String password);
-    Admin createAdmin(String name, String email, String password);
-    Manager createManager(String name, String email, String password);
-    LocationEmployee createLocationEmployee(String name, String email, String password, String locationId);
+    void createUser(String name, String email, String password, AccountCallback<? super User> callback);
+    void createAdmin(String name, String email, String password, AccountCallback<? super Admin> callback);
+    void createManager(String name, String email, String password, AccountCallback<? super Manager> callback);
+    void createLocationEmployee(String name, String email, String password, String locationId, AccountCallback<? super LocationEmployee> callback);
 }
