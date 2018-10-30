@@ -3,24 +3,14 @@
 <android.support.design.widget.CoordinatorLayout android:id="@+id/myCoordinatorLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".DonationDetailsActivity">
-
-        <ImageView
-            android:id="@+id/loginBack"
-            android:layout_width="match_parent"
-            android:layout_height="470dp"
-
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:contentDescription="@string/user_type"
-            android:scaleType="centerCrop"
-            android:src="@drawable/background" />
 
         <ImageView
             android:id="@+id/imageDisplay"
@@ -38,7 +28,8 @@
             android:layout_alignParentTop="true"
             android:layout_alignStart="@+id/donationTime"
             android:layout_marginTop="362dp"
-            android:fontFamily="sans-serif-smallcaps"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/textColor"
             android:text="@string/donation_LongDes"
             android:textSize="24sp" />
 
@@ -49,7 +40,8 @@
             android:layout_alignParentTop="true"
             android:layout_alignStart="@+id/donationTime"
             android:layout_marginTop="268dp"
-            android:fontFamily="sans-serif-smallcaps"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/textColor"
             android:text="@string/donation_ShortDes"
             android:textSize="24sp" />
 
@@ -60,7 +52,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="125dp"
-            android:fontFamily="sans-serif-smallcaps"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/textColor"
             android:text="@string/donation_time"
             android:textSize="24sp" />
 
@@ -71,7 +64,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="167dp"
-            android:fontFamily="sans-serif-smallcaps"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/textColor"
             android:text="@string/donation_location"
             android:textSize="24sp" />
 
@@ -82,7 +76,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="215dp"
-            android:fontFamily="sans-serif-smallcaps"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/textColor"
             android:text="@string/donation_category"
             android:textSize="24sp" />
 
@@ -90,11 +85,11 @@
             android:id="@+id/donationComments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="128dp"
-            android:fontFamily="sans-serif-smallcaps"
+            android:layout_below="@+id/donationLongDes"
+            android:fontFamily="@font/montserrat"
             android:text="@string/donation_comment"
+            android:textColor="@color/textColor"
             android:textSize="24sp" />
 
 

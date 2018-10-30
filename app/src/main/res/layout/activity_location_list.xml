@@ -18,16 +18,40 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="46dp"
+            android:layout_marginTop="162dp"
             android:scrollbars="vertical" />
 
-        <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="46dp"
-            android:layout_alignParentStart="true"
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:label="@string/app_label"
-            android:hint="@string/search_hint"/>
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/donation_location"
+            android:textColor="@android:color/black"
+            android:textSize="36sp"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/dashboardbutton"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/searchbar"
+            android:layout_alignTop="@+id/location"
+            android:background="@drawable/dashboardbtn"
+            android:visibility="visible" />
+
+        <SearchView
+            android:id="@+id/searchbar"
+            android:layout_width="359dp"
+            android:layout_height="46dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="87dp"
+            android:background="@drawable/blankbar"
+            android:hint="@string/search_hint"
+            android:label="@string/app_label" />
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

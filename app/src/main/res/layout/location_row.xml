@@ -5,13 +5,16 @@
     android:layout_height="@dimen/list_item_height"
     android:layout_marginLeft="@dimen/margin_medium"
     android:layout_marginRight="@dimen/margin_medium"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:background="#FFFFFF">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:background="@drawable/infobar"
         android:gravity="center"
-        android:text="@string/element_text"/>
+        android:text="@string/element_text"
+        android:textColor="@color/textColor" />
 </RelativeLayout>

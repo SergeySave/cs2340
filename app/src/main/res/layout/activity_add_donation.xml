@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/imageUpload"
-            android:layout_width="191dp"
-            android:layout_height="169dp"
+            android:layout_width="184dp"
+            android:layout_height="167dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
