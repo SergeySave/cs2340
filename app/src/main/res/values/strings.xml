@@ -58,4 +58,7 @@
     <string name="itemname">item name</string>
     <string name="longdes">description</string>
     <string name="price">price</string>
+    <string name="dashboard">dashboard</string>
+    <string name="littleArrow"><![CDATA[>]]></string>
+    <string name="title_activity_dash">DashActivity</string>
 </resources>
