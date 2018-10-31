@@ -39,7 +39,6 @@
         <activity android:name=".LocEmployDashActivity" />
         <activity android:name=".LocationDetailsActivity" />
         <activity android:name=".DonationDetailsActivity" />
-        <activity android:name=".DashboardActivity" />
         <activity android:name=".AddDonationActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
