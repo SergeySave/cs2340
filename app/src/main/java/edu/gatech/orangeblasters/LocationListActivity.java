@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import edu.gatech.orangeblasters.location.Location;
@@ -41,6 +42,14 @@ public class LocationListActivity extends AppCompatActivity {
         adapter.submitList(OrangeBlastersApplication.getInstance().getLocationService().getLiveIDList().getValue());
         OrangeBlastersApplication.getInstance().getLocationService().getLiveIDList().observe(this, adapter::submitList);
         mRecyclerView.setAdapter(adapter);
+
+        Button dashboardButton = (Button)findViewById(R.id.dashboardbutton);
+        dashboardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LocationListActivity.this, DashboardActivity.class));
+            }
+        });
     }
 
     public static class LocationAdapter extends ListAdapter<String, LocationAdapter.LocationViewHolder> {
