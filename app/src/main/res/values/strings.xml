@@ -61,4 +61,6 @@
     <string name="dashboard">dashboard</string>
     <string name="littleArrow"><![CDATA[>]]></string>
     <string name="title_activity_dash">DashActivity</string>
+    <string name="donationsNotFound">No donations found</string>
+    <string name="locationsNotFound">No locations found</string>
 </resources>

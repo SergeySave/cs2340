@@ -11,6 +11,17 @@
         android:layout_height="match_parent"
         tools:context=".RegisterActivity">
 
+        <TextView
+            android:id="@+id/locationsNotFound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:fontFamily="@font/montserrat"
+            android:text="TextView"
+            android:textColor="@android:color/black"
+            android:textSize="32sp"
+            tools:text="@string/locationsNotFound" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/location_recycler"

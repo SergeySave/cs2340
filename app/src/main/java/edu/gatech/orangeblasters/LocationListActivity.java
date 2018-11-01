@@ -23,6 +23,7 @@ public class LocationListActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
+    private TextView notFound;
 
     private Function<Location, Integer> relevanceFilter = __ -> 1;
     private String userId;
@@ -39,6 +40,8 @@ public class LocationListActivity extends AppCompatActivity {
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        notFound = findViewById(R.id.locationsNotFound);
 
         LocationAdapter adapter = new LocationAdapter();
 
@@ -96,6 +99,13 @@ public class LocationListActivity extends AppCompatActivity {
                 .filter(loc -> relevanceFilter.apply(loc) > 0)
                 .forEach(adapter.getSortedList()::add);
         adapter.getSortedList().endBatchedUpdates();
+
+        if (adapter.getSortedList().size() == 0) {
+            notFound.setVisibility(View.VISIBLE);
+            notFound.setText(R.string.locationsNotFound);
+        } else {
+            notFound.setVisibility(View.INVISIBLE);
+        }
     }
 
     public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationViewHolder> {

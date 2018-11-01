@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout android:id="@+id/myCoordinatorLayout"
+<android.support.design.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/myCoordinatorLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,6 +12,18 @@
         android:layout_height="match_parent"
         tools:context=".LocEmployDashActivityActivity">
 
+
+        <TextView
+            android:id="@+id/donationsNotFound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:fontFamily="@font/montserrat"
+            android:text="TextView"
+            android:textColor="@android:color/black"
+            android:textSize="32sp"
+            tools:text="@string/donationsNotFound" />
 
         <Button
             android:id="@+id/addDonation"
@@ -52,7 +65,9 @@
             android:layout_marginTop="87dp"
             android:background="@drawable/blankbar"
             android:hint="@string/search_hint"
-            android:label="@string/app_label" />
+            android:label="@string/app_label" >
+
+        </SearchView>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/donation_recycler"
@@ -60,7 +75,9 @@
             android:layout_height="470dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="175dp" />
+            android:layout_marginTop="175dp" >
+
+        </android.support.v7.widget.RecyclerView>
 
 
     </RelativeLayout>

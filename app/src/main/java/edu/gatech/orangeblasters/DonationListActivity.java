@@ -34,6 +34,7 @@ public class DonationListActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private DonationAdapter adapter;
+    private TextView notFound;
 
     private Function<Donation, Integer> relevanceFilter = __ -> 1;
     private String locationId;
@@ -64,6 +65,8 @@ public class DonationListActivity extends AppCompatActivity {
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        notFound = findViewById(R.id.donationsNotFound);
 
         adapter = new DonationAdapter();
 
@@ -118,6 +121,13 @@ public class DonationListActivity extends AppCompatActivity {
                 .filter(don -> relevanceFilter.apply(don) > 0)
                 .forEach(adapter.getSortedList()::add);
         adapter.getSortedList().endBatchedUpdates();
+
+        if (adapter.getSortedList().size() == 0) {
+            notFound.setVisibility(View.VISIBLE);
+            notFound.setText(R.string.donationsNotFound);
+        } else {
+            notFound.setVisibility(View.INVISIBLE);
+        }
     }
 
     public class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.DonationViewHolder> {
