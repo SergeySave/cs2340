@@ -14,83 +14,124 @@
 
         <ImageView
             android:id="@+id/imageDisplay"
-            android:layout_width="match_parent"
-            android:layout_height="168dp"
+            android:layout_width="231dp"
+            android:layout_height="153dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="89dp"
+            android:contentDescription="@string/upload_image" />
+
+        <ImageView
+            android:id="@+id/backbtn"
+            android:layout_width="34dp"
+            android:layout_height="35dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_gravity="center_horizontal"
-            android:contentDescription="@string/upload_image" />
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="47dp"
+            android:background="@drawable/backarrow"
+            android:contentDescription="@string/app_name" />
 
         <TextView
-            android:id="@+id/donationLongDes"
-            android:layout_width="match_parent"
-            android:layout_height="31dp"
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/donationTime"
-            android:layout_marginTop="362dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="39dp"
             android:fontFamily="@font/montserrat"
-            android:textColor="@color/textColor"
-            android:text="@string/donation_LongDes"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/donationShortDes"
-            android:layout_width="match_parent"
-            android:layout_height="31dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/donationTime"
-            android:layout_marginTop="268dp"
-            android:fontFamily="@font/montserrat"
-            android:textColor="@color/textColor"
-            android:text="@string/donation_ShortDes"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/donationTime"
-            android:layout_width="match_parent"
-            android:layout_height="31dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="125dp"
-            android:fontFamily="@font/montserrat"
-            android:textColor="@color/textColor"
-            android:text="@string/donation_time"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/donationLocation"
-            android:layout_width="match_parent"
-            android:layout_height="31dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="167dp"
-            android:fontFamily="@font/montserrat"
-            android:textColor="@color/textColor"
             android:text="@string/donation_location"
+            android:textColor="@color/textColor"
+            android:textSize="36sp" />
+
+        <ImageView
+            android:id="@+id/donationinfo"
+            android:layout_width="384dp"
+            android:layout_height="408dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="100dp"
+            android:contentDescription="@string/logo"
+            android:scaleType="fitCenter"
+            android:src="@drawable/donationinfo"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/itemname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/donationCategory"
+            android:layout_marginTop="283dp"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/donation_name"
+            android:textColor="@color/textColor"
             android:textSize="24sp" />
 
         <TextView
             android:id="@+id/donationCategory"
-            android:layout_width="match_parent"
-            android:layout_height="31dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="215dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="38dp"
             android:fontFamily="@font/montserrat"
-            android:textColor="@color/textColor"
             android:text="@string/donation_category"
+            android:textColor="@color/textColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/donationCategory"
+            android:layout_marginBottom="307dp"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/donation_time"
+            android:textColor="@color/textColor"
+            android:textSize="24sp" />
+
+
+        <TextView
+            android:id="@+id/donationLocation"
+            android:layout_width="132dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/donationCategory"
+            android:layout_marginBottom="244dp"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/donation_location"
+            android:textColor="@color/textColor"
+            android:textSize="24sp" />
+
+
+        <TextView
+            android:id="@+id/donationLongDes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/itemname"
+            android:layout_marginBottom="195dp"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/donation_LongDes"
+            android:textColor="@color/textColor"
             android:textSize="24sp" />
 
         <TextView
             android:id="@+id/donationComments"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/donationLongDes"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/itemname"
+            android:layout_marginBottom="129dp"
             android:fontFamily="@font/montserrat"
             android:text="@string/donation_comment"
             android:textColor="@color/textColor"
             android:textSize="24sp" />
+
 
 
     </RelativeLayout>
