@@ -31,6 +31,11 @@ public class AccountServiceInMemoryImpl implements AccountService {
     }
 
     @Override
+    public void getAccount(String id, AccountCallback<Account> callback) {
+        callback.onComplete(Optional.ofNullable(accounts.get(id)));
+    }
+
+    @Override
     public void createUser(String name, String email, String password, AccountCallback<? super User> callback) {
         User user = new User(createId(), name, email, password, AccountState.NORMAL);
         accounts.put(user.getId(), user);

@@ -36,10 +36,11 @@
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register" />
         <activity android:name=".LocationListActivity" />
-        <activity android:name=".LocEmployDashActivity" />
+        <activity android:name=".DonationListActivity" />
         <activity android:name=".LocationDetailsActivity" />
         <activity android:name=".DonationDetailsActivity" />
         <activity android:name=".AddDonationActivity" />
+        <activity android:name=".DashboardActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -59,10 +60,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.gatech.orangeblasters.WelcomeActivity" />
         </activity>
-        <activity
-            android:name=".DashActivity"
-            android:label="@string/title_activity_dash"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
     </application>
 
 </manifest>

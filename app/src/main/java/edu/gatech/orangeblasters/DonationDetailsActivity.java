@@ -23,7 +23,12 @@ public class DonationDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donation_details);
 
-        Donation donation = ((Donation) getIntent().getSerializableExtra(EXTRA_DONATION));
+//        Donation donation = ((Donation) getIntent().getSerializableExtra(EXTRA_DONATION));
+        String donationId = getIntent().getStringExtra(EXTRA_DONATION);
+        Donation donation = OrangeBlastersApplication.getInstance().getDonationService().getDonation(donationId).orElse(null);
+        if (donation == null) {
+            finish();
+        }
 
         Location location = OrangeBlastersApplication.getInstance().getLocationService()
                 .getLocation(donation.getLocationId()).orElse(null);

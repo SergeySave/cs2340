@@ -12,6 +12,9 @@ import edu.gatech.orangeblasters.location.LocationService;
 import edu.gatech.orangeblasters.location.impl.LocationServiceFirebaseImpl;
 
 public class OrangeBlastersApplication extends Application {
+
+    public static final String PARAM_USER_ID = "CURRENT_USER_ID";
+
     private static OrangeBlastersApplication instance;
 
     private AccountService accountService;

@@ -6,206 +6,217 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-
-        <ImageView
-            android:id="@+id/imageUpload"
-            android:layout_width="184dp"
-            android:layout_height="167dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/addpic"
-            android:contentDescription="@string/upload_image" />
-
-        <TextView
-            android:id="@+id/shortdes"
-            android:layout_width="269dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/donationShortDes"
-            android:layout_below="@+id/imageUpload"
-            android:fontFamily="@font/montserrat"
-            android:text="@string/itemname"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:visibility="visible" />
+            android:orientation="vertical" >
 
-        <EditText
-            android:id="@+id/donationShortDes"
-            android:layout_width="359dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="202dp"
-            android:background="@drawable/blankbar"
-            android:fontFamily="@font/montserrat"
-            android:hint="@string/donation_name"
-            android:inputType=""
-            android:textColorHint="@color/hintColor"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/longdes"
-            android:layout_width="269dp"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/donationShortDes"
-            android:layout_below="@+id/donationShortDes"
-            android:fontFamily="@font/montserrat"
-            android:text="@string/longdes"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:visibility="visible" />
-
-        <EditText
-            android:id="@+id/donationLongDes"
-            android:layout_width="359dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/longdes"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/blankbar"
-            android:textColorHint="@color/hintColor"
-            android:fontFamily="@font/montserrat"
-            android:hint="@string/donation_LongDes"
-            android:inputType=""
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="269dp"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/donationShortDes"
-            android:layout_below="@+id/donationLongDes"
-            android:fontFamily="@font/montserrat"
-            android:text="@string/price"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:visibility="visible" />
-
-        <EditText
-            android:id="@+id/donationPrice"
-            android:layout_width="359dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/price"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/blankbar"
-            android:fontFamily="@font/montserrat"
-            android:ems="10"
-            android:hint="@string/donation_price"
-            android:inputType="numberDecimal"
-            android:textColorHint="@color/hintColor"
-            android:textSize="20sp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
 
-        <TextView
-            android:id="@+id/comment"
-            android:layout_width="269dp"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/donationShortDes"
-            android:layout_below="@+id/donationPrice"
-            android:fontFamily="@font/montserrat"
-            android:text="@string/donation_comment"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:visibility="visible" />
+                <ImageView
+                    android:id="@+id/imageUpload"
+                    android:layout_width="184dp"
+                    android:layout_height="167dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/addpic"
+                    android:contentDescription="@string/upload_image" />
 
-        <EditText
-            android:id="@+id/donationComments"
-            android:layout_width="359dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/comment"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/blankbar"
-            android:fontFamily="@font/montserrat"
-            android:textColorHint="@color/hintColor"
-            android:hint="@string/donation_comment"
-            android:inputType=""
-            android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/shortdes"
+                    android:layout_width="269dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/donationShortDes"
+                    android:layout_below="@+id/imageUpload"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/itemname"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
 
-        <TextView
-            android:id="@+id/category"
-            android:layout_width="269dp"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/shortdes"
-            android:layout_below="@+id/donationComments"
-            android:fontFamily="@font/montserrat"
-            android:text="@string/donation_category"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:visibility="visible" />
+                <EditText
+                    android:id="@+id/donationShortDes"
+                    android:layout_width="359dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="202dp"
+                    android:background="@drawable/blankbar"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="@string/donation_name"
+                    android:inputType=""
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/longdes"
+                    android:layout_width="269dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/donationShortDes"
+                    android:layout_below="@+id/donationShortDes"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/longdes"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/donationLongDes"
+                    android:layout_width="359dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/longdes"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/blankbar"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="@string/donation_LongDes"
+                    android:inputType=""
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="269dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/donationShortDes"
+                    android:layout_below="@+id/donationLongDes"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/price"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/donationPrice"
+                    android:layout_width="359dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/price"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/blankbar"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="@string/donation_price"
+                    android:inputType="numberDecimal"
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="20sp" />
 
 
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="269dp"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/donationShortDes"
-            android:layout_below="@+id/donationCategory"
-            android:fontFamily="@font/montserrat"
-            android:text="@string/donation_date"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:visibility="visible" />
+                <TextView
+                    android:id="@+id/comment"
+                    android:layout_width="269dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/donationShortDes"
+                    android:layout_below="@+id/donationPrice"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/donation_comment"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/donationComments"
+                    android:layout_width="359dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/comment"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/blankbar"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="@string/donation_comment"
+                    android:inputType=""
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/category"
+                    android:layout_width="269dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/shortdes"
+                    android:layout_below="@+id/donationComments"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/donation_category"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
 
 
-        <EditText
-            android:id="@+id/donationDate"
-            android:layout_width="359dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/date"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/blankbar"
-            android:ems="10"
-            android:fontFamily="@font/montserrat"
-            android:hint="@string/donation_date"
-            android:inputType="date"
-            android:textColorHint="@color/hintColor"
-            android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="269dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/donationShortDes"
+                    android:layout_below="@+id/donationCategory"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/donation_date"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
 
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="269dp"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/shortdes"
-            android:layout_below="@+id/donationDate"
-            android:fontFamily="@font/montserrat"
-            android:text="@string/donation_time"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:visibility="visible" />
 
-        <EditText
-            android:id="@+id/donationTime"
-            android:layout_width="359dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/time"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/blankbar"
-            android:ems="10"
-            android:fontFamily="@font/montserrat"
-            android:hint="@string/donation_time"
-            android:inputType="time"
-            android:textColorHint="@color/hintColor" />
+                <EditText
+                    android:id="@+id/donationDate"
+                    android:layout_width="359dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/date"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/blankbar"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="@string/donation_date"
+                    android:inputType="date"
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="20sp" />
 
-        <Spinner
-            android:id="@+id/donationCategory"
-            android:layout_width="359dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/category"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/dropdown" />
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="269dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/shortdes"
+                    android:layout_below="@+id/donationDate"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/donation_time"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
 
-        <Button
-            android:id="@+id/saveButton"
-            android:layout_width="251dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/savebutton"/>
+                <EditText
+                    android:id="@+id/donationTime"
+                    android:layout_width="359dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/time"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/blankbar"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="@string/donation_time"
+                    android:inputType="time"
+                    android:textColorHint="@color/hintColor" />
 
-    </RelativeLayout>
+                <Spinner
+                    android:id="@+id/donationCategory"
+                    android:layout_width="359dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/category"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/dropdown" />
+
+                <Button
+                    android:id="@+id/saveButton"
+                    android:layout_width="251dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/donationTime"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/savebutton" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -24,10 +25,13 @@ public class LocationListActivity extends AppCompatActivity {
     private LinearLayoutManager mLayoutManager;
 
     private Function<Location, Integer> relevanceFilter = __ -> 1;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        userId = getIntent().getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
 
         setContentView(R.layout.activity_location_list);
         mRecyclerView = findViewById(R.id.location_recycler);
@@ -41,6 +45,9 @@ public class LocationListActivity extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
                 mLayoutManager.getOrientation());
         mRecyclerView.addItemDecoration(dividerItemDecoration);
+
+        Button dashboardButton = (Button)findViewById(R.id.dashboardbutton);
+        dashboardButton.setOnClickListener(v -> finish());
 
         doUpdateFilteredList(adapter);
 
@@ -72,7 +79,7 @@ public class LocationListActivity extends AppCompatActivity {
                             + (location.getAddress().toLowerCase().contains(text) ? 2 : 0) //Address = 2 point
                             + ((int)location.getDonations().stream().filter(donation ->  //1 point per relevant donation
                             donation.getDescShort().toLowerCase().contains(text) ||
-                                    donation.getDescShort().toLowerCase().contains(text) ||
+                                    donation.getDescLong().toLowerCase().contains(text) ||
                                     donation.getComments().map(str -> str.toLowerCase().contains(text)).orElse(false)).count());
                 };
                 doUpdateFilteredList(adapter);
@@ -168,6 +175,7 @@ public class LocationListActivity extends AppCompatActivity {
                 // Define click listener for the ViewHolder's View.
                 v.setOnClickListener(v1 -> {
                     Intent intent = new Intent(v.getContext(), LocationDetailsActivity.class);
+                    intent.putExtra(OrangeBlastersApplication.PARAM_USER_ID, userId);
                     intent.putExtra(LocationDetailsActivity.EXTRA_LOCATION_ID, location.getId());
                     v.getContext().startActivity(intent);
                 });

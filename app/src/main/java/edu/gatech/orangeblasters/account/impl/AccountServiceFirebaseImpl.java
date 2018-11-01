@@ -77,6 +77,25 @@ public class AccountServiceFirebaseImpl implements AccountService {
     }
 
     @Override
+    public void getAccount(String id, AccountCallback<Account> callback) {
+        databaseReference.child(IDS).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                AccountDAO accountDAO = dataSnapshot.getValue(AccountDAO.class);
+
+                if (accountDAO != null) {
+                    callback.onComplete(Optional.ofNullable(accountDAO.toAccount()));
+                } else {
+                    callback.onComplete(Optional.empty());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
+    }
+
+    @Override
     public void createUser(String name, String email, String password, AccountCallback<? super User> callback) {
         User user = new User(createId(), name, email, password, AccountState.NORMAL);
 

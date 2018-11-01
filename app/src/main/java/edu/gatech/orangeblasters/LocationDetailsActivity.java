@@ -1,7 +1,9 @@
 package edu.gatech.orangeblasters;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Optional;
@@ -16,6 +18,8 @@ public class LocationDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_details);
+
+        String userId = getIntent().getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
 
         String locId = getIntent().getStringExtra(EXTRA_LOCATION_ID);
         Optional<Location> optionalLocation = OrangeBlastersApplication.getInstance().getLocationService().getLocation(locId);
@@ -33,6 +37,14 @@ public class LocationDetailsActivity extends AppCompatActivity {
             locType.setText(location.getType().getFullName());
             locAddr.setText(location.getAddress());
             locPNum.setText(location.getPhoneNumber());
+
+            Button button = findViewById(R.id.donationButton);
+            button.setOnClickListener(view -> {
+                Intent intent = new Intent(this, DonationListActivity.class);
+                intent.putExtra(OrangeBlastersApplication.PARAM_USER_ID, userId);
+                intent.putExtra(DonationListActivity.PARAM_LOCATION_ID, location.getId());
+                startActivity(intent);
+            });
         }
     }
 }

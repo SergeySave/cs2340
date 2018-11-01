@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import edu.gatech.orangeblasters.account.Account;
-import edu.gatech.orangeblasters.account.LocationEmployee;
 
 /**
  * A login screen that offers login via email/password.
@@ -56,14 +55,9 @@ public class WelcomeActivity extends AppCompatActivity {
                     //When the login attempt is processed
                     if (optionalAccount.isPresent()) {
                         Account account = optionalAccount.get();
-                        if (account instanceof LocationEmployee) {
-                            Intent intent = new Intent(this, LocEmployDashActivity.class);
-                            String locationId = ((LocationEmployee) account).getLocation();
-                            intent.putExtra(LocEmployDashActivity.PARAM_LOCATION_ID, locationId);
-                            startActivity(intent);
-                        } else {
-                            startActivity(new Intent(this, LocationListActivity.class));
-                        }
+                        Intent intent = new Intent(this, DashboardActivity.class);
+                        intent.putExtra(OrangeBlastersApplication.PARAM_USER_ID, account.getId());
+                        startActivity(intent);
                     } else {
                         Snackbar mySnackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.invalid_user_pass, Snackbar.LENGTH_SHORT);
                         mySnackbar.show();

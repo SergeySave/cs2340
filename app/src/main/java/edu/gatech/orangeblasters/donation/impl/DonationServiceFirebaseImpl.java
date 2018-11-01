@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import edu.gatech.orangeblasters.OrangeBlastersApplication;
 import edu.gatech.orangeblasters.donation.Donation;
@@ -80,6 +81,11 @@ public class DonationServiceFirebaseImpl implements DonationService {
     @Override
     public Optional<Donation> getDonation(String id) {
         return Optional.ofNullable(donations.get(id));
+    }
+
+    @Override
+    public Stream<Donation> getDonations() {
+        return donations.values().stream();
     }
 
     @Override
