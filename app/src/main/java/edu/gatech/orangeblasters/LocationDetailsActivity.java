@@ -3,7 +3,7 @@ package edu.gatech.orangeblasters;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Optional;
@@ -38,7 +38,7 @@ public class LocationDetailsActivity extends AppCompatActivity {
             locAddr.setText(location.getAddress());
             locPNum.setText(location.getPhoneNumber());
 
-            Button button = findViewById(R.id.donationButton);
+            ImageView button = findViewById(R.id.gotodonation);
             button.setOnClickListener(view -> {
                 Intent intent = new Intent(this, DonationListActivity.class);
                 intent.putExtra(OrangeBlastersApplication.PARAM_USER_ID, userId);

@@ -36,8 +36,8 @@ public class DonationDetailsActivity extends AppCompatActivity {
             finish();
         }
 
-        TextView donTime = findViewById(R.id.donationTime);
-        TextView donShortDes = findViewById(R.id.donationShortDes);
+        TextView donTime = findViewById(R.id.time);
+        TextView donShortDes = findViewById(R.id.itemname);
         TextView donLocation = findViewById(R.id.donationLocation);
         TextView donCategory = findViewById(R.id.donationCategory);
         TextView donComments = findViewById(R.id.donationComments);
