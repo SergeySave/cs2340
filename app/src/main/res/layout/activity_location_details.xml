@@ -6,63 +6,103 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".RegisterActivity">
+        tools:context=".RegisterActivity"
+        android:background="#FFFFFF">
 
-        <ImageView
-            android:id="@+id/loginBack"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+    <ImageView
+        android:id="@+id/backbtn"
+        android:layout_width="34dp"
+        android:layout_height="35dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="47dp"
+        android:background="@drawable/backarrow" />
 
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:contentDescription="@string/user_type"
-            android:scaleType="centerCrop"
-            android:src="@drawable/background" />
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/donation_location"
+        android:textColor="@color/textColor"
+        android:textSize="36sp" />
 
-        <TextView
-            android:id="@+id/locationName"
-            android:layout_width="83dp"
-            android:layout_height="31dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/locationType"
-            android:layout_marginTop="124dp"
-            android:fontFamily="sans-serif-smallcaps"
-            android:text="@string/location_name"
-            android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/locationType"
-            android:layout_width="182dp"
-            android:layout_height="31dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="79dp"
-            android:layout_marginTop="164dp"
-            android:fontFamily="sans-serif-smallcaps"
-            android:text="@string/location_type"
-            android:textSize="24sp" />
+    <ImageView
+        android:id="@+id/locationinfo"
+        android:layout_width="379dp"
+        android:layout_height="300dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="202dp"
+        android:contentDescription="@string/logo"
+        android:scaleType="fitCenter"
+        android:src="@drawable/locationinfo"
+        android:visibility="visible" />
 
-        <TextView
-            android:id="@+id/locationAddress"
-            android:layout_width="223dp"
-            android:layout_height="100dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/locationName"
-            android:layout_marginTop="215dp"
-            android:fontFamily="sans-serif-smallcaps"
-            android:text="@string/location_address"
-            android:textSize="24sp" />
+    <TextView
+        android:id="@+id/locationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/locationType"
+        android:layout_marginTop="232dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/location_name"
+        android:textColor="@color/textColor"
+        android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/locationNumber"
-            android:layout_width="232dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/locationName"
-            android:layout_marginBottom="209dp"
-            android:fontFamily="sans-serif-smallcaps"
-            android:text="@string/location_number"
-            android:textSize="24sp" />
+    <TextView
+        android:id="@+id/locationType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/locationAddress"
+        android:layout_marginTop="300dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/location_type"
+        android:textColor="@color/textColor"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/locationAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="345dp"
+        android:layout_marginStart="27dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/location_address"
+        android:textColor="@color/textColor"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/locationNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/locationAddress"
+        android:layout_marginBottom="267dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/location_number"
+        android:textColor="@color/textColor"
+        android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/gotodonation"
+        android:layout_width="326dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="113dp"
+        android:background="@drawable/donationclick" />
 
     <Button
         android:id="@+id/donationButton"
