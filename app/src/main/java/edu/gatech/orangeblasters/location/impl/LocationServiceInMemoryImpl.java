@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -26,6 +27,10 @@ public class LocationServiceInMemoryImpl implements LocationService {
     //A linked hash map is used to ensure that the order stays constant
     private Map<String, Location> locations = new LinkedHashMap<>();
     private MutableLiveData<List<String>> idList = new MutableLiveData<>();
+    private Random random = new Random();
+    private String createId() {
+        return random.ints(4).mapToObj(Integer::toHexString).collect(Collectors.joining());
+    }
 
     public LocationServiceInMemoryImpl(InputStream inputCSV) {
         Thread locationInitializationThread = new Thread(() -> {
@@ -66,7 +71,7 @@ public class LocationServiceInMemoryImpl implements LocationService {
                     }
                     try {
                         String id = entry[idIndex];
-                        Location newLocation = new Location(id, entry[nameIndex], typeMap.get(typeString),
+                        Location newLocation = new Location(createId(), entry[nameIndex], typeMap.get(typeString),
                                 Double.parseDouble(entry[longIndex]), Double.parseDouble(entry[latIndex]),
                                 entry[addrIndex], entry[pNumIndex]);
                         locations.put(id, newLocation);
@@ -102,5 +107,13 @@ public class LocationServiceInMemoryImpl implements LocationService {
 
     @Override
     public void update(Location location) {
+        locations.put(location.getId(), location);
+    }
+
+    @Override
+    public Location addLocation(String name, LocationType type, double longitude, double latitude, String address, String phoneNumber) {
+        Location location = new Location(createId(), name, type, longitude, latitude, address, phoneNumber);
+        locations.put(location.getId(), location);
+        return location;
     }
 }

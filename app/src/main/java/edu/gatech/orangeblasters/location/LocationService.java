@@ -12,4 +12,5 @@ public interface LocationService {
     Stream<Location> getLocations();
     LiveData<List<String>> getLiveIDList();
     void update(Location location);
+    Location addLocation(String name, LocationType type, double longitude, double latitude, String address, String phoneNumber);
 }

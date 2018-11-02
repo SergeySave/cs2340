@@ -20,6 +20,7 @@ import java.util.stream.Stream;
 
 import edu.gatech.orangeblasters.location.Location;
 import edu.gatech.orangeblasters.location.LocationService;
+import edu.gatech.orangeblasters.location.LocationType;
 
 public class LocationServiceFirebaseImpl implements LocationService {
 
@@ -79,6 +80,14 @@ public class LocationServiceFirebaseImpl implements LocationService {
     @Override
     public void update(Location location) {
         databaseReference.child(IDS).child(location.getId()).setValue(LocationDAO.fromLocation(location));
+    }
+
+    @Override
+    public Location addLocation(String name, LocationType type, double longitude, double latitude, String address, String phoneNumber) {
+        Location location = new Location(createId(), name, type, longitude, latitude, address, phoneNumber);
+        locations.put(location.getId(), location);
+        databaseReference.child(IDS).child(location.getId()).setValue(LocationDAO.fromLocation(location));
+        return location;
     }
 
     @Override
