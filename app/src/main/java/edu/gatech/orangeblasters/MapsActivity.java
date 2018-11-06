@@ -14,6 +14,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.Optional;
 
 import edu.gatech.orangeblasters.location.Location;
+import edu.gatech.orangeblasters.location.LocationService;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
