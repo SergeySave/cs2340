@@ -60,6 +60,9 @@ public class DonationListActivity extends AppCompatActivity {
             });
         });
 
+        Button dashboard = findViewById(R.id.dashboardbutton);
+        dashboard.setOnClickListener(v -> startActivity(new Intent(DonationListActivity.this, DashboardActivity.class)));
+
         mRecyclerView = findViewById(R.id.donation_recycler);
 
         // use a linear layout manager
