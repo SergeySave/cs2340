@@ -55,7 +55,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     //When the login attempt is processed
                     if (optionalAccount.isPresent()) {
                         Account account = optionalAccount.get();
-                        Intent intent = new Intent(this, DashboardActivity.class);
+                        Intent intent = new Intent(this, MapsActivity.class);
                         intent.putExtra(OrangeBlastersApplication.PARAM_USER_ID, account.getId());
                         startActivity(intent);
                     } else {
