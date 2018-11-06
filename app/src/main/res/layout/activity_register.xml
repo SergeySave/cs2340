@@ -51,10 +51,11 @@
             android:fontFamily="monospace"
             android:hint="@string/prompt_username"
             android:imeActionId="6"
+            android:textColorHint="@color/hintColor"
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionUnspecified"
             android:inputType="textEmailAddress"
-            android:textColor="@android:color/white"
+            android:textColor="@color/textColor"
             android:textSize="15sp"
             android:typeface="monospace" />
 
@@ -82,9 +83,11 @@
             android:background="@drawable/blankbar"
             android:fontFamily="monospace"
             android:hint="@string/password"
+            android:textColorHint="@color/hintColor"
             android:imeActionId="6"
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionUnspecified"
+            android:textColor="@color/textColor"
             android:inputType="textPassword"
             android:textSize="14sp" />
 

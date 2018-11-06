@@ -78,6 +78,19 @@
                 android:textColor="@color/textColor"
                 android:textSize="24sp" />
 
+            <Button
+                android:id="@+id/mapButton"
+                android:layout_width="249dp"
+                android:layout_height="85dp"
+                android:layout_alignEnd="@+id/editText2"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="320dp"
+                android:backgroundTint="#FFFFFF"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/map"
+                android:textColor="@color/textColor"
+                android:textSize="24sp" />
+
         </RelativeLayout>
 
     </RelativeLayout>

@@ -33,5 +33,12 @@ public class DashboardActivity extends AppCompatActivity {
             intent.putExtra(OrangeBlastersApplication.PARAM_USER_ID, userId);
             startActivity(intent);
         });
+
+        Button mapButton = findViewById(R.id.mapButton);
+        mapButton.setOnClickListener(v -> {
+            Intent intent = new Intent(DashboardActivity.this, MapsActivity.class);
+            intent.putExtra(OrangeBlastersApplication.PARAM_USER_ID, userId);
+            startActivity(intent);
+        });
     }
 }
