@@ -17,6 +17,7 @@ public class Location {
     private String address;
     private String phoneNumber;
     private List<Donation> donations = new ArrayList<>();
+    private String website;
 
     public Location(String id, String name, LocationType type, double longitude, double latitude, String address, String phoneNumber) {
         this.id = id;
@@ -26,6 +27,7 @@ public class Location {
         this.latitude = latitude;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.website = website;
     }
 
     public String getId() {
@@ -83,6 +85,8 @@ public class Location {
     public List<Donation> getDonations() {
         return donations;
     }
+
+    public String getWebsite(){return website;}
 
     @Override
     public boolean equals(Object o) {
