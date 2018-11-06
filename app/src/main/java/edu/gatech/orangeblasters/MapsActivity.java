@@ -18,7 +18,7 @@ import edu.gatech.orangeblasters.location.Location;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    public static final String EXTRA_LOCATION_ID = "LOCATION_ID";
+    //public static final String EXTRA_LOCATION_ID = "LOCATION_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,18 +37,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Sydney, Australia, and move the camera.
         LatLng Atlanta = new LatLng(33.748997, -84.387985);
-        String locId = getIntent().getStringExtra(EXTRA_LOCATION_ID);
-        Optional<Location> optionalLocation = OrangeBlastersApplication.getInstance().getLocationService().getLocation(locId);
-        if (!optionalLocation.isPresent()) {
-            finish();
-        }else {
-            Location location = optionalLocation.get();
-
-            double locLong =location.getLongitude();
-            double locLat = location.getLatitude();
-            mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(locLat, locLong)));
-        }
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(Atlanta));
         mMap.animateCamera(CameraUpdateFactory.zoomIn());
