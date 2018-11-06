@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import edu.gatech.orangeblasters.location.Location;
 import edu.gatech.orangeblasters.location.LocationService;
@@ -43,6 +44,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Sydney, Australia, and move the camera.
         LatLng Atlanta = new LatLng(33.748997, -84.387985);
+
+        for (Location l: OrangeBlastersApplication.getInstance().getLocationService().getLocations().collect(Collectors.toList())) {
+            LatLng location = new LatLng(l.getLatitude(), l.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(location).title(l.getName()));
+        }
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(Atlanta));
         mMap.animateCamera(CameraUpdateFactory.zoomIn());
