@@ -12,6 +12,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Optional;
+
+import edu.gatech.orangeblasters.location.Location;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -29,16 +33,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         dashboard = findViewById(R.id.dashboardbutton);
         dashboard.setOnClickListener(v -> startActivity(new Intent(MapsActivity.this, DashboardActivity.class)));
 
-        
+
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        // Add a marker in Sydney, Australia, and move the camera.
         LatLng Atlanta = new LatLng(33.748997, -84.387985);
-        mMap.addMarker(new MarkerOptions().position(Atlanta));
+
         mMap.moveCamera(CameraUpdateFactory.newLatLng(Atlanta));
-        mMap.setMaxZoomPreference(mMap.getMaxZoomLevel());
+        mMap.animateCamera(CameraUpdateFactory.zoomIn());
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(10),2000, null);
     }
 }
