@@ -22,7 +22,7 @@
             android:layout_marginTop="89dp"
             android:contentDescription="@string/upload_image" />
 
-        <ImageView
+        <Button
             android:id="@+id/backbtn"
             android:layout_width="34dp"
             android:layout_height="35dp"

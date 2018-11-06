@@ -1,8 +1,10 @@
 package edu.gatech.orangeblasters;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +31,8 @@ public class DonationDetailsActivity extends AppCompatActivity {
         if (donation == null) {
             finish();
         }
+
+
 
         Location location = OrangeBlastersApplication.getInstance().getLocationService()
                 .getLocation(donation.getLocationId()).orElse(null);
