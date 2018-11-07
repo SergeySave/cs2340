@@ -21,8 +21,6 @@ import edu.gatech.orangeblasters.location.Location;
 
 public class LocationListActivity extends AppCompatActivity {
 
-    private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
     private TextView notFound;
 
     private Function<Location, Integer> relevanceFilter = __ -> 1;
@@ -35,10 +33,10 @@ public class LocationListActivity extends AppCompatActivity {
         userId = getIntent().getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
 
         setContentView(R.layout.activity_location_list);
-        mRecyclerView = findViewById(R.id.location_recycler);
+        RecyclerView mRecyclerView = findViewById(R.id.location_recycler);
 
         // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         notFound = findViewById(R.id.locationsNotFound);
@@ -115,8 +113,7 @@ public class LocationListActivity extends AppCompatActivity {
         public LocationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.location_row, parent, false);
-            LocationViewHolder vh = new LocationViewHolder(v);
-            return vh;
+            return new LocationViewHolder(v);
         }
 
         @Override
@@ -192,9 +189,11 @@ public class LocationListActivity extends AppCompatActivity {
                 textView = v.findViewById(R.id.textView);
             }
 
-            public TextView getTextView() {
-                return textView;
-            }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//            public TextView getTextView() {
+//                return textView;
+//            }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
             public void bind(Location item) {
                 location = item;

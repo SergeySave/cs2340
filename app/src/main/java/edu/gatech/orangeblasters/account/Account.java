@@ -27,31 +27,39 @@ public abstract class Account implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
     public AccountState getAccountState() {
         return accountState;
     }
 
-    public void setAccountState(AccountState accountState) {
-        this.accountState = accountState;
-    }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//    public void setAccountState(AccountState accountState) {
+//        this.accountState = accountState;
+//    }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 }

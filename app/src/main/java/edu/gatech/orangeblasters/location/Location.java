@@ -27,7 +27,6 @@ public class Location {
         this.latitude = latitude;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.website = website;
     }
 
     public String getId() {
@@ -38,55 +37,67 @@ public class Location {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
     public LocationType getType() {
         return type;
     }
 
-    public void setType(LocationType type) {
-        this.type = type;
-    }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//    public void setType(LocationType type) {
+//        this.type = type;
+//    }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
     public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//    public void setLongitude(double longitude) {
+//        this.longitude = longitude;
+//    }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
     public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//    public void setLatitude(double latitude) {
+//        this.latitude = latitude;
+//    }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//    public void setAddress(String address) {
+//        this.address = address;
+//    }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//    public void setPhoneNumber(String phoneNumber) {
+//        this.phoneNumber = phoneNumber;
+//    }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
     public List<Donation> getDonations() {
         return donations;
     }
 
-    public String getWebsite(){return website;}
+    // --Commented out by Inspection (11/7/18, 2:37 PM):public String getWebsite(){return website;}
 
     @Override
     public boolean equals(Object o) {

@@ -140,8 +140,7 @@ public class DonationListActivity extends AppCompatActivity {
         public DonationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.location_row, parent, false);
-            DonationViewHolder vh = new DonationViewHolder(v);
-            return vh;
+            return new DonationViewHolder(v);
         }
 
         @Override
@@ -215,9 +214,11 @@ public class DonationListActivity extends AppCompatActivity {
                 textView = v.findViewById(R.id.textView);
             }
 
-            public TextView getTextView() {
-                return textView;
-            }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//            public TextView getTextView() {
+//                return textView;
+//            }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
             public void bind(Donation item) {
                 donation = item;
