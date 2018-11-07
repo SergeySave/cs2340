@@ -54,10 +54,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LatLng location = new LatLng(l.getLatitude(), l.getLongitude());
             Marker m = mMap.addMarker(new MarkerOptions()
                     .position(location)
-                    .title(l.getName() + " " + l.getPhoneNumber())
-                    .snippet(l.getAddress())
-                    .snippet(l.getPhoneNumber())
-                    .snippet(l.getWebsite()));
+                    .title(l.getName())
+                    .snippet(l.getPhoneNumber()));
             m.showInfoWindow();
 
         }
