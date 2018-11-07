@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,15 +16,14 @@ import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
 
-import java.util.function.Function;
-
 import edu.gatech.orangeblasters.location.Location;
+import edu.gatech.orangeblasters.location.LocationFilteredList;
 
 public class LocationListActivity extends AppCompatActivity {
 
     private TextView notFound;
 
-    private Function<Location, Integer> relevanceFilter = __ -> 1;
+    private LocationFilteredList locationFilteredList;
     private String userId;
 
     @Override
@@ -50,11 +50,47 @@ public class LocationListActivity extends AppCompatActivity {
         Button dashboardButton = findViewById(R.id.dashboard_button);
         dashboardButton.setOnClickListener(v -> finish());
 
-        doUpdateFilteredList(adapter);
+        locationFilteredList = new LocationFilteredList(new ListUpdateCallback() {
+            @Override
+            public void onInserted(int position, int count) {
+                adapter.notifyItemRangeInserted(position, count);
+                update();
+            }
+
+            @Override
+            public void onRemoved(int position, int count) {
+                adapter.notifyItemRangeRemoved(position, count);
+                update();
+            }
+
+            @Override
+            public void onMoved(int fromPosition, int toPosition) {
+                adapter.notifyItemMoved(fromPosition, toPosition);
+                update();
+            }
+
+            @Override
+            public void onChanged(int position, int count, Object payload) {
+                adapter.notifyItemRangeChanged(position, count);
+                update();
+            }
+
+            private void update() {
+                if (adapter.getSortedList().size() == 0) {
+                    notFound.setVisibility(View.VISIBLE);
+                    notFound.setText(R.string.locationsNotFound);
+                } else {
+                    notFound.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        locationFilteredList.setFilterText("");
+        locationFilteredList.setDataSource(() -> OrangeBlastersApplication.getInstance().getLocationService().getLocations());
 
         OrangeBlastersApplication.getInstance().getLocationService().getLiveIDList().observe(this, (list) -> {
-            //When the id list changes
-            doUpdateFilteredList(adapter);
+            //When the ID list changes update the list
+            locationFilteredList.setDataSource(() -> OrangeBlastersApplication.getInstance().getLocationService().getLocations());
         });
 
         mRecyclerView.setAdapter(adapter);
@@ -68,45 +104,17 @@ public class LocationListActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                relevanceFilter = location -> {
-                    if (newText.isEmpty()) {
-                        return 1;
-                    }
-
-                    String text = newText.toLowerCase();
-                    return (location.getName().equalsIgnoreCase(text) ? 20 : 0) //Exact name = 20 points
-                            + (location.getName().toLowerCase().contains(text) ? 5 : 0) //Contains name = 5 point
-                            + (location.getType().getFullName().toLowerCase().contains(text) ? 2 : 0) //Type = 2 point
-                            + (location.getAddress().toLowerCase().contains(text) ? 2 : 0) //Address = 2 point
-                            + ((int)location.getDonations().stream().filter(donation ->  //1 point per relevant donation
-                            donation.getDescShort().toLowerCase().contains(text) ||
-                                    donation.getDescLong().toLowerCase().contains(text) ||
-                                    donation.getComments().map(str -> str.toLowerCase().contains(text)).orElse(false)).count());
-                };
-                doUpdateFilteredList(adapter);
+                locationFilteredList.setFilterText(newText);
                 return true;
             }
         });
     }
 
-    private void doUpdateFilteredList(LocationAdapter adapter) {
-        adapter.getSortedList().beginBatchedUpdates();
-        adapter.getSortedList().clear();
-        OrangeBlastersApplication.getInstance().getLocationService().getLocations()
-                //relevance has to be greater than 0
-                .filter(loc -> relevanceFilter.apply(loc) > 0)
-                .forEach(adapter.getSortedList()::add);
-        adapter.getSortedList().endBatchedUpdates();
-
-        if (adapter.getSortedList().size() == 0) {
-            notFound.setVisibility(View.VISIBLE);
-            notFound.setText(R.string.locationsNotFound);
-        } else {
-            notFound.setVisibility(View.INVISIBLE);
-        }
-    }
-
     public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationViewHolder> {
+
+        private SortedList<Location> getSortedList() {
+            return locationFilteredList.getSortedList();
+        }
 
         @NonNull
         @Override
@@ -118,60 +126,15 @@ public class LocationListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull LocationViewHolder holder, int position) {
-            holder.bind(sortedList.get(position));
+            holder.bind(getSortedList().get(position));
 
         }
 
         @Override
         public int getItemCount() {
-            return sortedList.size();
+            return getSortedList().size();
         }
 
-        private final SortedList<Location> sortedList = new SortedList<>(Location.class, new SortedList.Callback<Location>() {
-            @Override
-            public int compare(Location o1, Location o2) {
-                Integer relevance1 = relevanceFilter.apply(o1);
-                Integer relevance2 = relevanceFilter.apply(o2);
-                if (relevance1.compareTo(relevance2) != 0) {
-                    return relevance1.compareTo(relevance2);
-                }
-                return o1.getName().compareToIgnoreCase(o2.getName());
-            }
-
-            @Override
-            public void onChanged(int position, int count) {
-                notifyItemRangeChanged(position, count);
-            }
-
-            @Override
-            public boolean areContentsTheSame(Location oldItem, Location newItem) {
-                return oldItem.equals(newItem);
-            }
-
-            @Override
-            public boolean areItemsTheSame(Location item1, Location item2) {
-                return item1.getId().equals(item2.getId());
-            }
-
-            @Override
-            public void onInserted(int position, int count) {
-                notifyItemRangeInserted(position, count);
-            }
-
-            @Override
-            public void onRemoved(int position, int count) {
-                notifyItemRangeRemoved(position, count);
-            }
-
-            @Override
-            public void onMoved(int fromPosition, int toPosition) {
-                notifyItemMoved(fromPosition, toPosition);
-            }
-        });
-
-        public SortedList<Location> getSortedList() {
-            return sortedList;
-        }
         public class LocationViewHolder extends RecyclerView.ViewHolder {
             private final TextView textView;
             private Location location;

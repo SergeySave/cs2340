@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,11 +18,12 @@ import android.widget.TextView;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.function.Function;
 
 import edu.gatech.orangeblasters.account.LocationEmployee;
 import edu.gatech.orangeblasters.donation.Donation;
 import edu.gatech.orangeblasters.donation.DonationCategory;
+import edu.gatech.orangeblasters.donation.DonationFilteredList;
+import edu.gatech.orangeblasters.donation.DonationService;
 
 /**
  * A login Location Employees see right when they log in
@@ -34,8 +36,10 @@ public class DonationListActivity extends AppCompatActivity {
     private DonationAdapter adapter;
     private TextView notFound;
 
-    private Function<Donation, Integer> relevanceFilter = __ -> 1;
+    private DonationFilteredList donationFilteredList;
     private String locationId;
+    private OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+    private DonationService donationService = orangeBlastersApplication.getDonationService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,11 +77,48 @@ public class DonationListActivity extends AppCompatActivity {
                 mLayoutManager.getOrientation());
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        doUpdateFilteredList(adapter);
+        donationFilteredList = new DonationFilteredList(new ListUpdateCallback() {
+            @Override
+            public void onInserted(int position, int count) {
+                adapter.notifyItemRangeInserted(position, count);
+                update();
+            }
+
+            @Override
+            public void onRemoved(int position, int count) {
+                adapter.notifyItemRangeRemoved(position, count);
+                update();
+            }
+
+            @Override
+            public void onMoved(int fromPosition, int toPosition) {
+                adapter.notifyItemMoved(fromPosition, toPosition);
+                update();
+            }
+
+            @Override
+            public void onChanged(int position, int count, Object payload) {
+                adapter.notifyItemRangeChanged(position, count);
+                update();
+            }
+
+            private void update() {
+                if (adapter.getSortedList().size() == 0) {
+                    notFound.setVisibility(View.VISIBLE);
+                    notFound.setText(R.string.locationsNotFound);
+                } else {
+                    notFound.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+
+        donationFilteredList.setFilterText("");
+        donationFilteredList.setDataSource(() -> donationService.getDonations());
 
         OrangeBlastersApplication.getInstance().getLocationService().getLiveIDList().observe(this, (list) -> {
             //When the id list changes
-            doUpdateFilteredList(adapter);
+            donationFilteredList.setDataSource(() -> donationService.getDonations());
         });
 
         mRecyclerView.setAdapter(adapter);
@@ -91,45 +132,17 @@ public class DonationListActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                relevanceFilter = donation -> {
-                    if (newText.isEmpty()) {
-                        return 1;
-                    }
-
-                    String text = newText.toLowerCase();
-                    return (donation.getDescShort().equalsIgnoreCase(text) ? 20 : 0) //Exact name = 20 points
-                            + (donation.getDescShort().toLowerCase().contains(text) ? 5 : 0) //Contains name = 5 point
-                            + (donation.getDescLong().toLowerCase().contains(text) ? 2 : 0) //Type = 2 point
-                            + (donation.getComments().map(str -> str.toLowerCase().contains(text) ? 1 : 0).orElse(0)) //comments = 1 point
-                            + (OrangeBlastersApplication.getInstance().getLocationService().getLocation(donation.getLocationId())
-                                .map(loc -> loc.getName().toLowerCase().contains(text) ? 1 : 0).orElse(0)) // donation has the right name = 1 point
-                            + (donation.getDonationCategory().getFullName().toLowerCase().contains(text) ? 3 : 0); //category = 3 points
-                };
-                doUpdateFilteredList(adapter);
+                donationFilteredList.setFilterText(newText);
                 return true;
             }
         });
     }
 
-    private void doUpdateFilteredList(DonationAdapter adapter) {
-        adapter.getSortedList().beginBatchedUpdates();
-        adapter.getSortedList().clear();
-        OrangeBlastersApplication.getInstance().getDonationService().getDonations()
-                .filter(don -> locationId == null || don.getLocationId().equals(locationId))
-                //relevance has to be greater than 0
-                .filter(don -> relevanceFilter.apply(don) > 0)
-                .forEach(adapter.getSortedList()::add);
-        adapter.getSortedList().endBatchedUpdates();
-
-        if (adapter.getSortedList().size() == 0) {
-            notFound.setVisibility(View.VISIBLE);
-            notFound.setText(R.string.donationsNotFound);
-        } else {
-            notFound.setVisibility(View.INVISIBLE);
-        }
-    }
-
     public class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.DonationViewHolder> {
+
+        private SortedList<Donation> getSortedList() {
+            return donationFilteredList.getSortedList();
+        }
 
         @NonNull
         @Override
@@ -141,59 +154,14 @@ public class DonationListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull DonationViewHolder holder, int position) {
-            holder.bind(sortedList.get(position));
+            holder.bind(getSortedList().get(position));
         }
 
         @Override
         public int getItemCount() {
-            return sortedList.size();
+            return getSortedList().size();
         }
 
-        private final SortedList<Donation> sortedList = new SortedList<>(Donation.class, new SortedList.Callback<Donation>() {
-            @Override
-            public int compare(Donation o1, Donation o2) {
-                Integer relevance1 = relevanceFilter.apply(o1);
-                Integer relevance2 = relevanceFilter.apply(o2);
-                if (relevance1.compareTo(relevance2) != 0) {
-                    return relevance1.compareTo(relevance2);
-                }
-                return o1.getDescShort().compareToIgnoreCase(o2.getDescShort());
-            }
-
-            @Override
-            public void onChanged(int position, int count) {
-                notifyItemRangeChanged(position, count);
-            }
-
-            @Override
-            public boolean areContentsTheSame(Donation oldItem, Donation newItem) {
-                return oldItem.equals(newItem);
-            }
-
-            @Override
-            public boolean areItemsTheSame(Donation item1, Donation item2) {
-                return item1.getId().equals(item2.getId());
-            }
-
-            @Override
-            public void onInserted(int position, int count) {
-                notifyItemRangeInserted(position, count);
-            }
-
-            @Override
-            public void onRemoved(int position, int count) {
-                notifyItemRangeRemoved(position, count);
-            }
-
-            @Override
-            public void onMoved(int fromPosition, int toPosition) {
-                notifyItemMoved(fromPosition, toPosition);
-            }
-        });
-
-        public SortedList<Donation> getSortedList() {
-            return sortedList;
-        }
         public class DonationViewHolder extends RecyclerView.ViewHolder {
             private final TextView textView;
             private Donation donation;
@@ -248,7 +216,7 @@ public class DonationListActivity extends AppCompatActivity {
                 OrangeBlastersApplication.getInstance().getLocationService().update(location);
             });
 
-            doUpdateFilteredList(adapter);
+            donationFilteredList.update();
         }
     }
 }

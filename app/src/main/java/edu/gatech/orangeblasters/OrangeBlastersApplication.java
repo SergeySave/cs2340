@@ -2,6 +2,8 @@ package edu.gatech.orangeblasters;
 
 import android.app.Application;
 
+import com.google.firebase.FirebaseApp;
+
 import edu.gatech.orangeblasters.account.AccountService;
 import edu.gatech.orangeblasters.account.impl.AccountServiceFirebaseImpl;
 import edu.gatech.orangeblasters.bitmap.BitmapService;
@@ -46,6 +48,7 @@ public class OrangeBlastersApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        FirebaseApp.initializeApp(this);
 
         accountService = new AccountServiceFirebaseImpl();
         locationService = new LocationServiceFirebaseImpl();

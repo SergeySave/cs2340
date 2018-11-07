@@ -1,5 +1,7 @@
 package edu.gatech.orangeblasters.account.impl;
 
+import android.support.annotation.NonNull;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,7 +51,7 @@ public class AccountServiceFirebaseImpl implements AccountService {
     public void tryLogin(String email, String password, AccountCallback<Account> callback) {
         databaseReference.child(EMAILS).child(to64(email)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String userID = dataSnapshot.getValue(String.class);
 
                 if (userID == null) {
@@ -59,7 +61,7 @@ public class AccountServiceFirebaseImpl implements AccountService {
 
                 databaseReference.child(IDS).child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         AccountDAO accountDAO = dataSnapshot.getValue(AccountDAO.class);
 
                         if (accountDAO != null && accountDAO.password.equals(password)) {
@@ -70,12 +72,12 @@ public class AccountServiceFirebaseImpl implements AccountService {
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) { callback.onComplete(Optional.empty()); }
+                    public void onCancelled(@NonNull DatabaseError databaseError) { callback.onComplete(Optional.empty()); }
                 });
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) { callback.onComplete(Optional.empty()); }
+            public void onCancelled(@NonNull DatabaseError databaseError) { callback.onComplete(Optional.empty()); }
         });
     }
 
@@ -83,7 +85,7 @@ public class AccountServiceFirebaseImpl implements AccountService {
     public void getAccount(String id, AccountCallback<Account> callback) {
         databaseReference.child(IDS).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 AccountDAO accountDAO = dataSnapshot.getValue(AccountDAO.class);
 
                 if (accountDAO != null) {
@@ -94,7 +96,7 @@ public class AccountServiceFirebaseImpl implements AccountService {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) { }
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
     }
 
