@@ -19,7 +19,7 @@
         android:layout_marginStart="14dp"
         android:layout_marginTop="47dp"
         android:background="@drawable/backarrow"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/backButton" />
 
     <TextView
         android:id="@+id/title"
@@ -104,7 +104,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="113dp"
         android:background="@drawable/donationclick"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/gotoDonation" />
 
 
 </RelativeLayout>

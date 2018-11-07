@@ -21,6 +21,10 @@
     <string name="logo">Logo</string>
     <string name="logout">Logout</string>
     <string name="password">Password</string>
+    <string name="backButton">backbutton</string>
+    <string name="gotoDonation">gotodonation</string>
+    <string name="TextView">TextView</string>
+
 
     <string name="unsupported_operation">Unsupported Operation</string>
     <string name="invalid_user_pass">Invalid Username or Password</string>
