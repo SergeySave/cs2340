@@ -21,8 +21,6 @@ import edu.gatech.orangeblasters.location.Location;
 
 public class LocationListActivity extends AppCompatActivity {
 
-    private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
     private TextView notFound;
 
     private Function<Location, Integer> relevanceFilter = __ -> 1;
@@ -35,10 +33,10 @@ public class LocationListActivity extends AppCompatActivity {
         userId = getIntent().getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
 
         setContentView(R.layout.activity_location_list);
-        mRecyclerView = findViewById(R.id.location_recycler);
+        RecyclerView mRecyclerView = findViewById(R.id.location_recycler);
 
         // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         notFound = findViewById(R.id.locationsNotFound);

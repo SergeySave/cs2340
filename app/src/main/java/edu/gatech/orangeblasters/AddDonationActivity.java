@@ -22,7 +22,6 @@ import java.time.format.DateTimeFormatter;
 import edu.gatech.orangeblasters.donation.DonationCategory;
 
 public class AddDonationActivity extends AppCompatActivity {
-    private ImageView imageUpload;
     //private Button uploadButton;
     private EditText donationComments;
     private EditText shortDesc;
@@ -52,7 +51,7 @@ public class AddDonationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_donation);
 
-        imageUpload =  findViewById(R.id.imageUpload);
+        ImageView imageUpload = findViewById(R.id.imageUpload);
         //uploadButton =  findViewById(R.id.uploadButton);
         shortDesc = findViewById(R.id.donationShortDes);
         longDesc = findViewById(R.id.donationLongDes);

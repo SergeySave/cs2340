@@ -64,12 +64,10 @@ public class DonationDetailsActivity extends AppCompatActivity {
         donLongDes.setText(donation.getDescLong());
         Optional<String> pictureId = donation.getPictureId();
         image.setVisibility(View.INVISIBLE);
-        pictureId.ifPresent(s -> OrangeBlastersApplication.getInstance().getBitmapService().getBitmap(s, bitmap -> {
-            bitmap.ifPresent(bm -> {
-                image.setImageBitmap(bm);
+        pictureId.ifPresent(s -> OrangeBlastersApplication.getInstance().getBitmapService().getBitmap(s, bitmap -> bitmap.ifPresent(bm -> {
+            image.setImageBitmap(bm);
 
-                image.setVisibility(View.VISIBLE);
-            });
-        }));
+            image.setVisibility(View.VISIBLE);
+        })));
     }
 }

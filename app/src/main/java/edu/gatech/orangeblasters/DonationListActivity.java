@@ -31,8 +31,6 @@ public class DonationListActivity extends AppCompatActivity {
     private static final int RESULT_ADD_DONATION = 1;
     public static final String PARAM_LOCATION_ID = "LOCATION_INDEX";
 
-    private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
     private DonationAdapter adapter;
     private TextView notFound;
 
@@ -51,22 +49,20 @@ public class DonationListActivity extends AppCompatActivity {
 
         Button mAddDonationButton = findViewById(R.id.addDonation);
         mAddDonationButton.setVisibility(View.INVISIBLE);
-        OrangeBlastersApplication.getInstance().getAccountService().getAccount(userId, account -> {
-            account.ifPresent(acc -> {
-                if (acc instanceof LocationEmployee && ((LocationEmployee)acc).getLocation().equals(locationId)) {
-                    mAddDonationButton.setVisibility(View.VISIBLE);
-                    mAddDonationButton.setOnClickListener(view -> addingDonation());
-                }
-            });
-        });
+        OrangeBlastersApplication.getInstance().getAccountService().getAccount(userId, account -> account.ifPresent(acc -> {
+            if (acc instanceof LocationEmployee && ((LocationEmployee)acc).getLocation().equals(locationId)) {
+                mAddDonationButton.setVisibility(View.VISIBLE);
+                mAddDonationButton.setOnClickListener(view -> addingDonation());
+            }
+        }));
 
         Button dashboard = findViewById(R.id.dashboardbutton);
         dashboard.setOnClickListener(v -> finish());
 
-        mRecyclerView = findViewById(R.id.donation_recycler);
+        RecyclerView mRecyclerView = findViewById(R.id.donation_recycler);
 
         // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         notFound = findViewById(R.id.donationsNotFound);
