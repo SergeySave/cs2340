@@ -19,9 +19,6 @@ import edu.gatech.orangeblasters.location.Location;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback  {
 
-    private GoogleMap mMap;
-    private Button dashboard;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +30,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        dashboard = findViewById(R.id.dashboardbutton);
+        Button dashboard = findViewById(R.id.dashboardbutton);
         dashboard.setOnClickListener(v -> {
             Intent intent = new Intent(MapsActivity.this, DashboardActivity.class);
             intent.putExtra(OrangeBlastersApplication.PARAM_USER_ID, userId);
@@ -45,7 +42,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        GoogleMap mMap = googleMap;
 
         LatLng Atlanta = new LatLng(33.748997, -84.387985);
 

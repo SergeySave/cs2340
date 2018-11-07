@@ -52,6 +52,7 @@ public class RegisterActivity extends AppCompatActivity  {
 
         userSpinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
+                    @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
                         if (userSpinner.getSelectedItem() == AccountType.EMPLOYEE) {
@@ -61,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity  {
                         }
 
                     }
+                    @Override
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
                 });
@@ -93,7 +95,6 @@ public class RegisterActivity extends AppCompatActivity  {
     private void attemptCreateAccount() {
         String email = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
-        String name = email;
 
         if (!email.matches("[^@]+@[^@]+\\.[^@.]+")) {
             Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.error_invalid_email, Snackbar.LENGTH_SHORT).show();
@@ -113,18 +114,18 @@ public class RegisterActivity extends AppCompatActivity  {
 
         switch (((AccountType) userSpinner.getSelectedItem())) {
             case USER:
-                accountService.createUser(name, email, password, accountCreationCallback);
+                accountService.createUser(email, email, password, accountCreationCallback);
                 break;
             case ADMIN:
-                accountService.createAdmin(name, email, password, accountCreationCallback);
+                accountService.createAdmin(email, email, password, accountCreationCallback);
                 break;
             case MANAGER:
-                accountService.createManager(name, email, password, accountCreationCallback);
+                accountService.createManager(email, email, password, accountCreationCallback);
                 break;
             case EMPLOYEE:
                 Location selectedItem = (Location) location.getSelectedItem();
 
-                accountService.createLocationEmployee(name, email, password, selectedItem.getId(), accountCreationCallback);
+                accountService.createLocationEmployee(email, email, password, selectedItem.getId(), accountCreationCallback);
                 break;
         }
     }

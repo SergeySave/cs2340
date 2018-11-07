@@ -14,8 +14,8 @@ import edu.gatech.orangeblasters.bitmap.BitmapService;
 @Deprecated
 public class BitmapInMemoryService implements BitmapService {
 
-    private Map<String, Bitmap> bitmaps = new HashMap<>();
-    private Random random = new Random();
+    private final Map<String, Bitmap> bitmaps = new HashMap<>();
+    private final Random random = new Random();
 
     private String createId() {
         return random.ints(4).mapToObj(Integer::toHexString).collect(Collectors.joining());

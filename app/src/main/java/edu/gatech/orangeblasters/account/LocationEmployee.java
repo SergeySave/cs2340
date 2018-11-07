@@ -12,7 +12,9 @@ public class LocationEmployee extends Account {
         return locationId;
     }
 
-    public void setLocation(String locationId){
-        this.locationId = locationId;
-    }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//    public void setLocation(String locationId){
+//        this.locationId = locationId;
+//    }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 }

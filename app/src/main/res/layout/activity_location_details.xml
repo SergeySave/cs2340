@@ -10,7 +10,6 @@
         android:background="#FFFFFF">
 
     <ImageView
-        android:id="@+id/backbtn"
         android:layout_width="34dp"
         android:layout_height="35dp"
         android:layout_alignParentStart="true"
@@ -19,7 +18,7 @@
         android:layout_marginStart="14dp"
         android:layout_marginTop="47dp"
         android:background="@drawable/backarrow"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/backButton" />
 
     <TextView
         android:id="@+id/title"
@@ -35,7 +34,6 @@
 
 
     <ImageView
-        android:id="@+id/locationinfo"
         android:layout_width="379dp"
         android:layout_height="300dp"
         android:layout_alignParentTop="true"
@@ -104,7 +102,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="113dp"
         android:background="@drawable/donationclick"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/gotoDonation" />
 
 
 </RelativeLayout>

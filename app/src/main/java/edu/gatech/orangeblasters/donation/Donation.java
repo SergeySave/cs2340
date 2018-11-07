@@ -47,65 +47,81 @@ public class Donation implements Serializable {
         return timestamp;
     }
 
-    public void setTimestamp(OffsetDateTime timestamp) {
-        this.timestamp = timestamp;
-    }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//    public void setTimestamp(OffsetDateTime timestamp) {
+//        this.timestamp = timestamp;
+//    }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
     public String getLocationId() {
         return locationId;
     }
 
-    public void setLocationId(String id) {
-        this.locationId = id;
-    }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//    public void setLocationId(String id) {
+//        this.locationId = id;
+//    }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
     public String getDescShort() {
         return descShort;
     }
 
-    public void setDescShort(String descShort) {
-        this.descShort = descShort;
-    }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//    public void setDescShort(String descShort) {
+//        this.descShort = descShort;
+//    }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
     public String getDescLong() {
         return descLong;
     }
 
-    public void setDescLong(String descLong) {
-        this.descLong = descLong;
-    }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//    public void setDescLong(String descLong) {
+//        this.descLong = descLong;
+//    }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
     public BigDecimal getValue() {
         return value;
     }
 
-    public void setValue(BigDecimal value) {
-        this.value = value;
-    }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//    public void setValue(BigDecimal value) {
+//        this.value = value;
+//    }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
     public DonationCategory getDonationCategory() {
         return donationCategory;
     }
 
-    public void setDonationCategory(DonationCategory donationCategory) {
-        this.donationCategory = donationCategory;
-    }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//    public void setDonationCategory(DonationCategory donationCategory) {
+//        this.donationCategory = donationCategory;
+//    }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
     public Optional<String> getComments() {
         return Optional.ofNullable(comments);
     }
 
-    public void setComments(String comments) {
-        this.comments = comments;
-    }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//    public void setComments(String comments) {
+//        this.comments = comments;
+//    }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
     public Optional<String> getPictureId() {
         return Optional.ofNullable(pictureId);
     }
 
-    public void setPictureId(String pictureId) {
-        this.pictureId = pictureId;
-    }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//    public void setPictureId(String pictureId) {
+//        this.pictureId = pictureId;
+//    }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
     @Override
     public boolean equals(Object o) {

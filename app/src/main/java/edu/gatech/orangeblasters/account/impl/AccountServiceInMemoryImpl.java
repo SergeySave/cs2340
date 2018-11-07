@@ -18,8 +18,8 @@ import edu.gatech.orangeblasters.account.User;
 @Deprecated
 public class AccountServiceInMemoryImpl implements AccountService {
 
-    private Map<String, Account> accounts = new HashMap<>();
-    private Random random = new Random();
+    private final Map<String, Account> accounts = new HashMap<>();
+    private final Random random = new Random();
 
     private String createId() {
         return random.ints(4).mapToObj(Integer::toHexString).collect(Collectors.joining());

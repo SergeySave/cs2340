@@ -5,7 +5,7 @@ public enum LocationType {
     STORE("Store"),
     WAREHOUSE("Warehouse");
 
-    private String fullName;
+    private final String fullName;
 
     LocationType(String fullName) {
         this.fullName = fullName;

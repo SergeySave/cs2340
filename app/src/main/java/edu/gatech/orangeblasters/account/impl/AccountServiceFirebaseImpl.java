@@ -27,9 +27,9 @@ public class AccountServiceFirebaseImpl implements AccountService {
     private static final String EMAILS = "emails";
     private static final String IDS = "ids";
 
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference = firebaseDatabase.getReference(USERS);
-    private Random random = new Random();
+    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private final DatabaseReference databaseReference = firebaseDatabase.getReference(USERS);
+    private final Random random = new Random();
 
     private String createId() {
         return random.ints(4).mapToObj(Integer::toHexString).collect(Collectors.joining());
@@ -39,13 +39,16 @@ public class AccountServiceFirebaseImpl implements AccountService {
         return Base64.getEncoder().encodeToString(input.getBytes(Charset.forName("UTF-8")));
     }
 
-    private String from64(String input) {
-        return new String(Base64.getDecoder().decode(input), Charset.forName("UTF-8"));
-    }
+// --Commented out by Inspection START (11/7/18, 2:37 PM):
+//    private String from64(String input) {
+//        return new String(Base64.getDecoder().decode(input), Charset.forName("UTF-8"));
+//    }
+// --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
     @Override
     public void tryLogin(String email, String password, AccountCallback<Account> callback) {
         databaseReference.child(EMAILS).child(to64(email)).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String userID = dataSnapshot.getValue(String.class);
 

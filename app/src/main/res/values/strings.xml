@@ -2,65 +2,46 @@
     <string name="app_name">OrangeBlasters</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
     <string name="title_activity_register">RegisterScreen</string>
-    <string name="action_register">Register</string>
     <string name="prompt_username">Username</string>
 
-    <string name="background">Background</string>
     <string name="logo">Logo</string>
     <string name="logout">Logout</string>
     <string name="password">Password</string>
+    <string name="backButton">backbutton</string>
+    <string name="gotoDonation">gotodonation</string>
+    <string name="TextView">TextView</string>
 
-    <string name="unsupported_operation">Unsupported Operation</string>
+
     <string name="invalid_user_pass">Invalid Username or Password</string>
     <string name="user_type">User Type</string>
-    <string name="title_activity_location_list">LocationList</string>
 
     <string name="element_text">Element</string>
     <string name="location_name">Name</string>
     <string name="location_type">Location Type</string>
     <string name="location_address">Location Address</string>
     <string name="location_number">Phone Number</string>
-    <string name="upload_button">Upload</string>
     <string name="upload_image">Upload Image</string>
-    <string name="add_donation">Add Donation</string>
     <string name="donation_name">item name</string>
-    <string name="donation_type">Type</string>
-    <string name="donation_address">address</string>
     <string name="donation_comment">comment</string>
-    <string name="donation_Picture">Picture</string>
     <string name="donation_category">category</string>
     <string name="donation_location">Location</string>
     <string name="donation_price">price</string>
-    <string name="donation_ShortDes">short description</string>
     <string name="donation_LongDes">long description</string>
     <string name="donation_date">date</string>
     <string name="donation_time">time</string>
-    <string name="save">Save</string>
     <string name="app_label">searchBar</string>
     <string name="search_hint">Search</string>
     <string name="donation">donations</string>
-    <string name="add_donation_button">Add Donation</string>
     <string name="locations_dash">Locations</string>
-    <string name="donations_dash">Donations</string>
     <string name="title_activity_maps">Map</string>
     <string name="item_name">item name</string>
     <string name="long_description">description</string>
     <string name="price">price</string>
     <string name="dashboard">dashboard</string>
-    <string name="littleArrow"><![CDATA[>]]></string>
-    <string name="title_activity_dash">DashActivity</string>
     <string name="donationsNotFound">No donations found</string>
     <string name="locationsNotFound">No locations found</string>
     <string name="map">MAP</string>
