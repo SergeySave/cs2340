@@ -59,8 +59,8 @@ public class WelcomeActivity extends AppCompatActivity {
                         intent.putExtra(OrangeBlastersApplication.PARAM_USER_ID, account.getId());
                         startActivity(intent);
                     } else {
-                        Snackbar mySnackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.invalid_user_pass, Snackbar.LENGTH_SHORT);
-                        mySnackbar.show();
+                        Snackbar my_Snack = Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.invalid_user_pass, Snackbar.LENGTH_SHORT);
+                        my_Snack.show();
                     }
                 }));
     }

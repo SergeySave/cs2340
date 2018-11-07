@@ -55,8 +55,8 @@
     <string name="locations_dash">Locations</string>
     <string name="donations_dash">Donations</string>
     <string name="title_activity_maps">Map</string>
-    <string name="itemname">item name</string>
-    <string name="longdes">description</string>
+    <string name="item_name">item name</string>
+    <string name="long_description">description</string>
     <string name="price">price</string>
     <string name="dashboard">dashboard</string>
     <string name="littleArrow"><![CDATA[>]]></string>

@@ -30,12 +30,12 @@ public class LocationDetailsActivity extends AppCompatActivity {
 
             TextView locName = findViewById(R.id.locationName);
             TextView locType = findViewById(R.id.locationType);
-            TextView locAddr = findViewById(R.id.locationAddress);
+            TextView locAddress = findViewById(R.id.locationAddress);
             TextView locPNum = findViewById(R.id.locationNumber);
 
             locName.setText(location.getName());
             locType.setText(location.getType().getFullName());
-            locAddr.setText(location.getAddress());
+            locAddress.setText(location.getAddress());
             locPNum.setText(location.getPhoneNumber());
 
             ImageView button = findViewById(R.id.gotodonation);

@@ -61,7 +61,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="87dp"
-            android:background="@drawable/blankbar"
+            android:background="@drawable/blank_bar"
             android:hint="@string/search_hint"
             android:label="@string/app_label" />
     </RelativeLayout>

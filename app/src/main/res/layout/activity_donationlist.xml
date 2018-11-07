@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:background="@drawable/addbtn"
+            android:background="@drawable/add_button"
             android:textSize="18sp" />
 
         <Button
@@ -63,7 +63,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="87dp"
-            android:background="@drawable/blankbar"
+            android:background="@drawable/blank_bar"
             android:hint="@string/search_hint"
             android:label="@string/app_label" >
 
