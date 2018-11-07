@@ -37,7 +37,7 @@ public class WelcomeActivity extends AppCompatActivity {
             return false;
         });
 
-        Button mEmailSignInButton = findViewById(R.id.signin);
+        Button mEmailSignInButton = findViewById(R.id.sign_in);
         mEmailSignInButton.setOnClickListener(view -> attemptLogin());
 
         //Set up the Register form

@@ -152,11 +152,10 @@ public class DonationListActivity extends AppCompatActivity {
         private final SortedList<Donation> sortedList = new SortedList<>(Donation.class, new SortedList.Callback<Donation>() {
             @Override
             public int compare(Donation o1, Donation o2) {
-                Integer relevence1 = relevanceFilter.apply(o1);
-                Integer relevence2 = relevanceFilter.apply(o2);
-                //Compare by relevance then by caseless name
-                if (relevence1.compareTo(relevence2) != 0) {
-                    return relevence1.compareTo(relevence2);
+                Integer relevance1 = relevanceFilter.apply(o1);
+                Integer relevance2 = relevanceFilter.apply(o2);
+                if (relevance1.compareTo(relevance2) != 0) {
+                    return relevance1.compareTo(relevance2);
                 }
                 return o1.getDescShort().compareToIgnoreCase(o2.getDescShort());
             }
