@@ -10,13 +10,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.stream.Collectors;
 
 import edu.gatech.orangeblasters.location.Location;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback  {
 
     private GoogleMap mMap;
     private Button dashboard;
@@ -42,14 +43,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         LatLng Atlanta = new LatLng(33.748997, -84.387985);
 
+
         for (Location l: OrangeBlastersApplication.getInstance().getLocationService().getLocations().collect(Collectors.toList())) {
             LatLng location = new LatLng(l.getLatitude(), l.getLongitude());
-            mMap.addMarker(new MarkerOptions()
+            Marker m = mMap.addMarker(new MarkerOptions()
                     .position(location)
-                    .title(l.getName())
+                    .title(l.getName() + " " + l.getPhoneNumber())
                     .snippet(l.getAddress())
                     .snippet(l.getPhoneNumber())
                     .snippet(l.getWebsite()));
+            m.showInfoWindow();
+
         }
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(Atlanta));
