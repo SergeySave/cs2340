@@ -12,5 +12,8 @@ public interface LocationService {
     Stream<Location> getLocations();
     LiveData<List<String>> getLiveIDList();
     void update(Location location);
-    // --Commented out by Inspection (11/7/18, 2:37 PM):Location addLocation(String name, LocationType type, double longitude, double latitude, String address, String phoneNumber);
+
+    //While this method is currently unused it maybe be used in the future
+    @SuppressWarnings("unused")
+    Location addLocation(String name, LocationType type, double longitude, double latitude, String address, String phoneNumber);
 }
