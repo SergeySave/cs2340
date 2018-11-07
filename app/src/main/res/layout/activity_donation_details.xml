@@ -57,7 +57,7 @@
             android:visibility="visible" />
 
         <TextView
-            android:id="@+id/itemname"
+            android:id="@+id/item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -111,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/itemname"
+            android:layout_alignStart="@+id/item_name"
             android:layout_marginBottom="195dp"
             android:fontFamily="@font/montserrat"
             android:text="@string/donation_LongDes"
@@ -123,7 +123,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/itemname"
+            android:layout_alignStart="@+id/item_name"
             android:layout_marginBottom="129dp"
             android:fontFamily="@font/montserrat"
             android:text="@string/donation_comment"

@@ -56,7 +56,7 @@ public class DonationListActivity extends AppCompatActivity {
             }
         }));
 
-        Button dashboard = findViewById(R.id.dashboardbutton);
+        Button dashboard = findViewById(R.id.dashboard_button);
         dashboard.setOnClickListener(v -> finish());
 
         RecyclerView mRecyclerView = findViewById(R.id.donation_recycler);
@@ -82,7 +82,7 @@ public class DonationListActivity extends AppCompatActivity {
 
         mRecyclerView.setAdapter(adapter);
 
-        SearchView searchBar = findViewById(R.id.searchbar);
+        SearchView searchBar = findViewById(R.id.search_bar);
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

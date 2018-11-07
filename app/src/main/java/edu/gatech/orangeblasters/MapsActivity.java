@@ -30,7 +30,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Button dashboard = findViewById(R.id.dashboardbutton);
+        Button dashboard = findViewById(R.id.dashboard_button);
         dashboard.setOnClickListener(v -> {
             Intent intent = new Intent(MapsActivity.this, DashboardActivity.class);
             intent.putExtra(OrangeBlastersApplication.PARAM_USER_ID, userId);

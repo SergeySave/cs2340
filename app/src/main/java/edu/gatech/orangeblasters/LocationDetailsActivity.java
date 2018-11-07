@@ -38,7 +38,7 @@ public class LocationDetailsActivity extends AppCompatActivity {
             locAddress.setText(location.getAddress());
             locPNum.setText(location.getPhoneNumber());
 
-            ImageView button = findViewById(R.id.gotodonation);
+            ImageView button = findViewById(R.id.go_to_donation);
             button.setOnClickListener(view -> {
                 Intent intent = new Intent(this, DonationListActivity.class);
                 intent.putExtra(OrangeBlastersApplication.PARAM_USER_ID, userId);

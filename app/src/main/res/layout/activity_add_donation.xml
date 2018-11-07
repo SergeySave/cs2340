@@ -32,7 +32,7 @@
                     android:contentDescription="@string/upload_image" />
 
                 <TextView
-                    android:id="@+id/shortdes"
+                    android:id="@+id/short_description"
                     android:layout_width="269dp"
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/donationShortDes"
@@ -58,7 +58,7 @@
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/longdes"
+                    android:id="@+id/long_description"
                     android:layout_width="269dp"
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/donationShortDes"
@@ -73,7 +73,7 @@
                     android:id="@+id/donationLongDes"
                     android:layout_width="359dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/longdes"
+                    android:layout_below="@+id/long_description"
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/blank_bar"
                     android:fontFamily="@font/montserrat"
@@ -138,7 +138,7 @@
                     android:id="@+id/category"
                     android:layout_width="269dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/shortdes"
+                    android:layout_alignStart="@+id/short_description"
                     android:layout_below="@+id/donationComments"
                     android:fontFamily="@font/montserrat"
                     android:text="@string/donation_category"
@@ -178,7 +178,7 @@
                     android:id="@+id/time"
                     android:layout_width="269dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/shortdes"
+                    android:layout_alignStart="@+id/short_description"
                     android:layout_below="@+id/donationDate"
                     android:fontFamily="@font/montserrat"
                     android:text="@string/donation_time"

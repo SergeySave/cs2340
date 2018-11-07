@@ -45,16 +45,16 @@
             android:visibility="visible" />
 
         <Button
-            android:id="@+id/dashboardbutton"
+            android:id="@+id/dashboard_button"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/searchbar"
+            android:layout_alignStart="@+id/search_bar"
             android:layout_alignTop="@+id/location"
-            android:background="@drawable/dashboardbtn"
+            android:background="@drawable/dashboard_button"
             android:visibility="visible" />
 
         <SearchView
-            android:id="@+id/searchbar"
+            android:id="@+id/search_bar"
             android:layout_width="359dp"
             android:layout_height="46dp"
             android:layout_alignParentTop="true"

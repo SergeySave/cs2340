@@ -1,10 +1,8 @@
 package edu.gatech.orangeblasters;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,7 +41,7 @@ public class DonationDetailsActivity extends AppCompatActivity {
         }
 
         TextView donTime = findViewById(R.id.time);
-        TextView donShortDes = findViewById(R.id.itemname);
+        TextView donShortDes = findViewById(R.id.item_name);
         TextView donLocation = findViewById(R.id.donationLocation);
         TextView donCategory = findViewById(R.id.donationCategory);
         TextView donComments = findViewById(R.id.donationComments);

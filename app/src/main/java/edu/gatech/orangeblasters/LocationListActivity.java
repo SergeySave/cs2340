@@ -47,7 +47,7 @@ public class LocationListActivity extends AppCompatActivity {
                 mLayoutManager.getOrientation());
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        Button dashboardButton = findViewById(R.id.dashboardbutton);
+        Button dashboardButton = findViewById(R.id.dashboard_button);
         dashboardButton.setOnClickListener(v -> finish());
 
         doUpdateFilteredList(adapter);
@@ -59,7 +59,7 @@ public class LocationListActivity extends AppCompatActivity {
 
         mRecyclerView.setAdapter(adapter);
 
-        SearchView searchBar = findViewById(R.id.searchbar);
+        SearchView searchBar = findViewById(R.id.search_bar);
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -130,11 +130,10 @@ public class LocationListActivity extends AppCompatActivity {
         private final SortedList<Location> sortedList = new SortedList<>(Location.class, new SortedList.Callback<Location>() {
             @Override
             public int compare(Location o1, Location o2) {
-                Integer relevence1 = relevanceFilter.apply(o1);
-                Integer relevence2 = relevanceFilter.apply(o2);
-                //Compare by relevance then by caseless name
-                if (relevence1.compareTo(relevence2) != 0) {
-                    return relevence1.compareTo(relevence2);
+                Integer relevance1 = relevanceFilter.apply(o1);
+                Integer relevance2 = relevanceFilter.apply(o2);
+                if (relevance1.compareTo(relevance2) != 0) {
+                    return relevance1.compareTo(relevance2);
                 }
                 return o1.getName().compareToIgnoreCase(o2.getName());
             }

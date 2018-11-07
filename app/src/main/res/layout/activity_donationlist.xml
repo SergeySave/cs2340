@@ -34,13 +34,13 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/dashboardbutton"
+            android:id="@+id/dashboard_button"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/donation"
             android:layout_alignParentStart="true"
             android:layout_marginStart="33dp"
-            android:background="@drawable/dashboardbtn"
+            android:background="@drawable/dashboard_button"
             android:visibility="visible" />
         <TextView
             android:id="@+id/donation"
@@ -56,7 +56,7 @@
             android:visibility="visible" />
 
         <SearchView
-            android:id="@+id/searchbar"
+            android:id="@+id/search_bar"
             android:layout_width="359dp"
             android:layout_height="46dp"
             android:layout_alignParentTop="true"

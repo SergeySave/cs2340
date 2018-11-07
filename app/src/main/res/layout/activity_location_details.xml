@@ -94,7 +94,7 @@
         android:textSize="24sp" />
 
     <ImageView
-        android:id="@+id/gotodonation"
+        android:id="@+id/go_to_donation"
         android:layout_width="326dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
