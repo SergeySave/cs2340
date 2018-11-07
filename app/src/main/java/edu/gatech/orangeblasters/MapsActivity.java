@@ -26,13 +26,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        String userId = getIntent().getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
+
         setContentView(R.layout.activity_google_map);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         dashboard = findViewById(R.id.dashboardbutton);
-        dashboard.setOnClickListener(v -> startActivity(new Intent(MapsActivity.this, DashboardActivity.class)));
+        dashboard.setOnClickListener(v -> {
+            Intent intent = new Intent(MapsActivity.this, DashboardActivity.class);
+            intent.putExtra(OrangeBlastersApplication.PARAM_USER_ID, userId);
+            startActivity(intent);
+        });
 
 
     }

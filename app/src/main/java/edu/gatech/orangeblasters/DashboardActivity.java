@@ -36,9 +36,10 @@ public class DashboardActivity extends AppCompatActivity {
 
         Button mapButton = findViewById(R.id.mapButton);
         mapButton.setOnClickListener(v -> {
-            Intent intent = new Intent(DashboardActivity.this, MapsActivity.class);
-            intent.putExtra(OrangeBlastersApplication.PARAM_USER_ID, userId);
-            startActivity(intent);
+            finish();
+//            Intent intent = new Intent(DashboardActivity.this, MapsActivity.class);
+//            intent.putExtra(OrangeBlastersApplication.PARAM_USER_ID, userId);
+//            startActivity(intent);
         });
     }
 }
