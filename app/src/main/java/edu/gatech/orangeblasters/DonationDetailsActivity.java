@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.Optional;
 
 import edu.gatech.orangeblasters.donation.Donation;
@@ -28,15 +29,16 @@ public class DonationDetailsActivity extends AppCompatActivity {
 //        Donation donation = ((Donation) getIntent().getSerializableExtra(EXTRA_DONATION));
         String donationId = getIntent().getStringExtra(EXTRA_DONATION);
         Donation donation = OrangeBlastersApplication.getInstance().getDonationService().getDonation(donationId).orElse(null);
-        if (donation == null) {
+        if (donation == null || donation.getLocationId() == null) {
             finish();
         }
 
 
 
+
         Location location = OrangeBlastersApplication.getInstance().getLocationService()
-                .getLocation(donation.getLocationId()).orElse(null);
-        if (location == null) {
+                .getLocation(Objects.requireNonNull(donation).getLocationId()).orElse(null);
+        if (location == null || location.getName() == null) {
             finish();
         }
 
@@ -49,7 +51,7 @@ public class DonationDetailsActivity extends AppCompatActivity {
         ImageView image = findViewById(R.id.imageDisplay);
 
         donTime.setText(dateTimeFormatter.format(donation.getTimestamp()));
-        donLocation.setText(location.getName());
+        donLocation.setText(Objects.requireNonNull(location).getName());
         donCategory.setText(donation.getDonationCategory().getFullName());
         donShortDes.setText(donation.getDescShort());
         Optional<String> comments = donation.getComments();

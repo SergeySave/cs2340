@@ -25,9 +25,9 @@ import edu.gatech.orangeblasters.location.LocationType;
 public class LocationServiceInMemoryImpl implements LocationService {
 
     //A linked hash map is used to ensure that the order stays constant
-    private Map<String, Location> locations = new LinkedHashMap<>();
-    private MutableLiveData<List<String>> idList = new MutableLiveData<>();
-    private Random random = new Random();
+    private final Map<String, Location> locations = new LinkedHashMap<>();
+    private final MutableLiveData<List<String>> idList = new MutableLiveData<>();
+    private final Random random = new Random();
     private String createId() {
         return random.ints(4).mapToObj(Integer::toHexString).collect(Collectors.joining());
     }

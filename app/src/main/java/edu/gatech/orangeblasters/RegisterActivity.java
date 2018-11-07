@@ -52,6 +52,7 @@ public class RegisterActivity extends AppCompatActivity  {
 
         userSpinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
+                    @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
                         if (userSpinner.getSelectedItem() == AccountType.EMPLOYEE) {
@@ -61,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity  {
                         }
 
                     }
+                    @Override
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
                 });
