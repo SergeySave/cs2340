@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/infobar"
+        android:background="@drawable/info_bar"
         android:gravity="center"
         android:text="@string/element_text"
         android:textColor="@color/textColor" />

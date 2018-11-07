@@ -17,7 +17,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="14dp"
         android:layout_marginTop="47dp"
-        android:background="@drawable/backarrow"
+        android:background="@drawable/back_arrow"
         android:contentDescription="@string/backButton" />
 
     <TextView
@@ -41,7 +41,7 @@
         android:layout_marginTop="202dp"
         android:contentDescription="@string/logo"
         android:scaleType="fitCenter"
-        android:src="@drawable/locationinfo"
+        android:src="@drawable/location_info"
         android:visibility="visible" />
 
     <TextView
@@ -101,7 +101,7 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="113dp"
-        android:background="@drawable/donationclick"
+        android:background="@drawable/donation_click"
         android:contentDescription="@string/gotoDonation" />
 
 

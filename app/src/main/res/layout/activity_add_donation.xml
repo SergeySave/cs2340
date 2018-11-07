@@ -205,7 +205,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/category"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/dropdown" />
+                    android:background="@drawable/drop_down" />
 
                 <Button
                     android:id="@+id/saveButton"
@@ -213,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/donationTime"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/savebutton" />
+                    android:background="@drawable/save_button" />
 
             </RelativeLayout>
         </LinearLayout>
