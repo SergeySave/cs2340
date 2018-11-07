@@ -9,7 +9,7 @@ public enum DonationCategory {
     HOUSEHOLD("Household"),
     OTHER("Other");
 
-    private String fullName;
+    private final String fullName;
 
     DonationCategory(String fullName) {
         this.fullName = fullName;

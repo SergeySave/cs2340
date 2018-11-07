@@ -49,7 +49,7 @@ public class LocationListActivity extends AppCompatActivity {
                 mLayoutManager.getOrientation());
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        Button dashboardButton = (Button)findViewById(R.id.dashboardbutton);
+        Button dashboardButton = findViewById(R.id.dashboardbutton);
         dashboardButton.setOnClickListener(v -> finish());
 
         doUpdateFilteredList(adapter);
@@ -113,7 +113,7 @@ public class LocationListActivity extends AppCompatActivity {
         @NonNull
         @Override
         public LocationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View v = (View) LayoutInflater.from(parent.getContext())
+            View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.location_row, parent, false);
             LocationViewHolder vh = new LocationViewHolder(v);
             return vh;

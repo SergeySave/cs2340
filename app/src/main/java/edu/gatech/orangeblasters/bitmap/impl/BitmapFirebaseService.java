@@ -25,8 +25,8 @@ public class BitmapFirebaseService implements BitmapService {
 
     private final Random random = new Random();
 
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference = firebaseDatabase.getReference(BITMAPS);
+    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private final DatabaseReference databaseReference = firebaseDatabase.getReference(BITMAPS);
 
     private String createId() {
         return random.ints(4).mapToObj(Integer::toHexString).collect(Collectors.joining());

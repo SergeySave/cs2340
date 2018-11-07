@@ -16,7 +16,7 @@ public class Location {
     private double latitude;
     private String address;
     private String phoneNumber;
-    private List<Donation> donations = new ArrayList<>();
+    private final List<Donation> donations = new ArrayList<>();
     private String website;
 
     public Location(String id, String name, LocationType type, double longitude, double latitude, String address, String phoneNumber) {

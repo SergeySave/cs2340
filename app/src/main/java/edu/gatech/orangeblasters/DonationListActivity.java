@@ -138,7 +138,7 @@ public class DonationListActivity extends AppCompatActivity {
         @NonNull
         @Override
         public DonationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View v = (View) LayoutInflater.from(parent.getContext())
+            View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.location_row, parent, false);
             DonationViewHolder vh = new DonationViewHolder(v);
             return vh;

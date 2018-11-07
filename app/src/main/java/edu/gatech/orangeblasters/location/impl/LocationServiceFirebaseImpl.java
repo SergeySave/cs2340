@@ -27,14 +27,14 @@ public class LocationServiceFirebaseImpl implements LocationService {
     private static final String LOCATIONS = "locations";
     private static final String IDS = "ids";
 
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference = firebaseDatabase.getReference(LOCATIONS);
+    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private final DatabaseReference databaseReference = firebaseDatabase.getReference(LOCATIONS);
 
     //Locations are stored locally to allow me to not have to rewrite the whole
-    private Map<String, Location> locations = new LinkedHashMap<>();
-    private MutableLiveData<List<String>> idList = new MutableLiveData<>();
+    private final Map<String, Location> locations = new LinkedHashMap<>();
+    private final MutableLiveData<List<String>> idList = new MutableLiveData<>();
 
-    private Random random = new Random();
+    private final Random random = new Random();
     private String createId() {
         return random.ints(4).mapToObj(Integer::toHexString).collect(Collectors.joining());
     }
