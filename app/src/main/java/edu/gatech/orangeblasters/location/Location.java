@@ -90,8 +90,12 @@ public class Location {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Location location = (Location) o;
         return Double.compare(location.longitude, longitude) == 0 &&
                 Double.compare(location.latitude, latitude) == 0 &&

@@ -18,7 +18,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="14dp"
         android:layout_marginTop="47dp"
-        android:background="@drawable/backarrow" />
+        android:background="@drawable/backarrow"
+        android:contentDescription="TODO" />
 
     <TextView
         android:id="@+id/title"
@@ -102,7 +103,8 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="113dp"
-        android:background="@drawable/donationclick" />
+        android:background="@drawable/donationclick"
+        android:contentDescription="TODO" />
 
 
 </RelativeLayout>

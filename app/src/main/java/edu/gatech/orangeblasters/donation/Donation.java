@@ -109,8 +109,12 @@ public class Donation implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Donation donation = (Donation) o;
         return Objects.equals(timestamp, donation.timestamp) &&
                 Objects.equals(locationId, donation.locationId) &&

@@ -23,7 +23,7 @@ public class BitmapFirebaseService implements BitmapService {
     private static final String BITMAPS = "bitmaps";
     private static final String IDS = "ids";
 
-    private Random random = new Random();
+    private final Random random = new Random();
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference(BITMAPS);

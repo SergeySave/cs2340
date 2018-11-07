@@ -25,13 +25,13 @@ public class DonationServiceFirebaseImpl implements DonationService {
     private static final String DONATIONS = "donations";
     private static final String IDS = "ids";
 
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference = firebaseDatabase.getReference(DONATIONS);
+    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private final DatabaseReference databaseReference = firebaseDatabase.getReference(DONATIONS);
 
     //Locations are stored locally to allow me to not have to rewrite the whole
-    private Map<String, Donation> donations = new LinkedHashMap<>();
+    private final Map<String, Donation> donations = new LinkedHashMap<>();
 
-    private Random random = new Random();
+    private final Random random = new Random();
     private String createId() {
         return random.ints(4).mapToObj(Integer::toHexString).collect(Collectors.joining());
     }
