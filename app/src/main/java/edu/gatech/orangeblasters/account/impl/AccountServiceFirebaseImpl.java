@@ -33,10 +33,21 @@ public class AccountServiceFirebaseImpl implements AccountService {
     private final DatabaseReference databaseReference = firebaseDatabase.getReference(USERS);
     private final Random random = new Random();
 
+    /**
+     * Creates the account ID
+     *
+     * @return the account ID
+     */
     private String createId() {
         return random.ints(4).mapToObj(Integer::toHexString).collect(Collectors.joining());
     }
 
+    /**
+     * Puts the input into a 64bit format
+     *
+     * @param input the account to be converted
+     * @return the account in a 64 format
+     */
     private String to64(String input) {
         return Base64.getEncoder().encodeToString(input.getBytes(Charset.forName("UTF-8")));
     }

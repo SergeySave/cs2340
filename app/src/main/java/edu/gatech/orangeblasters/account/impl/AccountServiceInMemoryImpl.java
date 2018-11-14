@@ -21,6 +21,11 @@ public class AccountServiceInMemoryImpl implements AccountService {
     private final Map<String, Account> accounts = new HashMap<>();
     private final Random random = new Random();
 
+    /**
+     * Creates the id
+     *
+     * @return a string of the id
+     */
     private String createId() {
         return random.ints(4).mapToObj(Integer::toHexString).collect(Collectors.joining());
     }

@@ -19,6 +19,17 @@ public class Location {
     private final List<Donation> donations = new ArrayList<>();
     private String website;
 
+    /**
+     * Creates a new location with all the details
+     *
+     * @param id the location's id
+     * @param name the location's name
+     * @param type the location's type
+     * @param longitude the location's longitude
+     * @param latitude the location's latitude
+     * @param address the location's address
+     * @param phoneNumber the location's phone number
+     */
     public Location(String id, String name, LocationType type, double longitude, double latitude,
                     String address, String phoneNumber) {
         this.id = id;
@@ -30,10 +41,20 @@ public class Location {
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     * Gets the location's ID
+     *
+     * @return the location ID
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Gets the location's name
+     *
+     * @return the location name
+     */
     public String getName() {
         return name;
     }
@@ -44,6 +65,11 @@ public class Location {
 //    }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
+    /**
+     * Gets the location type
+     *
+     * @return the location type
+     */
     public LocationType getType() {
         return type;
     }
@@ -54,6 +80,11 @@ public class Location {
 //    }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
+    /**
+     * Gets the location's longitude
+     *
+     * @return the location longitude
+     */
     public double getLongitude() {
         return longitude;
     }
@@ -64,6 +95,11 @@ public class Location {
 //    }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
+    /**
+     * Gets the location's latitude
+     *
+     * @return the location latitude
+     */
     public double getLatitude() {
         return latitude;
     }
@@ -74,6 +110,11 @@ public class Location {
 //    }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
+    /**
+     * Gets the location's address
+     *
+     * @return the location address
+     */
     public String getAddress() {
         return address;
     }
@@ -84,6 +125,11 @@ public class Location {
 //    }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
+    /**
+     * Gets the location phone number
+     *
+     * @return the location phone number
+     */
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -94,6 +140,11 @@ public class Location {
 //    }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
+    /**
+     * Gets the location's donations
+     *
+     * @return the list of donations at that location
+     */
     public List<Donation> getDonations() {
         return donations;
     }

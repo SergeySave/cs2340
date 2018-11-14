@@ -20,6 +20,12 @@ public class LocationDAO {
     private String phoneNumber;
     private List<String> donations;
 
+    /**
+     * Gets the location's details in DAO format
+     *
+     * @param location the location to get in the format
+     * @return the Location in DAO format
+     */
     public static LocationDAO fromLocation(Location location) {
         LocationDAO locationDAO = new LocationDAO();
         locationDAO.id = location.getId();
@@ -33,6 +39,11 @@ public class LocationDAO {
         return locationDAO;
     }
 
+    /**
+     * Puts the location in
+     *
+     * @return the location with all details
+     */
     public Location toLocation() {
         Location location = new Location(id, name, type, longitude, latitude, address, phoneNumber);
         //location.getDonations()

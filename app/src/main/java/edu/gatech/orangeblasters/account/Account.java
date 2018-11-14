@@ -19,6 +19,11 @@ public abstract class Account implements Serializable {
         this.accountState = accountState;
     }
 
+    /**
+     * Gets the ID
+     *
+     * @return an ID
+     */
     public String getId() {
         return id;
     }
@@ -33,6 +38,11 @@ public abstract class Account implements Serializable {
 //    }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
+    /**
+     * Gets the Password
+     *
+     * @return the password
+     */
     public String getPassword() {
         return password;
     }
@@ -43,6 +53,11 @@ public abstract class Account implements Serializable {
 //    }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
+    /**
+     * Gets the email
+     *
+     * @return the email
+     */
     public String getEmail() {
         return email;
     }
@@ -53,6 +68,11 @@ public abstract class Account implements Serializable {
 //    }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
+    /**
+     * Gets the account state
+     *
+     * @return the account state
+     */
     public AccountState getAccountState() {
         return accountState;
     }

@@ -20,7 +20,12 @@ public class DonationDAO {
     private String comments;
     private String pictureId;
 
-
+    /**
+     * Gets the donation's details in DAO format
+     *
+     * @param donation the donation to get in the format
+     * @return the Donation in DAO format
+     */
     public static DonationDAO fromDonation(Donation donation) {
         DonationDAO donationDAO = new DonationDAO();
         donationDAO.id = donation.getId();
@@ -36,6 +41,11 @@ public class DonationDAO {
         return donationDAO;
     }
 
+    /**
+     * Puts the donation in
+     *
+     * @return the donation with all details
+     */
     public Donation toDonation() {
         return new Donation(id, ZonedDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.of(
                 "UTC")).toOffsetDateTime(), locationId, descShort, descLong, new BigDecimal(

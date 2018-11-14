@@ -19,6 +19,13 @@ public class LocationFilteredList extends FilteredList<Location> {
                 listUpdater);
     }
 
+    /**
+     * A function to measure the relevance of a donation based on the text
+     *
+     * @param text the text to compare to
+     * @param location the donation to text relevance to
+     * @return the donation's relevance int
+     */
     private static int relevanceFunction(String text, Location location) {
         if (text == null || text.isEmpty()) {
             return 1;
