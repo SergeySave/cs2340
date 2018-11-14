@@ -72,6 +72,11 @@ public class AddDonationActivity extends AppCompatActivity {
         saveButton.setOnClickListener(this::returnDonation);
     }
 
+    /**
+     * Uploads the Image
+     *
+     * @param v the view being passed in
+     */
     private void uploadImage(View v) {
         Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(i, RESULT_LOAD_IMAGE);
@@ -94,6 +99,11 @@ public class AddDonationActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Returns the donation
+     *
+     * @param v the View being passed in
+     */
     private void returnDonation(View v) {
         Intent data = new Intent();
 
