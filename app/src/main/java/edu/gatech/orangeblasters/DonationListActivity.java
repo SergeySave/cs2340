@@ -19,11 +19,13 @@ import android.widget.TextView;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
+import edu.gatech.orangeblasters.account.AccountType;
 import edu.gatech.orangeblasters.account.LocationEmployee;
 import edu.gatech.orangeblasters.donation.Donation;
 import edu.gatech.orangeblasters.donation.DonationCategory;
 import edu.gatech.orangeblasters.donation.DonationFilteredList;
 import edu.gatech.orangeblasters.donation.DonationService;
+import edu.gatech.orangeblasters.location.LocationService;
 
 /**
  * A login Location Employees see right when they log in
@@ -39,6 +41,7 @@ public class DonationListActivity extends AppCompatActivity {
     private DonationFilteredList donationFilteredList;
     private String locationId;
     private OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+    private LocationService locationService = orangeBlastersApplication.getLocationService();
     private DonationService donationService = orangeBlastersApplication.getDonationService();
 
     @Override
@@ -54,7 +57,7 @@ public class DonationListActivity extends AppCompatActivity {
         Button mAddDonationButton = findViewById(R.id.addDonation);
         mAddDonationButton.setVisibility(View.INVISIBLE);
         OrangeBlastersApplication.getInstance().getAccountService().getAccount(userId, account -> account.ifPresent(acc -> {
-            if (acc instanceof LocationEmployee && ((LocationEmployee)acc).getLocation().equals(locationId)) {
+            if (acc.getType() == AccountType.EMPLOYEE && ((LocationEmployee)acc).getLocation().equals(locationId)) {
                 mAddDonationButton.setVisibility(View.VISIBLE);
                 mAddDonationButton.setOnClickListener(view -> addingDonation());
             }
@@ -112,14 +115,7 @@ public class DonationListActivity extends AppCompatActivity {
             }
         });
 
-
-        donationFilteredList.setFilterText("");
-        donationFilteredList.setDataSource(() -> donationService.getDonations());
-
-        OrangeBlastersApplication.getInstance().getLocationService().getLiveIDList().observe(this, (list) -> {
-            //When the id list changes
-            donationFilteredList.setDataSource(() -> donationService.getDonations());
-        });
+        initializeList();
 
         mRecyclerView.setAdapter(adapter);
 
@@ -136,6 +132,11 @@ public class DonationListActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    private void initializeList() {
+        donationFilteredList.setFilterText("");
+        donationFilteredList.setDataSource(() -> donationService.getDonations());
     }
 
     public class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.DonationViewHolder> {
@@ -211,9 +212,9 @@ public class DonationListActivity extends AppCompatActivity {
             Donation donation = OrangeBlastersApplication.getInstance().getDonationService()
                     .createDonation(dateTime, locationId, shortDesc, longDesc, new BigDecimal(price), category, comments, bitmapId);
 
-            OrangeBlastersApplication.getInstance().getLocationService().getLocation(locationId).ifPresent(location -> {
+            locationService.getLocation(locationId).ifPresent(location -> {
                 location.getDonations().add(donation);
-                OrangeBlastersApplication.getInstance().getLocationService().update(location);
+                locationService.update(location);
             });
 
             donationFilteredList.update();

@@ -1,5 +1,6 @@
 package edu.gatech.orangeblasters;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,8 +17,11 @@ import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import edu.gatech.orangeblasters.location.Location;
 import edu.gatech.orangeblasters.location.LocationFilteredList;
+import edu.gatech.orangeblasters.location.LocationService;
 
 public class LocationListActivity extends AppCompatActivity {
 
@@ -25,12 +29,16 @@ public class LocationListActivity extends AppCompatActivity {
 
     private LocationFilteredList locationFilteredList;
     private String userId;
+    private LocationService locationService;
+    OrangeBlastersApplication orangeBlastersApplication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         userId = getIntent().getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
+        orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+        locationService = orangeBlastersApplication.getLocationService();
 
         setContentView(R.layout.activity_location_list);
         RecyclerView mRecyclerView = findViewById(R.id.location_recycler);
@@ -85,13 +93,9 @@ public class LocationListActivity extends AppCompatActivity {
             }
         });
 
-        locationFilteredList.setFilterText("");
-        locationFilteredList.setDataSource(() -> OrangeBlastersApplication.getInstance().getLocationService().getLocations());
+        initializeFilteredList();
 
-        OrangeBlastersApplication.getInstance().getLocationService().getLiveIDList().observe(this, (list) -> {
-            //When the ID list changes update the list
-            locationFilteredList.setDataSource(() -> OrangeBlastersApplication.getInstance().getLocationService().getLocations());
-        });
+        listenToFilteredList(locationService.getLiveIDList());
 
         mRecyclerView.setAdapter(adapter);
 
@@ -107,6 +111,18 @@ public class LocationListActivity extends AppCompatActivity {
                 locationFilteredList.setFilterText(newText);
                 return true;
             }
+        });
+    }
+
+    private void initializeFilteredList() {
+        locationFilteredList.setFilterText("");
+        locationFilteredList.setDataSource(() -> locationService.getLocations());
+    }
+
+    private void listenToFilteredList(LiveData<List<String>> liveIdList) {
+        liveIdList.observe(this, (list) -> {
+            //When the ID list changes update the list
+            locationFilteredList.setDataSource(() -> locationService.getLocations());
         });
     }
 

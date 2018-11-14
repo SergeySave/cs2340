@@ -62,4 +62,6 @@ public abstract class Account implements Serializable {
 //        this.accountState = accountState;
 //    }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
+
+    public abstract AccountType getType();
 }

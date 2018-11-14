@@ -106,28 +106,16 @@ public class RegisterActivity extends AppCompatActivity  {
             return;
         }
 
+        Location selectedItem = (Location) location.getSelectedItem();
+        String selectedId = null;
+        if (selectedItem != null) {
+            selectedId = selectedItem.getId();
+        }
         AccountService accountService = OrangeBlastersApplication.getInstance().getAccountService();
-
         //finish will be called if an account is created
         //if not nothing will happen (this maybe should be fixed)
         AccountCallback<Account> accountCreationCallback = result -> result.ifPresent(__->finish());
-
-        switch (((AccountType) userSpinner.getSelectedItem())) {
-            case USER:
-                accountService.createUser(email, email, password, accountCreationCallback);
-                break;
-            case ADMIN:
-                accountService.createAdmin(email, email, password, accountCreationCallback);
-                break;
-            case MANAGER:
-                accountService.createManager(email, email, password, accountCreationCallback);
-                break;
-            case EMPLOYEE:
-                Location selectedItem = (Location) location.getSelectedItem();
-
-                accountService.createLocationEmployee(email, email, password, selectedItem.getId(), accountCreationCallback);
-                break;
-        }
+        accountService.createAccount(((AccountType) userSpinner.getSelectedItem()), email, email, password, selectedId, accountCreationCallback);
     }
 }
 

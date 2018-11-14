@@ -10,8 +10,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Optional;
 
+import edu.gatech.orangeblasters.bitmap.BitmapService;
 import edu.gatech.orangeblasters.donation.Donation;
+import edu.gatech.orangeblasters.donation.DonationService;
 import edu.gatech.orangeblasters.location.Location;
+import edu.gatech.orangeblasters.location.LocationService;
 
 public class DonationDetailsActivity extends AppCompatActivity {
 
@@ -19,22 +22,24 @@ public class DonationDetailsActivity extends AppCompatActivity {
 
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm-MM/dd/yyyy");
 
+    private OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+    private DonationService donationService = orangeBlastersApplication.getDonationService();
+    private BitmapService bitmapService = orangeBlastersApplication.getBitmapService();
+    private LocationService locationService = orangeBlastersApplication.getLocationService();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donation_details);
 
-//        Donation donation = ((Donation) getIntent().getSerializableExtra(EXTRA_DONATION));
         String donationId = getIntent().getStringExtra(EXTRA_DONATION);
-        Donation donation = OrangeBlastersApplication.getInstance().getDonationService().getDonation(donationId).orElse(null);
+        Donation donation = donationService.getDonation(donationId).orElse(null);
         if (donation == null || donation.getLocationId() == null) {
             finish();
         }
 
 
-
-
-        Location location = OrangeBlastersApplication.getInstance().getLocationService()
+        Location location = locationService
                 .getLocation(Objects.requireNonNull(donation).getLocationId()).orElse(null);
         if (location == null || location.getName() == null) {
             finish();
@@ -62,10 +67,12 @@ public class DonationDetailsActivity extends AppCompatActivity {
         donLongDes.setText(donation.getDescLong());
         Optional<String> pictureId = donation.getPictureId();
         image.setVisibility(View.INVISIBLE);
-        pictureId.ifPresent(s -> OrangeBlastersApplication.getInstance().getBitmapService().getBitmap(s, bitmap -> bitmap.ifPresent(bm -> {
-            image.setImageBitmap(bm);
+        pictureId.ifPresent(s -> {
+            bitmapService.getBitmap(s, bitmap -> bitmap.ifPresent(bm -> {
+                image.setImageBitmap(bm);
 
-            image.setVisibility(View.VISIBLE);
-        })));
+                image.setVisibility(View.VISIBLE);
+            }));
+        });
     }
 }

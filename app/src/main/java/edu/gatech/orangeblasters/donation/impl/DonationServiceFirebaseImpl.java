@@ -9,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
@@ -19,12 +20,16 @@ import edu.gatech.orangeblasters.OrangeBlastersApplication;
 import edu.gatech.orangeblasters.donation.Donation;
 import edu.gatech.orangeblasters.donation.DonationCategory;
 import edu.gatech.orangeblasters.donation.DonationService;
+import edu.gatech.orangeblasters.location.Location;
+import edu.gatech.orangeblasters.location.LocationService;
 
 public class DonationServiceFirebaseImpl implements DonationService {
 
     private static final String DONATIONS = "donations";
     private static final String IDS = "ids";
 
+    private final OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+    private final LocationService locationService = orangeBlastersApplication.getLocationService();
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private final DatabaseReference databaseReference = firebaseDatabase.getReference(DONATIONS);
 
@@ -38,14 +43,15 @@ public class DonationServiceFirebaseImpl implements DonationService {
 
     public DonationServiceFirebaseImpl() {
         databaseReference.child(IDS).addChildEventListener(new ChildEventListener() {
+
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 DonationDAO donationDAO = dataSnapshot.getValue(DonationDAO.class);
                 if (donationDAO != null) {
                     Donation value = donationDAO.toDonation();
                     donations.put(donationDAO.id, value);
-                    OrangeBlastersApplication.getInstance().getLocationService().getLocation(value.getLocationId())
-                            .ifPresent( loc -> loc.getDonations().add(value));
+                    getLocation(value)
+                            .ifPresent( dons -> dons.add(value));
                 }
             }
 
@@ -55,8 +61,8 @@ public class DonationServiceFirebaseImpl implements DonationService {
                 if (donationDAO != null) {
                     Donation value = donationDAO.toDonation();
                     donations.put(donationDAO.id, value);
-                    OrangeBlastersApplication.getInstance().getLocationService().getLocation(value.getLocationId())
-                            .ifPresent( loc -> loc.getDonations().add(value));
+                    getLocation(value)
+                            .ifPresent( dons -> dons.add(value));
                 }
             }
 
@@ -65,9 +71,17 @@ public class DonationServiceFirebaseImpl implements DonationService {
                 DonationDAO donationDAO = dataSnapshot.getValue(DonationDAO.class);
                 if (donationDAO != null) {
                     donations.remove(donationDAO.id);
-                    OrangeBlastersApplication.getInstance().getLocationService().getLocation(donationDAO.locationId)
-                            .ifPresent( loc -> loc.getDonations().removeIf(don -> don.getId().equals(donationDAO.id)));
+                    getLocation(donationDAO)
+                            .ifPresent( dons -> dons.removeIf(don -> don.getId().equals(donationDAO.id)));
                 }
+            }
+
+            private Optional<List<Donation>> getLocation(DonationDAO donationDAO) {
+                return locationService.getLocation(donationDAO.locationId).map(Location::getDonations);
+            }
+
+            private Optional<List<Donation>> getLocation(Donation value) {
+                return locationService.getLocation(value.getLocationId()).map(Location::getDonations);
             }
 
             @Override

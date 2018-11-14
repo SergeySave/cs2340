@@ -17,4 +17,10 @@ public class LocationEmployee extends Account {
 //        this.locationId = locationId;
 //    }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
+
+
+    @Override
+    public AccountType getType() {
+        return AccountType.EMPLOYEE;
+    }
 }

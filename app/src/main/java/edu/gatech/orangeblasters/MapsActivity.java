@@ -13,11 +13,19 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import edu.gatech.orangeblasters.location.Location;
+import edu.gatech.orangeblasters.location.LocationService;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback  {
+
+    public static final LatLng ATLANTA = new LatLng(33.748997, -84.387985);
+    public static final int ZOOM_LEVEL = 10;
+    public static final int ZOOM_TIME = 2000;
+
+    private OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+    private LocationService locationService = orangeBlastersApplication.getLocationService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,21 +52,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         GoogleMap mMap = googleMap;
 
-        LatLng Atlanta = new LatLng(33.748997, -84.387985);
-
-
-        for (Location l: OrangeBlastersApplication.getInstance().getLocationService().getLocations().collect(Collectors.toList())) {
+        Stream<Location> locations = locationService.getLocations();
+        locations.forEach(l -> {
             LatLng location = new LatLng(l.getLatitude(), l.getLongitude());
             Marker m = mMap.addMarker(new MarkerOptions()
                     .position(location)
                     .title(l.getName())
                     .snippet(l.getPhoneNumber()));
             m.showInfoWindow();
+        });
 
-        }
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(Atlanta));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(ATLANTA));
         mMap.animateCamera(CameraUpdateFactory.zoomIn());
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(10),2000, null);
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(ZOOM_LEVEL), ZOOM_TIME, null);
     }
 }

@@ -22,6 +22,7 @@ public class BitmapFirebaseService implements BitmapService {
 
     private static final String BITMAPS = "bitmaps";
     private static final String IDS = "ids";
+    public static final int QUALITY = 75;
 
     private final Random random = new Random();
 
@@ -37,7 +38,7 @@ public class BitmapFirebaseService implements BitmapService {
         String id = createId();
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 75, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY, byteArrayOutputStream);
 
         String encoded = Base64.getEncoder().encodeToString(byteArrayOutputStream.toByteArray());
         databaseReference.child(IDS).child(id).setValue(encoded);
