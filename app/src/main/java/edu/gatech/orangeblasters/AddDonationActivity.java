@@ -43,10 +43,12 @@ public class AddDonationActivity extends AppCompatActivity {
     public static final String RETURN_COMMENTS = "COMMENTS";
     public static final String RETURN_TIME = "TIME";
 
-    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    private static final DateTimeFormatter dateFormatter =
+            DateTimeFormatter.ofPattern("MM/dd/yyyy");
     private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_donation);
@@ -62,7 +64,8 @@ public class AddDonationActivity extends AppCompatActivity {
         donationComments = findViewById(R.id.donationComments);
         Button saveButton = findViewById(R.id.saveButton);
 
-        ArrayAdapter<DonationCategory> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, DonationCategory.values());
+        ArrayAdapter<DonationCategory> adapter = new ArrayAdapter<>
+                (this, android.R.layout.simple_spinner_item, DonationCategory.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         category.setAdapter(adapter);
         category.setSelection(0);
@@ -72,6 +75,11 @@ public class AddDonationActivity extends AppCompatActivity {
         saveButton.setOnClickListener(this::returnDonation);
     }
 
+    /**
+     * Uploads the Image
+     *
+     * @param v the view being passed in
+     */
     private void uploadImage(View v) {
         Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(i, RESULT_LOAD_IMAGE);
@@ -94,11 +102,17 @@ public class AddDonationActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Returns the donation
+     *
+     * @param v the View being passed in
+     */
     private void returnDonation(View v) {
         Intent data = new Intent();
 
         if (bitmap != null) {
-            String id = OrangeBlastersApplication.getInstance().getBitmapService().addBitmap(bitmap);
+            String id = OrangeBlastersApplication.getInstance().
+                    getBitmapService().addBitmap(bitmap);
             data.putExtra(RETURN_IMAGE, id);
         } else {
             data.putExtra(RETURN_IMAGE, (String)null);

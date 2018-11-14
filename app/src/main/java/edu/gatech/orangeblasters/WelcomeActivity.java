@@ -42,9 +42,13 @@ public class WelcomeActivity extends AppCompatActivity {
 
         //Set up the Register form
         Button register = findViewById(R.id.register);
-        register.setOnClickListener(v -> startActivity(new Intent(WelcomeActivity.this, RegisterActivity.class)));
+        register.setOnClickListener(v -> startActivity(new Intent(WelcomeActivity.this,
+                RegisterActivity.class)));
     }
 
+    /**
+     * Checks to see if the user can log in by validating credentials
+     */
     private void attemptLogin() {
         final String userStr = mUserNameView.getText().toString();
         final String passStr = mPasswordView.getText().toString();
@@ -59,7 +63,8 @@ public class WelcomeActivity extends AppCompatActivity {
                         intent.putExtra(OrangeBlastersApplication.PARAM_USER_ID, account.getId());
                         startActivity(intent);
                     } else {
-                        Snackbar my_Snack = Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.invalid_user_pass, Snackbar.LENGTH_SHORT);
+                        Snackbar my_Snack = Snackbar.make(findViewById(R.id.myCoordinatorLayout),
+                                R.string.invalid_user_pass, Snackbar.LENGTH_SHORT);
                         my_Snack.show();
                     }
                 }));

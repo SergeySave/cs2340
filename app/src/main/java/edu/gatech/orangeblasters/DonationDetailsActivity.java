@@ -20,7 +20,8 @@ public class DonationDetailsActivity extends AppCompatActivity {
 
     public static final String EXTRA_DONATION = "DONATION";
 
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm-MM/dd/yyyy");
+    private static final DateTimeFormatter dateTimeFormatter =
+            DateTimeFormatter.ofPattern("HH:mm-MM/dd/yyyy");
 
     private OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
     private DonationService donationService = orangeBlastersApplication.getDonationService();

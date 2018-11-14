@@ -25,19 +25,32 @@ public class LocationFilteredList extends FilteredList<Location> {
                 listUpdater);
     }
 
+    /**
+     * A function to measure the relevance of a donation based on the text
+     *
+     * @param text the text to compare to
+     * @param location the donation to text relevance to
+     * @return the donation's relevance int
+     */
     private static int relevanceFunction(String text, Location location) {
         if (text == null || text.isEmpty()) {
             return 1;
         }
 
         String lower = text.toLowerCase();
-        return (location.getName().equalsIgnoreCase(lower) ? POINTS_SAME_NAME : 0) //Exact name = 20 points
-                + (location.getName().toLowerCase().contains(lower) ? POINTS_SIMILAR_NAME : 0) //Contains name = 5 point
-                + (location.getType().getFullName().toLowerCase().contains(lower) ? POINTS_TYPE : 0) //Type = 2 point
-                + (location.getAddress().toLowerCase().contains(lower) ? POINTS_ADDRESS : 0) //Address = 2 point
-                + ((int)location.getDonations().stream().filter(donation ->  //1 point per relevant donation
+        return (location.getName().equalsIgnoreCase(lower) ? POINTS_SAME_NAME : 0)
+                //Exact name = 20 points
+                + (location.getName().toLowerCase().contains(lower) ? POINTS_SIMILAR_NAME : 0)
+                //Contains name = 5 point
+                + (location.getType().getFullName().toLowerCase().contains(lower) ? POINTS_TYPE : 0)
+                //Type = 2 point
+                + (location.getAddress().toLowerCase().contains(lower) ? POINTS_ADDRESS : 0)
+                //Address = 2 point
+                + ((int)location.getDonations().stream().filter(donation ->
+                //1 point per relevant donation
                 donation.getDescShort().toLowerCase().contains(lower) ||
                         donation.getDescLong().toLowerCase().contains(lower) ||
-                        donation.getComments().map(str -> str.toLowerCase().contains(lower)).orElse(false)).count());
+                        donation.getComments().map(str -> str.toLowerCase().contains(
+                                lower)).orElse(false)).count());
     }
 }

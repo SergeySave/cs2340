@@ -19,15 +19,58 @@ public class Donation implements Serializable {
     private String comments;
     private String pictureId;
 
-    public Donation(String id, OffsetDateTime timestamp, String locationId, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory) {
-        this(id, timestamp, locationId, descShort, descLong, value, donationCategory, null, null);
+    /**
+     * Creates a donation without the comments and picture
+     *
+     * @param id donation id
+     * @param timestamp donation timestamp
+     * @param locationId donation location
+     * @param descShort donation short description
+     * @param descLong donation long description
+     * @param value donation value
+     * @param donationCategory donation category
+     */
+    public Donation(String id, OffsetDateTime timestamp, String locationId, String descShort,
+                    String descLong, BigDecimal value, DonationCategory donationCategory) {
+        this(id, timestamp, locationId, descShort, descLong, value, donationCategory,
+                null, null);
     }
 
-    public Donation(String id, OffsetDateTime timestamp, String locationId, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory, String comments) {
-        this(id, timestamp, locationId, descShort, descLong, value, donationCategory, comments, null);
+    /**
+     * Creates a donation without the picture
+     *
+     * @param id donation id
+     * @param timestamp donation timestamp
+     * @param locationId donation location
+     * @param descShort donation short description
+     * @param descLong donation long description
+     * @param value donation value
+     * @param donationCategory donation category
+     * @param comments donation comments
+     */
+    public Donation(String id, OffsetDateTime timestamp, String locationId, String descShort,
+                    String descLong, BigDecimal value, DonationCategory donationCategory,
+                    String comments) {
+        this(id, timestamp, locationId, descShort, descLong, value,
+                donationCategory, comments, null);
     }
 
-    public Donation(String id, OffsetDateTime timestamp, String locationId, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory, String comments, String pictureId) {
+    /**
+     * Creates a new donation
+     *
+     * @param id donation id
+     * @param timestamp donation timestamp
+     * @param locationId donation location
+     * @param descShort donation short description
+     * @param descLong donation long description
+     * @param value donation value
+     * @param donationCategory donation category
+     * @param comments donation comments
+     * @param pictureId donation picture
+     */
+    public Donation(String id, OffsetDateTime timestamp, String locationId, String descShort,
+                    String descLong, BigDecimal value, DonationCategory donationCategory,
+                    String comments, String pictureId) {
         this.id = id;
         this.timestamp = timestamp;
         this.locationId = locationId;
@@ -39,10 +82,20 @@ public class Donation implements Serializable {
         this.pictureId = pictureId;
     }
 
+    /**
+     * Gets the donation ID
+     *
+     * @return donation ID
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Gets the donation time
+     *
+     * @return donation time stamp
+     */
     public OffsetDateTime getTimestamp() {
         return timestamp;
     }
@@ -53,6 +106,11 @@ public class Donation implements Serializable {
 //    }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
+    /**
+     * Gets the location ID of the donation
+     *
+     * @return donation's location
+     */
     public String getLocationId() {
         return locationId;
     }
@@ -63,6 +121,11 @@ public class Donation implements Serializable {
 //    }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
+    /**
+     * Gets the donation's short description
+     *
+     * @return the donation's short description
+     */
     public String getDescShort() {
         return descShort;
     }
@@ -73,6 +136,11 @@ public class Donation implements Serializable {
 //    }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
+    /**
+     * Gets the donation's long description
+     *
+     * @return the donation's long description
+     */
     public String getDescLong() {
         return descLong;
     }
@@ -83,6 +151,11 @@ public class Donation implements Serializable {
 //    }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
+    /**
+     * Gets the donation's value
+     *
+     * @return the donation's value
+     */
     public BigDecimal getValue() {
         return value;
     }
@@ -93,6 +166,11 @@ public class Donation implements Serializable {
 //    }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
+    /**
+     * Gets the donation category
+     *
+     * @return the donation category
+     */
     public DonationCategory getDonationCategory() {
         return donationCategory;
     }
@@ -103,6 +181,11 @@ public class Donation implements Serializable {
 //    }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
+    /**
+     * Gets the donation comments
+     *
+     * @return the donation comments
+     */
     public Optional<String> getComments() {
         return Optional.ofNullable(comments);
     }
@@ -113,6 +196,11 @@ public class Donation implements Serializable {
 //    }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
+    /**
+     * Gets the donation's picture
+     *
+     * @return the donation's picture
+     */
     public Optional<String> getPictureId() {
         return Optional.ofNullable(pictureId);
     }
@@ -145,7 +233,8 @@ public class Donation implements Serializable {
     @Override
     public int hashCode() {
 
-        return Objects.hash(timestamp, locationId, descShort, descLong, value, donationCategory, comments, pictureId);
+        return Objects.hash(timestamp, locationId, descShort, descLong, value, donationCategory,
+                comments, pictureId);
     }
 
     @Override

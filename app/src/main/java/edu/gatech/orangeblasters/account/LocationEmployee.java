@@ -1,9 +1,10 @@
 package edu.gatech.orangeblasters.account;
 
 public class LocationEmployee extends Account {
-    private String locationId;
+    private final String locationId;
 
-    public LocationEmployee(String id, String name, String email, String password, AccountState accountState, String locationId) {
+    public LocationEmployee(String id, String name, String email, String password,
+                            AccountState accountState, String locationId) {
         super(id, name, email, password, accountState);
         this.locationId = locationId;
     }

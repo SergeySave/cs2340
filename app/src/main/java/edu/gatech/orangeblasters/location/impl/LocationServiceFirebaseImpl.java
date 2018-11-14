@@ -35,6 +35,12 @@ public class LocationServiceFirebaseImpl implements LocationService {
     private final MutableLiveData<List<String>> idList = new MutableLiveData<>();
 
     private final Random random = new Random();
+
+    /**
+     * Creates an ID for the location
+     *
+     * @return the location's ID
+     */
     private String createId() {
         return random.ints(4).mapToObj(Integer::toHexString).collect(Collectors.joining());
     }

@@ -1,3 +1,5 @@
+// Sergey Savelyev's JUnit
+
 package edu.gatech.orangeblasters;
 
 import org.junit.Test;

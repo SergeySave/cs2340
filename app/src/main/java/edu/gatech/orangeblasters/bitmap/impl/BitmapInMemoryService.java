@@ -17,6 +17,11 @@ public class BitmapInMemoryService implements BitmapService {
     private final Map<String, Bitmap> bitmaps = new HashMap<>();
     private final Random random = new Random();
 
+    /**
+     * Creates the id
+     *
+     * @return a string of the id
+     */
     private String createId() {
         return random.ints(4).mapToObj(Integer::toHexString).collect(Collectors.joining());
     }

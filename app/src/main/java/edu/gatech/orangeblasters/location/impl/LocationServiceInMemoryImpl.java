@@ -32,6 +32,12 @@ public class LocationServiceInMemoryImpl implements LocationService {
         return random.ints(4).mapToObj(Integer::toHexString).collect(Collectors.joining());
     }
 
+    /**
+     * Imports the CSV into a format that we can use to handle
+     * the location details
+     *
+     * @param inputCSV the CSV to import
+     */
     public LocationServiceInMemoryImpl(InputStream inputCSV) {
         Thread locationInitializationThread = new Thread(() -> {
             try(Scanner scan = new Scanner(inputCSV)) {
@@ -46,19 +52,20 @@ public class LocationServiceInMemoryImpl implements LocationService {
                 int typeIndex = header.indexOf("type");
                 int longIndex = header.indexOf("longitude");
                 int latIndex = header.indexOf("latitude");
-                int addrIndex = header.indexOf("street address");
+                int addressIndex = header.indexOf("street address");
                 int pNumIndex = header.indexOf("phone");
 
                 if (nameIndex == -1 || typeIndex == -1 || longIndex == -1
-                        || latIndex == -1 || addrIndex == -1 || pNumIndex == -1) {
+                        || latIndex == -1 || addressIndex == -1 || pNumIndex == -1) {
                     throw new RuntimeException("Location Data Missing Header Information");
                 }
 
                 //This is a map of location type names to location types
                 //This is done here to allow O(1) conversion from name to type
-                //The location types are all lowercased to facilitate better matching
+                //The location types are all lower cased to facilitate better matching
                 Map<String, LocationType> typeMap = Arrays.stream(LocationType.values())
-                        .collect(Collectors.toMap(((Function<LocationType, String>)LocationType::getFullName)
+                        .collect(Collectors.toMap(((Function<LocationType, String>)
+                                LocationType::getFullName)
                                 .andThen(String::toLowerCase), Function.identity()));
 
                 while (scan.hasNextLine()) {
@@ -71,9 +78,11 @@ public class LocationServiceInMemoryImpl implements LocationService {
                     }
                     try {
                         String id = entry[idIndex];
-                        Location newLocation = new Location(createId(), entry[nameIndex], typeMap.get(typeString),
-                                Double.parseDouble(entry[longIndex]), Double.parseDouble(entry[latIndex]),
-                                entry[addrIndex], entry[pNumIndex]);
+                        Location newLocation = new Location(createId(),
+                                entry[nameIndex], typeMap.get(typeString),
+                                Double.parseDouble(entry[longIndex]),
+                                Double.parseDouble(entry[latIndex]),
+                                entry[addressIndex], entry[pNumIndex]);
                         locations.put(id, newLocation);
                     } catch (NumberFormatException e) {
                         Log.e("Location Initialization", "Location " + entry[nameIndex] +
@@ -111,8 +120,10 @@ public class LocationServiceInMemoryImpl implements LocationService {
     }
 
     @Override
-    public Location addLocation(String name, LocationType type, double longitude, double latitude, String address, String phoneNumber) {
-        Location location = new Location(createId(), name, type, longitude, latitude, address, phoneNumber);
+    public Location addLocation(String name, LocationType type, double longitude,
+                                double latitude, String address, String phoneNumber) {
+        Location location = new Location(createId(), name, type, longitude, latitude,
+                address, phoneNumber);
         locations.put(location.getId(), location);
         return location;
     }
