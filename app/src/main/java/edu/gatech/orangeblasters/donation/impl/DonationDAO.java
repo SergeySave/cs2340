@@ -11,20 +11,21 @@ import edu.gatech.orangeblasters.donation.DonationCategory;
 public class DonationDAO {
     public String id;
 
-    public long timestamp;
+    private long timestamp;
     public String locationId;
-    public String descShort;
-    public String descLong;
-    public String value;
-    public DonationCategory donationCategory;
-    public String comments;
-    public String pictureId;
+    private String descShort;
+    private String descLong;
+    private String value;
+    private DonationCategory donationCategory;
+    private String comments;
+    private String pictureId;
 
 
     public static DonationDAO fromDonation(Donation donation) {
         DonationDAO donationDAO = new DonationDAO();
         donationDAO.id = donation.getId();
-        donationDAO.timestamp = donation.getTimestamp().atZoneSameInstant(ZoneId.of("UTC")).toEpochSecond();
+        donationDAO.timestamp = donation.getTimestamp().atZoneSameInstant(
+                ZoneId.of("UTC")).toEpochSecond();
         donationDAO.locationId = donation.getLocationId();
         donationDAO.descShort = donation.getDescShort();
         donationDAO.descLong = donation.getDescLong();
@@ -36,7 +37,9 @@ public class DonationDAO {
     }
 
     public Donation toDonation() {
-        return new Donation(id, ZonedDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.of("UTC")).toOffsetDateTime(), locationId, descShort, descLong, new BigDecimal(value), donationCategory, comments, pictureId);
+        return new Donation(id, ZonedDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.of(
+                "UTC")).toOffsetDateTime(), locationId, descShort, descLong, new BigDecimal(
+                        value), donationCategory, comments, pictureId);
     }
 
 }

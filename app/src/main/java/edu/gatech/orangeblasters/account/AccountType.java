@@ -9,7 +9,7 @@ public enum AccountType {
     /**
      * 2 letter abbreviation of class standing
      */
-    private String userType;
+    private final String userType;
 
     /**
      * Constructor for the enumeration

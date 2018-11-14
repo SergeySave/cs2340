@@ -71,7 +71,8 @@ public class LocationServiceInMemoryImpl implements LocationService {
                     }
                     try {
                         String id = entry[idIndex];
-                        Location newLocation = new Location(createId(), entry[nameIndex], typeMap.get(typeString),
+                        Location newLocation = new Location(createId(),
+                                entry[nameIndex], typeMap.get(typeString),
                                 Double.parseDouble(entry[longIndex]), Double.parseDouble(entry[latIndex]),
                                 entry[addrIndex], entry[pNumIndex]);
                         locations.put(id, newLocation);
@@ -111,7 +112,8 @@ public class LocationServiceInMemoryImpl implements LocationService {
     }
 
     @Override
-    public Location addLocation(String name, LocationType type, double longitude, double latitude, String address, String phoneNumber) {
+    public Location addLocation(String name, LocationType type, double longitude,
+                                double latitude, String address, String phoneNumber) {
         Location location = new Location(createId(), name, type, longitude, latitude, address, phoneNumber);
         locations.put(location.getId(), location);
         return location;

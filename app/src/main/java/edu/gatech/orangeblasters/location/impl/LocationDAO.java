@@ -12,13 +12,13 @@ import edu.gatech.orangeblasters.location.LocationType;
 public class LocationDAO {
     public String id;
 
-    public String name;
-    public LocationType type;
-    public double longitude;
-    public double latitude;
-    public String address;
-    public String phoneNumber;
-    public List<String> donations;
+    private String name;
+    private LocationType type;
+    private double longitude;
+    private double latitude;
+    private String address;
+    private String phoneNumber;
+    private List<String> donations;
 
     public static LocationDAO fromLocation(Location location) {
         LocationDAO locationDAO = new LocationDAO();

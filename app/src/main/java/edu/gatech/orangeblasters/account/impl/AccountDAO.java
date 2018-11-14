@@ -11,14 +11,14 @@ import edu.gatech.orangeblasters.account.Manager;
 import edu.gatech.orangeblasters.account.User;
 
 public class AccountDAO implements Serializable {
-    public String id;
+    private String id;
 
-    public AccountType accountType;
-    public String name;
+    private AccountType accountType;
+    private String name;
     public String password;
-    public String email;
-    public AccountState accountState;
-    public String locationId;
+    private String email;
+    private AccountState accountState;
+    private String locationId;
 
     public static AccountDAO fromUser(User user) {
         AccountDAO acc = new AccountDAO();
