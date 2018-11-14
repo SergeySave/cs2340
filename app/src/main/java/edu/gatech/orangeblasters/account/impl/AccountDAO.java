@@ -20,6 +20,12 @@ public class AccountDAO implements Serializable {
     private AccountState accountState;
     private String locationId;
 
+    /**
+     * Creates a user with the given information
+     *
+     * @param user the user to be created
+     * @return the user in AccountDAO format
+     */
     public static AccountDAO fromUser(User user) {
         AccountDAO acc = new AccountDAO();
         acc.init(user);
@@ -27,6 +33,12 @@ public class AccountDAO implements Serializable {
         return acc;
     }
 
+    /**
+     * Creates a admin with the given information
+     *
+     * @param admin the user to be created
+     * @return the user in AccountDAO format
+     */
     public static AccountDAO fromAdmin(Admin admin) {
         AccountDAO acc = new AccountDAO();
         acc.init(admin);
@@ -34,6 +46,12 @@ public class AccountDAO implements Serializable {
         return acc;
     }
 
+    /**
+     * Creates a manager with the given information
+     *
+     * @param manager the user to be created
+     * @return the user in AccountDAO format
+     */
     public static AccountDAO fromManager(Manager manager) {
         AccountDAO acc = new AccountDAO();
         acc.init(manager);
@@ -41,6 +59,12 @@ public class AccountDAO implements Serializable {
         return acc;
     }
 
+    /**
+     * Creates a location employee with the given information
+     *
+     * @param locationEmployee the user to be created
+     * @return the user in AccountDAO format
+     */
     public static AccountDAO fromLocationEmployee(LocationEmployee locationEmployee) {
         AccountDAO acc = new AccountDAO();
         acc.init(locationEmployee);
@@ -49,6 +73,11 @@ public class AccountDAO implements Serializable {
         return acc;
     }
 
+    /**
+     * Initialized the account
+     *
+     * @param account the account to be initialized
+     */
     private void init(Account account) {
         this.id = account.getId();
         this.name = account.getName();
@@ -57,6 +86,11 @@ public class AccountDAO implements Serializable {
         this.accountState = account.getAccountState();
     }
 
+    /**
+     * Makes it in the account format
+     *
+     * @return the Account of in correct format
+     */
     public Account toAccount() {
         Account account = null;
         switch (accountType) {
