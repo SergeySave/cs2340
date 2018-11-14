@@ -8,17 +8,91 @@ import java.time.ZonedDateTime;
 import edu.gatech.orangeblasters.donation.Donation;
 import edu.gatech.orangeblasters.donation.DonationCategory;
 
+//All getter and setter methods are used by firebase
+@SuppressWarnings("unused")
 public class DonationDAO {
-    public String id;
+    private String id;
 
     private long timestamp;
-    public String locationId;
+    private String locationId;
     private String descShort;
     private String descLong;
     private String value;
     private DonationCategory donationCategory;
     private String comments;
     private String pictureId;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(String locationId) {
+        this.locationId = locationId;
+    }
+
+    public String getDescShort() {
+        return descShort;
+    }
+
+    public void setDescShort(String descShort) {
+        this.descShort = descShort;
+    }
+
+    public String getDescLong() {
+        return descLong;
+    }
+
+    public void setDescLong(String descLong) {
+        this.descLong = descLong;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public DonationCategory getDonationCategory() {
+        return donationCategory;
+    }
+
+    public void setDonationCategory(DonationCategory donationCategory) {
+        this.donationCategory = donationCategory;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public String getPictureId() {
+        return pictureId;
+    }
+
+    public void setPictureId(String pictureId) {
+        this.pictureId = pictureId;
+    }
 
     /**
      * Gets the donation's details in DAO format

@@ -44,10 +44,14 @@ public class OrangeBlastersApplication extends Application {
         return instance;
     }
 
+    private static void setInstance(OrangeBlastersApplication instance) {
+        OrangeBlastersApplication.instance = instance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
-        instance = this;
+        setInstance(this);
         FirebaseApp.initializeApp(this);
 
         accountService = new AccountServiceFirebaseImpl();

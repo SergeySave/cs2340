@@ -75,7 +75,7 @@ public class AccountServiceFirebaseImpl implements AccountService {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         AccountDAO accountDAO = dataSnapshot.getValue(AccountDAO.class);
 
-                        if (accountDAO != null && accountDAO.password.equals(password)) {
+                        if (accountDAO != null && accountDAO.getPassword().equals(password)) {
                             callback.onComplete(Optional.ofNullable(accountDAO.toAccount()));
                         } else {
                             callback.onComplete(Optional.empty());

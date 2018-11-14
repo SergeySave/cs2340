@@ -141,7 +141,12 @@ public class DonationListActivity extends AppCompatActivity {
 
     private void initializeList() {
         donationFilteredList.setFilterText("");
-        donationFilteredList.setDataSource(() -> donationService.getDonations());
+        if (locationId == null) {
+            donationFilteredList.setDataSource(() -> donationService.getDonations());
+        } else {
+            donationFilteredList.setDataSource(() -> donationService.getDonations()
+                    .filter(don -> don.getLocationId().equals(locationId)));
+        }
     }
 
     public class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.DonationViewHolder> {

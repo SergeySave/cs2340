@@ -51,7 +51,7 @@ public class LocationServiceFirebaseImpl implements LocationService {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 LocationDAO locationDAO = dataSnapshot.getValue(LocationDAO.class);
                 if (locationDAO != null) {
-                    locations.put(locationDAO.id, locationDAO.toLocation());
+                    locations.put(locationDAO.getId(), locationDAO.toLocation());
                     idList.postValue(new ArrayList<>(locations.keySet()));
                 }
             }
@@ -60,7 +60,7 @@ public class LocationServiceFirebaseImpl implements LocationService {
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 LocationDAO locationDAO = dataSnapshot.getValue(LocationDAO.class);
                 if (locationDAO != null) {
-                    locations.put(locationDAO.id, locationDAO.toLocation());
+                    locations.put(locationDAO.getId(), locationDAO.toLocation());
                     idList.postValue(new ArrayList<>(locations.keySet()));
                 }
             }
@@ -69,7 +69,7 @@ public class LocationServiceFirebaseImpl implements LocationService {
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 LocationDAO locationDAO = dataSnapshot.getValue(LocationDAO.class);
                 if (locationDAO != null) {
-                    locations.remove(locationDAO.id);
+                    locations.remove(locationDAO.getId());
                     idList.postValue(new ArrayList<>(locations.keySet()));
                 }
 

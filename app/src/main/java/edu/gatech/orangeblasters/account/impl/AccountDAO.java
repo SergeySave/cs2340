@@ -10,15 +10,73 @@ import edu.gatech.orangeblasters.account.LocationEmployee;
 import edu.gatech.orangeblasters.account.Manager;
 import edu.gatech.orangeblasters.account.User;
 
+//All getter and setters used by firebase
+@SuppressWarnings("unused")
 public class AccountDAO implements Serializable {
-    private String id;
 
+    private String id;
     private AccountType accountType;
     private String name;
-    public String password;
+    private String password;
     private String email;
     private AccountState accountState;
     private String locationId;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public AccountState getAccountState() {
+        return accountState;
+    }
+
+    public void setAccountState(AccountState accountState) {
+        this.accountState = accountState;
+    }
+
+    public String getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(String locationId) {
+        this.locationId = locationId;
+    }
 
     /**
      * Creates a user with the given information

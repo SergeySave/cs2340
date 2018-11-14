@@ -49,7 +49,7 @@ public class DonationServiceFirebaseImpl implements DonationService {
                 DonationDAO donationDAO = dataSnapshot.getValue(DonationDAO.class);
                 if (donationDAO != null) {
                     Donation value = donationDAO.toDonation();
-                    donations.put(donationDAO.id, value);
+                    donations.put(donationDAO.getId(), value);
                     getLocation(value)
                             .ifPresent( dons -> dons.add(value));
                 }
@@ -60,7 +60,7 @@ public class DonationServiceFirebaseImpl implements DonationService {
                 DonationDAO donationDAO = dataSnapshot.getValue(DonationDAO.class);
                 if (donationDAO != null) {
                     Donation value = donationDAO.toDonation();
-                    donations.put(donationDAO.id, value);
+                    donations.put(donationDAO.getId(), value);
                     getLocation(value)
                             .ifPresent( dons -> dons.add(value));
                 }
@@ -70,14 +70,14 @@ public class DonationServiceFirebaseImpl implements DonationService {
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 DonationDAO donationDAO = dataSnapshot.getValue(DonationDAO.class);
                 if (donationDAO != null) {
-                    donations.remove(donationDAO.id);
+                    donations.remove(donationDAO.getId());
                     getLocation(donationDAO)
-                            .ifPresent( dons -> dons.removeIf(don -> don.getId().equals(donationDAO.id)));
+                            .ifPresent( dons -> dons.removeIf(don -> don.getId().equals(donationDAO.getId())));
                 }
             }
 
             private Optional<List<Donation>> getLocation(DonationDAO donationDAO) {
-                return locationService.getLocation(donationDAO.locationId).map(Location::getDonations);
+                return locationService.getLocation(donationDAO.getLocationId()).map(Location::getDonations);
             }
 
             private Optional<List<Donation>> getLocation(Donation value) {
