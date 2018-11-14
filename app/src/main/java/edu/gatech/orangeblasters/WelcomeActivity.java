@@ -42,7 +42,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
         //Set up the Register form
         Button register = findViewById(R.id.register);
-        register.setOnClickListener(v -> startActivity(new Intent(WelcomeActivity.this, RegisterActivity.class)));
+        register.setOnClickListener(v -> startActivity(new Intent(WelcomeActivity.this,
+                RegisterActivity.class)));
     }
 
     /**
@@ -62,7 +63,8 @@ public class WelcomeActivity extends AppCompatActivity {
                         intent.putExtra(OrangeBlastersApplication.PARAM_USER_ID, account.getId());
                         startActivity(intent);
                     } else {
-                        Snackbar my_Snack = Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.invalid_user_pass, Snackbar.LENGTH_SHORT);
+                        Snackbar my_Snack = Snackbar.make(findViewById(R.id.myCoordinatorLayout),
+                                R.string.invalid_user_pass, Snackbar.LENGTH_SHORT);
                         my_Snack.show();
                     }
                 }));

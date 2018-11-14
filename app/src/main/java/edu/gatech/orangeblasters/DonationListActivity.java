@@ -38,7 +38,8 @@ public class DonationListActivity extends AppCompatActivity {
 
     private DonationFilteredList donationFilteredList;
     private String locationId;
-    private OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+    private OrangeBlastersApplication orangeBlastersApplication =
+            OrangeBlastersApplication.getInstance();
     private DonationService donationService = orangeBlastersApplication.getDonationService();
 
     @Override
@@ -53,8 +54,10 @@ public class DonationListActivity extends AppCompatActivity {
 
         Button mAddDonationButton = findViewById(R.id.addDonation);
         mAddDonationButton.setVisibility(View.INVISIBLE);
-        OrangeBlastersApplication.getInstance().getAccountService().getAccount(userId, account -> account.ifPresent(acc -> {
-            if (acc instanceof LocationEmployee && ((LocationEmployee)acc).getLocation().equals(locationId)) {
+        OrangeBlastersApplication.getInstance().getAccountService().getAccount(userId,
+                account -> account.ifPresent(acc -> {
+            if (acc instanceof LocationEmployee && ((LocationEmployee)acc)
+                    .getLocation().equals(locationId)) {
                 mAddDonationButton.setVisibility(View.VISIBLE);
                 mAddDonationButton.setOnClickListener(view -> addingDonation());
             }
@@ -73,7 +76,8 @@ public class DonationListActivity extends AppCompatActivity {
 
         adapter = new DonationAdapter();
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
+        DividerItemDecoration dividerItemDecoration =
+                new DividerItemDecoration(mRecyclerView.getContext(),
                 mLayoutManager.getOrientation());
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 
@@ -116,7 +120,8 @@ public class DonationListActivity extends AppCompatActivity {
         donationFilteredList.setFilterText("");
         donationFilteredList.setDataSource(() -> donationService.getDonations());
 
-        OrangeBlastersApplication.getInstance().getLocationService().getLiveIDList().observe(this, (list) -> {
+        OrangeBlastersApplication.getInstance().getLocationService().getLiveIDList()
+                .observe(this, (list) -> {
             //When the id list changes
             donationFilteredList.setDataSource(() -> donationService.getDonations());
         });
@@ -215,17 +220,24 @@ public class DonationListActivity extends AppCompatActivity {
 
         if (resultCode == RESULT_OK && null != data) {
             String bitmapId = data.getStringExtra(AddDonationActivity.RETURN_IMAGE);
-            String shortDesc = (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_SHORT);
-            String longDesc = (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_LONG);
+            String shortDesc =
+                    (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_SHORT);
+            String longDesc =
+                    (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_LONG);
             String price = (String) data.getSerializableExtra(AddDonationActivity.RETURN_PRICE);
-            DonationCategory category = (DonationCategory) data.getSerializableExtra(AddDonationActivity.RETURN_CATEGORY);
-            String comments = (String) data.getSerializableExtra(AddDonationActivity.RETURN_COMMENTS);
-            OffsetDateTime dateTime = (OffsetDateTime) data.getSerializableExtra(AddDonationActivity.RETURN_TIME);
+            DonationCategory category = (DonationCategory) data.getSerializableExtra
+                    (AddDonationActivity.RETURN_CATEGORY);
+            String comments =
+                    (String) data.getSerializableExtra(AddDonationActivity.RETURN_COMMENTS);
+            OffsetDateTime dateTime =
+                    (OffsetDateTime) data.getSerializableExtra(AddDonationActivity.RETURN_TIME);
 
             Donation donation = OrangeBlastersApplication.getInstance().getDonationService()
-                    .createDonation(dateTime, locationId, shortDesc, longDesc, new BigDecimal(price), category, comments, bitmapId);
+                    .createDonation(dateTime, locationId, shortDesc, longDesc,
+                            new BigDecimal(price), category, comments, bitmapId);
 
-            OrangeBlastersApplication.getInstance().getLocationService().getLocation(locationId).ifPresent(location -> {
+            OrangeBlastersApplication.getInstance().getLocationService().
+                    getLocation(locationId).ifPresent(location -> {
                 location.getDonations().add(donation);
                 OrangeBlastersApplication.getInstance().getLocationService().update(location);
             });

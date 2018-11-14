@@ -43,7 +43,8 @@ public class LocationListActivity extends AppCompatActivity {
 
         LocationAdapter adapter = new LocationAdapter();
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
+        DividerItemDecoration dividerItemDecoration =
+                new DividerItemDecoration(mRecyclerView.getContext(),
                 mLayoutManager.getOrientation());
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 
@@ -75,6 +76,9 @@ public class LocationListActivity extends AppCompatActivity {
                 update();
             }
 
+            /**
+             * method to test for empty location list
+             */
             private void update() {
                 if (adapter.getSortedList().size() == 0) {
                     notFound.setVisibility(View.VISIBLE);
@@ -86,11 +90,14 @@ public class LocationListActivity extends AppCompatActivity {
         });
 
         locationFilteredList.setFilterText("");
-        locationFilteredList.setDataSource(() -> OrangeBlastersApplication.getInstance().getLocationService().getLocations());
+        locationFilteredList.setDataSource(() -> OrangeBlastersApplication.getInstance().
+                getLocationService().getLocations());
 
-        OrangeBlastersApplication.getInstance().getLocationService().getLiveIDList().observe(this, (list) -> {
+        OrangeBlastersApplication.getInstance().getLocationService().getLiveIDList().
+                observe(this, (list) -> {
             //When the ID list changes update the list
-            locationFilteredList.setDataSource(() -> OrangeBlastersApplication.getInstance().getLocationService().getLocations());
+            locationFilteredList.setDataSource(() -> OrangeBlastersApplication.getInstance().
+                    getLocationService().getLocations());
         });
 
         mRecyclerView.setAdapter(adapter);
@@ -110,6 +117,9 @@ public class LocationListActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * method to set all the displays for location
+     */
     public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationViewHolder> {
 
         private SortedList<Location> getSortedList() {
@@ -135,11 +145,18 @@ public class LocationListActivity extends AppCompatActivity {
             return getSortedList().size();
         }
 
+        /**
+         * class to hold view of the location
+         */
         public class LocationViewHolder extends RecyclerView.ViewHolder {
             private final TextView textView;
             private Location location;
 
-            LocationViewHolder(View v) {
+            /**
+             * method to hold view of location
+             * @param v represents view
+             */
+            public LocationViewHolder(View v) {
                 super(v);
                 // Define click listener for the ViewHolder's View.
                 v.setOnClickListener(v1 -> {
@@ -157,6 +174,10 @@ public class LocationListActivity extends AppCompatActivity {
 //            }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
+            /**
+             * method to set text on screen
+             * @param item the item to add to the location list
+             */
             public void bind(Location item) {
                 location = item;
                 textView.setText(item.getName());
