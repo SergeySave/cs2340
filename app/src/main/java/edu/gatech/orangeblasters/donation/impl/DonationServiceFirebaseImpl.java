@@ -70,8 +70,8 @@ public class DonationServiceFirebaseImpl implements DonationService {
                     donations.remove(donationDAO.id);
                     OrangeBlastersApplication.getInstance().getLocationService().getLocation(
                             donationDAO.locationId)
-                            .ifPresent( loc -> loc.getDonations().removeIf(don -> don.getId().equals(
-                                    donationDAO.id)));
+                            .ifPresent( loc -> loc.getDonations().removeIf(don -> don.getId()
+                                    .equals(donationDAO.id)));
                 }
             }
 
@@ -94,9 +94,14 @@ public class DonationServiceFirebaseImpl implements DonationService {
     }
 
     @Override
-    public Donation createDonation(OffsetDateTime timestamp, String locationId, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory, String comments, String pictureId) {
-        Donation donation = new Donation(createId(), timestamp, locationId, descShort, descLong, value, donationCategory, comments, pictureId);
-        databaseReference.child(IDS).child(donation.getId()).setValue(DonationDAO.fromDonation(donation));
+    public Donation createDonation(OffsetDateTime timestamp, String locationId, String descShort,
+                                   String descLong, BigDecimal value,
+                                   DonationCategory donationCategory,
+                                   String comments, String pictureId) {
+        Donation donation = new Donation(createId(), timestamp, locationId, descShort,
+                descLong, value, donationCategory, comments, pictureId);
+        databaseReference.child(IDS).child(donation.getId())
+                .setValue(DonationDAO.fromDonation(donation));
         return donation;
     }
 }

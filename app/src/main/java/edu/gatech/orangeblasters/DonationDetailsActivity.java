@@ -17,7 +17,8 @@ public class DonationDetailsActivity extends AppCompatActivity {
 
     public static final String EXTRA_DONATION = "DONATION";
 
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm-MM/dd/yyyy");
+    private static final DateTimeFormatter dateTimeFormatter =
+            DateTimeFormatter.ofPattern("HH:mm-MM/dd/yyyy");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,8 @@ public class DonationDetailsActivity extends AppCompatActivity {
 
 //        Donation donation = ((Donation) getIntent().getSerializableExtra(EXTRA_DONATION));
         String donationId = getIntent().getStringExtra(EXTRA_DONATION);
-        Donation donation = OrangeBlastersApplication.getInstance().getDonationService().getDonation(donationId).orElse(null);
+        Donation donation = OrangeBlastersApplication.getInstance().getDonationService().
+                getDonation(donationId).orElse(null);
         if (donation == null || donation.getLocationId() == null) {
             finish();
         }
@@ -62,7 +64,8 @@ public class DonationDetailsActivity extends AppCompatActivity {
         donLongDes.setText(donation.getDescLong());
         Optional<String> pictureId = donation.getPictureId();
         image.setVisibility(View.INVISIBLE);
-        pictureId.ifPresent(s -> OrangeBlastersApplication.getInstance().getBitmapService().getBitmap(s, bitmap -> bitmap.ifPresent(bm -> {
+        pictureId.ifPresent(s -> OrangeBlastersApplication.getInstance().getBitmapService().
+                getBitmap(s, bitmap -> bitmap.ifPresent(bm -> {
             image.setImageBitmap(bm);
 
             image.setVisibility(View.VISIBLE);

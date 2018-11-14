@@ -58,7 +58,8 @@ public class LocationServiceInMemoryImpl implements LocationService {
                 //This is done here to allow O(1) conversion from name to type
                 //The location types are all lowercased to facilitate better matching
                 Map<String, LocationType> typeMap = Arrays.stream(LocationType.values())
-                        .collect(Collectors.toMap(((Function<LocationType, String>)LocationType::getFullName)
+                        .collect(Collectors.toMap(((Function<LocationType, String>)
+                                LocationType::getFullName)
                                 .andThen(String::toLowerCase), Function.identity()));
 
                 while (scan.hasNextLine()) {
@@ -73,7 +74,8 @@ public class LocationServiceInMemoryImpl implements LocationService {
                         String id = entry[idIndex];
                         Location newLocation = new Location(createId(),
                                 entry[nameIndex], typeMap.get(typeString),
-                                Double.parseDouble(entry[longIndex]), Double.parseDouble(entry[latIndex]),
+                                Double.parseDouble(entry[longIndex]),
+                                Double.parseDouble(entry[latIndex]),
                                 entry[addrIndex], entry[pNumIndex]);
                         locations.put(id, newLocation);
                     } catch (NumberFormatException e) {
@@ -114,7 +116,8 @@ public class LocationServiceInMemoryImpl implements LocationService {
     @Override
     public Location addLocation(String name, LocationType type, double longitude,
                                 double latitude, String address, String phoneNumber) {
-        Location location = new Location(createId(), name, type, longitude, latitude, address, phoneNumber);
+        Location location = new Location(createId(), name, type, longitude, latitude,
+                address, phoneNumber);
         locations.put(location.getId(), location);
         return location;
     }

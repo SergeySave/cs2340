@@ -43,7 +43,8 @@ public class LocationListActivity extends AppCompatActivity {
 
         LocationAdapter adapter = new LocationAdapter();
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
+        DividerItemDecoration dividerItemDecoration =
+                new DividerItemDecoration(mRecyclerView.getContext(),
                 mLayoutManager.getOrientation());
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 
@@ -86,11 +87,14 @@ public class LocationListActivity extends AppCompatActivity {
         });
 
         locationFilteredList.setFilterText("");
-        locationFilteredList.setDataSource(() -> OrangeBlastersApplication.getInstance().getLocationService().getLocations());
+        locationFilteredList.setDataSource(() -> OrangeBlastersApplication.getInstance().
+                getLocationService().getLocations());
 
-        OrangeBlastersApplication.getInstance().getLocationService().getLiveIDList().observe(this, (list) -> {
+        OrangeBlastersApplication.getInstance().getLocationService().getLiveIDList().
+                observe(this, (list) -> {
             //When the ID list changes update the list
-            locationFilteredList.setDataSource(() -> OrangeBlastersApplication.getInstance().getLocationService().getLocations());
+            locationFilteredList.setDataSource(() -> OrangeBlastersApplication.getInstance().
+                    getLocationService().getLocations());
         });
 
         mRecyclerView.setAdapter(adapter);

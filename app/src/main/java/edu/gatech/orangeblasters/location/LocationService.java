@@ -15,5 +15,6 @@ public interface LocationService {
 
     //While this method is currently unused it maybe be used in the future
     @SuppressWarnings("unused")
-    Location addLocation(String name, LocationType type, double longitude, double latitude, String address, String phoneNumber);
+    Location addLocation(String name, LocationType type, double longitude, double latitude,
+                         String address, String phoneNumber);
 }
