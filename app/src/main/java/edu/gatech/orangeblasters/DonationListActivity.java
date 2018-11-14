@@ -40,9 +40,9 @@ public class DonationListActivity extends AppCompatActivity {
 
     private DonationFilteredList donationFilteredList;
     private String locationId;
-    private LocationService locationService = orangeBlastersApplication.getLocationService();
     private OrangeBlastersApplication orangeBlastersApplication =
             OrangeBlastersApplication.getInstance();
+    private LocationService locationService = orangeBlastersApplication.getLocationService();
     private DonationService donationService = orangeBlastersApplication.getDonationService();
 
     @Override
