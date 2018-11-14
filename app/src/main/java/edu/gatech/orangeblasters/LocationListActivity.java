@@ -139,7 +139,7 @@ public class LocationListActivity extends AppCompatActivity {
             private final TextView textView;
             private Location location;
 
-            public LocationViewHolder(View v) {
+            LocationViewHolder(View v) {
                 super(v);
                 // Define click listener for the ViewHolder's View.
                 v.setOnClickListener(v1 -> {

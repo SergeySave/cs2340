@@ -19,15 +19,22 @@ public class Donation implements Serializable {
     private String comments;
     private String pictureId;
 
-    public Donation(String id, OffsetDateTime timestamp, String locationId, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory) {
-        this(id, timestamp, locationId, descShort, descLong, value, donationCategory, null, null);
+    public Donation(String id, OffsetDateTime timestamp, String locationId, String descShort,
+                    String descLong, BigDecimal value, DonationCategory donationCategory) {
+        this(id, timestamp, locationId, descShort, descLong, value, donationCategory,
+                null, null);
     }
 
-    public Donation(String id, OffsetDateTime timestamp, String locationId, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory, String comments) {
-        this(id, timestamp, locationId, descShort, descLong, value, donationCategory, comments, null);
+    public Donation(String id, OffsetDateTime timestamp, String locationId, String descShort,
+                    String descLong, BigDecimal value, DonationCategory donationCategory,
+                    String comments) {
+        this(id, timestamp, locationId, descShort, descLong, value,
+                donationCategory, comments, null);
     }
 
-    public Donation(String id, OffsetDateTime timestamp, String locationId, String descShort, String descLong, BigDecimal value, DonationCategory donationCategory, String comments, String pictureId) {
+    public Donation(String id, OffsetDateTime timestamp, String locationId, String descShort,
+                    String descLong, BigDecimal value, DonationCategory donationCategory,
+                    String comments, String pictureId) {
         this.id = id;
         this.timestamp = timestamp;
         this.locationId = locationId;
@@ -145,7 +152,8 @@ public class Donation implements Serializable {
     @Override
     public int hashCode() {
 
-        return Objects.hash(timestamp, locationId, descShort, descLong, value, donationCategory, comments, pictureId);
+        return Objects.hash(timestamp, locationId, descShort, descLong, value, donationCategory,
+                comments, pictureId);
     }
 
     @Override
