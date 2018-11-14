@@ -17,16 +17,29 @@ public class FilteredList<T> {
     private String filterText;
     private SortedList<T> sortedList;
 
+    /**
+     * Sets the source of the data that will be used
+     *
+     * @param dataSource the source to get the data from
+     */
     public void setDataSource(Supplier<Stream<T>> dataSource) {
         this.dataSource = dataSource;
         update();
     }
 
+    /**
+     * Sets the filter text
+     *
+     * @param filterText the text to be filtered
+     */
     public void setFilterText(String filterText) {
         this.filterText = filterText;
         update();
     }
 
+    /**
+     * Updates teh list
+     */
     public void update() {
         sortedList.beginBatchedUpdates();
         sortedList.clear();
@@ -38,6 +51,11 @@ public class FilteredList<T> {
         sortedList.endBatchedUpdates();
     }
 
+    /**
+     * Gets the sorted list
+     *
+     * @return the sorted list
+     */
     public SortedList<T> getSortedList() {
         return sortedList;
     }

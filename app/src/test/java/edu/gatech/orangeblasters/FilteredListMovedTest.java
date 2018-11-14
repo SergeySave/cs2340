@@ -2,59 +2,52 @@
 
 package edu.gatech.orangeblasters;
 
+import android.support.v7.util.ListUpdateCallback;
+
 import org.junit.Test;
 
 import java.util.stream.Stream;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
 
 public class FilteredListMovedTest {
     //Tests that the update method works as expected for the filtered list
     @Test
     public void testMoved() {
+        int counter[] = new int[1];
         FilteredList<String> list = new FilteredList<>(String.class,
                 (query, string) -> query == null || string.contains(query) ? 1 : 0,
                 String::compareTo, String::equals, null);
 
-        //List exists
-        assertNotNull(list.getSortedList());
-        //List empty
-        assertEquals(0, list.getSortedList().size());
+        FilteredList<String> list2 = new FilteredList<>(String.class,
+                (query, string) -> query == null || string.contains(query) ? 1 : 0,
+                String::compareTo, String::equals, new ListUpdateCallback() {
+            @Override
+            public void onInserted(int position, int count) {
+                counter[0] += count;
+            }
 
-        //Force an item in
-        list.getSortedList().add("ITEM");
-        //Make the list represent the data source
-        list.update();
+            @Override
+            public void onRemoved(int position, int count) {
 
-        //List exists
-        assertNotNull(list.getSortedList());
-        //List empty
-        assertEquals(0, list.getSortedList().size());
+            }
 
-        //Search while dataSource is null
-        list.setFilterText("filter");
+            @Override
+            public void onMoved(int fromPosition, int toPosition) {
 
-        //List exists
-        assertNotNull(list.getSortedList());
-        //List empty
-        assertEquals(0, list.getSortedList().size());
+            }
 
-        //Empty dataSource
-        list.setDataSource(Stream::empty);
+            @Override
+            public void onChanged(int position, int count, Object payload) {
 
-        //List exists
-        assertNotNull(list.getSortedList());
-        //List empty
-        assertEquals(0, list.getSortedList().size());
+            }
+        });
+
 
         list.setDataSource(() -> Stream.of("filter_2", "notFilter_1", "filter_1", "notFilter_2"));
+        list2.setDataSource(() -> Stream.of("filter_2", "notFilter_1", "filter_1", "notFilter_2"));
 
-        //List exists
-        assertNotNull(list.getSortedList());
         //List empty
-        assertEquals(2, list.getSortedList().size());
-        assertEquals("filter_1", list.getSortedList().get(0));
-        assertEquals("filter_2", list.getSortedList().get(1));
+        assertEquals(4, counter[0]);
     }
 }

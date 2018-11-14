@@ -11,7 +11,7 @@ public abstract class Account implements Serializable {
     private String email;
     private AccountState accountState;
 
-    public Account(String id, String name, String email, String password, AccountState accountState) {
+    Account(String id, String name, String email, String password, AccountState accountState) {
         this.id = id;
         this.name = name;
         this.password = password;

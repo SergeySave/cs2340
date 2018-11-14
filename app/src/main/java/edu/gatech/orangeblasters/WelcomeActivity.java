@@ -45,6 +45,9 @@ public class WelcomeActivity extends AppCompatActivity {
         register.setOnClickListener(v -> startActivity(new Intent(WelcomeActivity.this, RegisterActivity.class)));
     }
 
+    /**
+     * Checks to see if the user can log in by validating credentials
+     */
     private void attemptLogin() {
         final String userStr = mUserNameView.getText().toString();
         final String passStr = mPasswordView.getText().toString();

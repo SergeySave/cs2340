@@ -22,7 +22,9 @@ public class LocationDetailsActivity extends AppCompatActivity {
         String userId = getIntent().getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
 
         String locId = getIntent().getStringExtra(EXTRA_LOCATION_ID);
-        Optional<Location> optionalLocation = OrangeBlastersApplication.getInstance().getLocationService().getLocation(locId);
+        Optional<Location> optionalLocation = OrangeBlastersApplication.getInstance(
+
+        ).getLocationService().getLocation(locId);
         if (!optionalLocation.isPresent()) {
             finish();
         } else {

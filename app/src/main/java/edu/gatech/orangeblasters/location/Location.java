@@ -10,12 +10,12 @@ public class Location {
 
     private final String id;
 
-    private String name;
-    private LocationType type;
-    private double longitude;
-    private double latitude;
-    private String address;
-    private String phoneNumber;
+    private final String name;
+    private final LocationType type;
+    private final double longitude;
+    private final double latitude;
+    private final String address;
+    private final String phoneNumber;
     private final List<Donation> donations = new ArrayList<>();
     private String website;
 

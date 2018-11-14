@@ -44,7 +44,9 @@ public class DonationServiceFirebaseImpl implements DonationService {
                 if (donationDAO != null) {
                     Donation value = donationDAO.toDonation();
                     donations.put(donationDAO.id, value);
-                    OrangeBlastersApplication.getInstance().getLocationService().getLocation(value.getLocationId())
+                    OrangeBlastersApplication.getInstance(
+
+                    ).getLocationService().getLocation(value.getLocationId())
                             .ifPresent( loc -> loc.getDonations().add(value));
                 }
             }
@@ -55,7 +57,8 @@ public class DonationServiceFirebaseImpl implements DonationService {
                 if (donationDAO != null) {
                     Donation value = donationDAO.toDonation();
                     donations.put(donationDAO.id, value);
-                    OrangeBlastersApplication.getInstance().getLocationService().getLocation(value.getLocationId())
+                    OrangeBlastersApplication.getInstance().getLocationService().getLocation(
+                            value.getLocationId())
                             .ifPresent( loc -> loc.getDonations().add(value));
                 }
             }
@@ -65,8 +68,10 @@ public class DonationServiceFirebaseImpl implements DonationService {
                 DonationDAO donationDAO = dataSnapshot.getValue(DonationDAO.class);
                 if (donationDAO != null) {
                     donations.remove(donationDAO.id);
-                    OrangeBlastersApplication.getInstance().getLocationService().getLocation(donationDAO.locationId)
-                            .ifPresent( loc -> loc.getDonations().removeIf(don -> don.getId().equals(donationDAO.id)));
+                    OrangeBlastersApplication.getInstance().getLocationService().getLocation(
+                            donationDAO.locationId)
+                            .ifPresent( loc -> loc.getDonations().removeIf(don -> don.getId().equals(
+                                    donationDAO.id)));
                 }
             }
 

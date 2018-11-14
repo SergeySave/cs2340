@@ -140,6 +140,11 @@ public class DonationListActivity extends AppCompatActivity {
 
     public class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.DonationViewHolder> {
 
+        /**
+         * Gets the sorted list
+         *
+         * @return the sorted list
+         */
         private SortedList<Donation> getSortedList() {
             return donationFilteredList.getSortedList();
         }
@@ -183,6 +188,11 @@ public class DonationListActivity extends AppCompatActivity {
 //            }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
+            /**
+             * Binds the item to the donation
+             *
+             * @param item the item to bind
+             */
             public void bind(Donation item) {
                 donation = item;
                 textView.setText(item.getDescShort());
@@ -190,6 +200,10 @@ public class DonationListActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Adds the donation to the activity
+     *
+     */
     private void addingDonation() {
         Intent intent = new Intent(this, AddDonationActivity.class);
         startActivityForResult(intent, RESULT_ADD_DONATION);

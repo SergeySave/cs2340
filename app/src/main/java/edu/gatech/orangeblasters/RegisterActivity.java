@@ -45,7 +45,8 @@ public class RegisterActivity extends AppCompatActivity  {
 
         //set up the spinner
         userSpinner = findViewById(R.id.userType);
-        ArrayAdapter<AccountType> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, AccountType.values());
+        ArrayAdapter<AccountType> adapter = new ArrayAdapter<>
+                (this,android.R.layout.simple_spinner_item, AccountType.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userSpinner.setAdapter(adapter);
         userSpinner.setSelection(adapter.getPosition(AccountType.USER)); //User is default
@@ -69,9 +70,11 @@ public class RegisterActivity extends AppCompatActivity  {
 
         location = findViewById(R.id.location);
 
-        List<Location> names = OrangeBlastersApplication.getInstance().getLocationService().getLocations().collect(Collectors.toList());
+        List<Location> names = OrangeBlastersApplication.getInstance().
+                getLocationService().getLocations().collect(Collectors.toList());
 
-        ArrayAdapter<Location> adapter2 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, names);
+        ArrayAdapter<Location> adapter2 = new ArrayAdapter<>
+                (this,android.R.layout.simple_spinner_item, names);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         location.setAdapter(adapter2);
 
@@ -92,17 +95,22 @@ public class RegisterActivity extends AppCompatActivity  {
 
     }
 
+    /**
+     * Creates an account with the given information
+     */
     private void attemptCreateAccount() {
         String email = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         if (!email.matches("[^@]+@[^@]+\\.[^@.]+")) {
-            Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.error_invalid_email, Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.error_invalid_email,
+                    Snackbar.LENGTH_SHORT).show();
             return;
         }
 
         if (password.length() < 4) {
-            Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.error_invalid_password, Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.error_invalid_password,
+                    Snackbar.LENGTH_SHORT).show();
             return;
         }
 
@@ -125,7 +133,8 @@ public class RegisterActivity extends AppCompatActivity  {
             case EMPLOYEE:
                 Location selectedItem = (Location) location.getSelectedItem();
 
-                accountService.createLocationEmployee(email, email, password, selectedItem.getId(), accountCreationCallback);
+                accountService.createLocationEmployee(email, email, password, selectedItem.getId(),
+                        accountCreationCallback);
                 break;
         }
     }
