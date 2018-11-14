@@ -95,6 +95,9 @@ public class RegisterActivity extends AppCompatActivity  {
 
     }
 
+    /**
+     * Creates an account with the given information
+     */
     private void attemptCreateAccount() {
         String email = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
