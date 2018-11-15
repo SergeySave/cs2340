@@ -50,6 +50,7 @@ public class DonationListActivity extends AppCompatActivity {
             OrangeBlastersApplication.getInstance();
     private final LocationService locationService = orangeBlastersApplication.getLocationService();
     private final DonationService donationService = orangeBlastersApplication.getDonationService();
+    private final AccountService accountService = orangeBlastersApplication.getAccountService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +65,6 @@ public class DonationListActivity extends AppCompatActivity {
 
         Button mAddDonationButton = findViewById(R.id.addDonation);
         mAddDonationButton.setVisibility(View.INVISIBLE);
-        OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
-        AccountService accountService = orangeBlastersApplication.getAccountService();
         accountService.getAccount(userId,
                 account -> account.ifPresent(acc -> {
             if (acc.getType() == AccountType.EMPLOYEE) {
@@ -260,8 +259,6 @@ public class DonationListActivity extends AppCompatActivity {
             OffsetDateTime dateTime =
                     (OffsetDateTime) data.getSerializableExtra(AddDonationActivity.RETURN_TIME);
 
-            OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
-            DonationService donationService = orangeBlastersApplication.getDonationService();
             Donation donation = donationService.createDonation(dateTime, locationId, shortDesc, longDesc,
                             new BigDecimal(price), category, comments, bitmapId);
 

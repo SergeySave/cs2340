@@ -49,9 +49,11 @@ public class DonationFilteredList extends FilteredList<Donation> {
         Optional<String> comments = donation.getComments();
         Optional<String> lowerComments = comments.map(String::toLowerCase);
         Optional<Integer> lowerCommentInt = lowerComments.map(s -> s.contains(lower) ? 1 : 0);
+
         OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
         LocationService locationService = orangeBlastersApplication.getLocationService();
         Optional<Location> location = locationService.getLocation(donation.getLocationId());
+
         Optional<String> locName = location.map(Location::getName);
         Optional<String> locLowerName = locName.map(String::toLowerCase);
         Optional<Integer> locPoint = locLowerName.map(s -> s.contains(lower) ? 1 : 0);

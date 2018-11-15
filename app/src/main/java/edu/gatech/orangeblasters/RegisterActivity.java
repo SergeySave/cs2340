@@ -34,6 +34,10 @@ public class RegisterActivity extends AppCompatActivity  {
     private Spinner userSpinner;
     private Spinner location;
 
+    private final OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+    private final LocationService locationService = orangeBlastersApplication.getLocationService();
+    private final AccountService accountService = orangeBlastersApplication.getAccountService();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,8 +77,6 @@ public class RegisterActivity extends AppCompatActivity  {
 
         location = findViewById(R.id.location);
 
-        OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
-        LocationService locationService = orangeBlastersApplication.getLocationService();
         Stream<Location> locations = locationService.getLocations();
         List<Location> names = locations.collect(Collectors.toList());
 
@@ -128,8 +130,6 @@ public class RegisterActivity extends AppCompatActivity  {
         if (selectedItem != null) {
             selectedId = selectedItem.getId();
         }
-        OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
-        AccountService accountService = orangeBlastersApplication.getAccountService();
         //finish will be called if an account is created
         //if not nothing will happen (this maybe should be fixed)
         AccountCallback<Account> accountCreationCallback = result -> result.ifPresent(__->finish());

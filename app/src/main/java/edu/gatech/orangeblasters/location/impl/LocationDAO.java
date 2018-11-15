@@ -25,6 +25,9 @@ public class LocationDAO {
     private String phoneNumber;
     private List<String> donations;
 
+    private final transient OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+    private final transient DonationService donationService = orangeBlastersApplication.getDonationService();
+
     public String getId() {
         return id;
     }
@@ -121,8 +124,6 @@ public class LocationDAO {
         //location.getDonations()
         if (donations != null) {
             Stream<String> stream = donations.stream();
-            OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
-            DonationService donationService = orangeBlastersApplication.getDonationService();
             Stream<Optional<Donation>> optionalStream = stream.map(donationService::getDonation);
             Stream<Donation> donationStream = optionalStream
                     .map(op -> op.orElse(null));

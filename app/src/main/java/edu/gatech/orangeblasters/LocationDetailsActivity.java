@@ -16,6 +16,9 @@ public class LocationDetailsActivity extends AppCompatActivity {
 
     public static final String EXTRA_LOCATION_ID = "LOCATION_ID";
 
+    private final OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+    private final LocationService locationService = orangeBlastersApplication.getLocationService();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,8 +28,6 @@ public class LocationDetailsActivity extends AppCompatActivity {
         String userId = origIntent.getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
 
         String locId = origIntent.getStringExtra(EXTRA_LOCATION_ID);
-        OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
-        LocationService locationService = orangeBlastersApplication.getLocationService();
         Optional<Location> optionalLocation = locationService.getLocation(locId);
         if (!optionalLocation.isPresent()) {
             finish();

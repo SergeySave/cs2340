@@ -21,6 +21,9 @@ public class WelcomeActivity extends AppCompatActivity {
     private EditText mUserNameView;
     private EditText mPasswordView;
 
+    private final OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+    private final AccountService accountService = orangeBlastersApplication.getAccountService();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +61,6 @@ public class WelcomeActivity extends AppCompatActivity {
         final String passStr = mPasswordViewText.toString();
 
         //Try logging in
-        OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
-        AccountService accountService = orangeBlastersApplication.getAccountService();
         accountService.tryLogin(userStr, passStr, (optionalAccount -> {
                     //When the login attempt is processed
                     if (optionalAccount.isPresent()) {

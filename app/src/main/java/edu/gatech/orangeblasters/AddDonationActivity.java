@@ -50,8 +50,10 @@ public class AddDonationActivity extends AppCompatActivity {
             DateTimeFormatter.ofPattern("MM/dd/yyyy");
     private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
-    @Override
+    private final OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+    private final BitmapService bitmapService = orangeBlastersApplication.getBitmapService();
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_donation);
@@ -114,8 +116,6 @@ public class AddDonationActivity extends AppCompatActivity {
         Intent data = new Intent();
 
         if (bitmap != null) {
-            OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
-            BitmapService bitmapService = orangeBlastersApplication.getBitmapService();
             String id = bitmapService.addBitmap(bitmap);
             data.putExtra(RETURN_IMAGE, id);
         } else {

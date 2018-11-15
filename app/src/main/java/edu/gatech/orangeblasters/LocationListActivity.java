@@ -30,7 +30,8 @@ public class LocationListActivity extends AppCompatActivity {
 
     private LocationFilteredList locationFilteredList;
     private String userId;
-    private LocationService locationService;
+    private final OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+    private final LocationService locationService = orangeBlastersApplication.getLocationService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +39,6 @@ public class LocationListActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         userId = intent.getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
-        OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
-        locationService = orangeBlastersApplication.getLocationService();
 
         setContentView(R.layout.activity_location_list);
         RecyclerView mRecyclerView = findViewById(R.id.location_recycler);
