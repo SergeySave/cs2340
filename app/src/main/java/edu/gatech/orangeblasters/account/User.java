@@ -1,5 +1,8 @@
 package edu.gatech.orangeblasters.account;
 
+import java.util.Objects;
+
+
 /**
  * Represents a User Account
  */
@@ -12,6 +15,7 @@ public class User extends Account {
      * @param email the user's email
      * @param password the user's password
      * @param accountState the user's state
+     *
      */
     public User(String id, String name, String email, String password, AccountState accountState) {
         super(id, name, email, password, accountState);
@@ -21,4 +25,6 @@ public class User extends Account {
     public AccountType getType() {
         return AccountType.USER;
     }
+
+
 }
