@@ -21,4 +21,6 @@ public class Admin extends Account {
     public AccountType getType() {
         return AccountType.ADMIN;
     }
+
+
 }

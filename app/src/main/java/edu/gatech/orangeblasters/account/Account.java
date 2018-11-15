@@ -1,6 +1,7 @@
 package edu.gatech.orangeblasters.account;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Represents an account
@@ -29,6 +30,20 @@ public abstract class Account implements Serializable {
         this.password = password;
         this.email = email;
         this.accountState = accountState;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if ((o == null) || (getClass() != o.getClass())) {
+            return false;
+        }
+        Account account = (Account) o;
+        return Objects.equals(id, account.id) && Objects.equals(email, account.email) &&
+                Objects.equals(password, account.password)
+                && (accountState == account.accountState);
     }
 
     /**
