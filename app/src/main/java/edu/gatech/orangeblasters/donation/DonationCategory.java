@@ -1,5 +1,8 @@
 package edu.gatech.orangeblasters.donation;
 
+/**
+ * Represents a donation type
+ */
 public enum DonationCategory {
 
     CLOTHING("Clothing"),
@@ -15,6 +18,11 @@ public enum DonationCategory {
         this.fullName = fullName;
     }
 
+    /**
+     * Get the full name of this donation type
+     *
+     * @return the full name
+     */
     public String getFullName() {
         return fullName;
     }

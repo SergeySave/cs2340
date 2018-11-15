@@ -23,6 +23,9 @@ import java.time.format.DateTimeFormatter;
 import edu.gatech.orangeblasters.bitmap.BitmapService;
 import edu.gatech.orangeblasters.donation.DonationCategory;
 
+/**
+ * Represents the screen to add an activity
+ */
 public class AddDonationActivity extends AppCompatActivity {
     //private Button uploadButton;
     private EditText donationComments;

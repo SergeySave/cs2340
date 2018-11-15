@@ -18,6 +18,9 @@ import edu.gatech.orangeblasters.account.LocationEmployee;
 import edu.gatech.orangeblasters.account.Manager;
 import edu.gatech.orangeblasters.account.User;
 
+/**
+ * Represents a storage of accounts in memory
+ */
 @Deprecated
 public class AccountServiceInMemoryImpl implements AccountService {
 

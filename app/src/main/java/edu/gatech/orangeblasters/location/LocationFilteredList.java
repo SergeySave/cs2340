@@ -11,6 +11,9 @@ import java.util.stream.Stream;
 import edu.gatech.orangeblasters.FilteredList;
 import edu.gatech.orangeblasters.donation.Donation;
 
+/**
+ * Represents a filtered list for locations
+ */
 public class LocationFilteredList extends FilteredList<Location> {
 
     private static final int POINTS_SAME_NAME = 20;
@@ -18,10 +21,21 @@ public class LocationFilteredList extends FilteredList<Location> {
     private static final int POINTS_TYPE = 2;
     private static final int POINTS_ADDRESS = 2;
 
+    /**
+     * Create a new filtered list
+     *
+     * @param listUpdater the update callback
+     */
     public LocationFilteredList(ListUpdateCallback listUpdater) {
         this(LocationFilteredList::relevanceFunction, listUpdater);
     }
 
+    /**
+     * Create a new filtered list
+     *
+     * @param relevanceFunction a function determining the relevance of a given input and query
+     * @param listUpdater the update callback
+     */
     private LocationFilteredList(BiFunction<String, Location, Integer> relevanceFunction,
                                  ListUpdateCallback listUpdater) {
         super(Location.class, relevanceFunction,

@@ -19,6 +19,9 @@ import java.util.stream.Stream;
 import edu.gatech.orangeblasters.location.Location;
 import edu.gatech.orangeblasters.location.LocationService;
 
+/**
+ * Represents a screen the map
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback  {
 
     private static final LatLng ATLANTA = new LatLng(33.748997, -84.387985);

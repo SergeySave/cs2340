@@ -1,6 +1,9 @@
 package edu.gatech.orangeblasters.account;
 
+/**
+ * Represents the state of an account
+ */
 public enum AccountState {
-    // --Commented out by Inspection (11/7/18, 2:37 PM):LOCKED,
+    LOCKED, //Unused in the code, but required by the sheet
     NORMAL
 }

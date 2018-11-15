@@ -9,6 +9,11 @@ import java.util.function.BiPredicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+/**
+ * Represents a filtered list
+ *
+ * @param <T> the type of the list
+ */
 public class FilteredList<T> {
 
     private Supplier<Stream<T>> dataSource;
@@ -60,6 +65,15 @@ public class FilteredList<T> {
         return sortedList;
     }
 
+    /**
+     * Create a new filtered list
+     *
+     * @param clazz the class of the stored type
+     * @param relevanceFunction a function that determines relevance
+     * @param comparator a comparison function for items
+     * @param equivalence an equivalence function for items
+     * @param listUpdater a callback for when the list is updated
+     */
     public FilteredList(Class<T> clazz, BiFunction<String, T, Integer> relevanceFunction,
                         Comparator<T> comparator, BiPredicate<T, T> equivalence,
                         ListUpdateCallback listUpdater) {

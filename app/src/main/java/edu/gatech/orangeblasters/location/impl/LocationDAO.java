@@ -15,6 +15,9 @@ import edu.gatech.orangeblasters.location.Location;
 import edu.gatech.orangeblasters.location.LocationType;
 
 //All getter and setter methods used by firebase
+/**
+ * Represents a location in firebase
+ */
 @SuppressWarnings("unused")
 public class LocationDAO {
     private String id;
@@ -32,66 +35,146 @@ public class LocationDAO {
     private final transient DonationService donationService =
             orangeBlastersApplication.getDonationService();
 
+    /**
+     * Get the id
+     *
+     * @return the id
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Set the id
+     *
+     * @param id the id
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Get the name
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Set the name
+     *
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Get the type
+     *
+     * @return the type
+     */
     public LocationType getType() {
         return type;
     }
 
+    /**
+     * Set the type
+     *
+     * @param type the type
+     */
     public void setType(LocationType type) {
         this.type = type;
     }
 
+    /**
+     * Get the longitude
+     *
+     * @return the longitude
+     */
     public double getLongitude() {
         return longitude;
     }
 
+    /**
+     * Set the longitude
+     *
+     * @param longitude the longitude
+     */
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
+    /**
+     * Get the latitude
+     *
+     * @return the latitude
+     */
     public double getLatitude() {
         return latitude;
     }
 
+    /**
+     * Set the latitude
+     *
+     * @param latitude the latitude
+     */
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
+    /**
+     * Get the address
+     *
+     * @return the address
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Set the address
+     *
+     * @param address the address
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     * Get the phone number
+     *
+     * @return the phone number
+     */
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
+    /**
+     * Set the phone number
+     *
+     * @param phoneNumber the phone number
+     */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     * Get the donations
+     *
+     * @return the donations
+     */
     public List<String> getDonations() {
         return Collections.unmodifiableList(donations);
     }
 
+    /**
+     * Set the donations
+     *
+     * @param donations the donation
+     */
     public void setDonations(Collection<String> donations) {
         this.donations.clear();
         this.donations.addAll(donations);

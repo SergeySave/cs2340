@@ -13,6 +13,9 @@ import java.util.stream.Stream;
 import edu.gatech.orangeblasters.bitmap.BitmapCallback;
 import edu.gatech.orangeblasters.bitmap.BitmapService;
 
+/**
+ * Represents in memory bitmap storage
+ */
 @Deprecated
 public class BitmapInMemoryService implements BitmapService {
 

@@ -7,6 +7,9 @@ import java.util.Objects;
 
 import edu.gatech.orangeblasters.donation.Donation;
 
+/**
+ * Represents a location in the system
+ */
 public class Location {
 
     private final String id;

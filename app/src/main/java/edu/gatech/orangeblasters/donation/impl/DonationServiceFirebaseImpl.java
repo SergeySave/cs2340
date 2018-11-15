@@ -25,6 +25,9 @@ import edu.gatech.orangeblasters.donation.DonationService;
 import edu.gatech.orangeblasters.location.Location;
 import edu.gatech.orangeblasters.location.LocationService;
 
+/**
+ * Represents a storage of donations in firebase
+ */
 public class DonationServiceFirebaseImpl implements DonationService {
 
     private static final String DONATIONS = "donations";
@@ -46,6 +49,9 @@ public class DonationServiceFirebaseImpl implements DonationService {
         return hexs.collect(Collectors.joining());
     }
 
+    /**
+     * Create a new DonationServiceFirebaseImpl
+     */
     public DonationServiceFirebaseImpl() {
         DatabaseReference ids = databaseReference.child(IDS);
         ids.addChildEventListener(new ChildEventListener() {

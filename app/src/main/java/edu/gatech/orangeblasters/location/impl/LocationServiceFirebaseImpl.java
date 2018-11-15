@@ -24,6 +24,9 @@ import edu.gatech.orangeblasters.location.Location;
 import edu.gatech.orangeblasters.location.LocationService;
 import edu.gatech.orangeblasters.location.LocationType;
 
+/**
+ * Represents a storage of locations in firebase
+ */
 public class LocationServiceFirebaseImpl implements LocationService {
 
     private static final String LOCATIONS = "locations";
@@ -49,6 +52,9 @@ public class LocationServiceFirebaseImpl implements LocationService {
         return hexs.collect(Collectors.joining());
     }
 
+    /**
+     * Create a new LocationServiceFirebaseImpl
+     */
     public LocationServiceFirebaseImpl() {
         DatabaseReference ids = databaseReference.child(IDS);
         ids.addChildEventListener(new ChildEventListener() {

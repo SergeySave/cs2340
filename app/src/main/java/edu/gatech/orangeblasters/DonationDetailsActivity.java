@@ -18,6 +18,9 @@ import edu.gatech.orangeblasters.donation.DonationService;
 import edu.gatech.orangeblasters.location.Location;
 import edu.gatech.orangeblasters.location.LocationService;
 
+/**
+ * Represents the details screen for donation
+ */
 public class DonationDetailsActivity extends AppCompatActivity {
 
     public static final String EXTRA_DONATION = "DONATION";

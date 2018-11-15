@@ -25,6 +25,9 @@ import edu.gatech.orangeblasters.account.LocationEmployee;
 import edu.gatech.orangeblasters.account.Manager;
 import edu.gatech.orangeblasters.account.User;
 
+/**
+ * Represents a storage of accounts in firebase
+ */
 public class AccountServiceFirebaseImpl implements AccountService {
 
     private static final String USERS = "users";

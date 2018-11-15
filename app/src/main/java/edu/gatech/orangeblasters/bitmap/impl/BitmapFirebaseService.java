@@ -20,6 +20,9 @@ import java.util.stream.Stream;
 import edu.gatech.orangeblasters.bitmap.BitmapCallback;
 import edu.gatech.orangeblasters.bitmap.BitmapService;
 
+/**
+ * Represents a storage of bitmaps in firebase
+ */
 public class BitmapFirebaseService implements BitmapService {
 
     private static final String BITMAPS = "bitmaps";

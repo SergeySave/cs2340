@@ -11,6 +11,9 @@ import edu.gatech.orangeblasters.OrangeBlastersApplication;
 import edu.gatech.orangeblasters.location.Location;
 import edu.gatech.orangeblasters.location.LocationService;
 
+/**
+ * Represents a filtered list for donations
+ */
 public class DonationFilteredList extends FilteredList<Donation> {
 
     private static final int POINTS_SAME_NAME = 20;
@@ -18,10 +21,21 @@ public class DonationFilteredList extends FilteredList<Donation> {
     private static final int POINTS_SIMILAR_DESC = 2;
     private static final int POINTS_CATEGORY = 3;
 
+    /**
+     * Create a new filtered list
+     *
+     * @param listUpdater the update callback
+     */
     public DonationFilteredList(ListUpdateCallback listUpdater) {
         this(DonationFilteredList::relevanceFunction, listUpdater);
     }
 
+    /**
+     * Create a new filtered list
+     *
+     * @param relevanceFunction a function determining the relevance of a given input and query
+     * @param listUpdater the update callback
+     */
     private DonationFilteredList(BiFunction<String, Donation, Integer> relevanceFunction,
                                  ListUpdateCallback listUpdater) {
         super(Donation.class, relevanceFunction,

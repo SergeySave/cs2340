@@ -12,6 +12,9 @@ import edu.gatech.orangeblasters.location.Location;
 import edu.gatech.orangeblasters.location.LocationService;
 import edu.gatech.orangeblasters.location.LocationType;
 
+/**
+ * Displays the details for a location
+ */
 public class LocationDetailsActivity extends AppCompatActivity {
 
     public static final String EXTRA_LOCATION_ID = "LOCATION_ID";

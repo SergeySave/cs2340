@@ -1,5 +1,8 @@
 package edu.gatech.orangeblasters.account;
 
+/**
+ * Represents an account type
+ */
 public enum AccountType {
     ADMIN("Admin"),
     MANAGER("Manager"),

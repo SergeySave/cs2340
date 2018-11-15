@@ -24,6 +24,9 @@ import edu.gatech.orangeblasters.location.Location;
 import edu.gatech.orangeblasters.location.LocationFilteredList;
 import edu.gatech.orangeblasters.location.LocationService;
 
+/**
+ * Displays a list of locations
+ */
 public class LocationListActivity extends AppCompatActivity {
 
     private TextView notFound;

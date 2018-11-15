@@ -6,6 +6,9 @@ import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Represents a Donation in the system
+ */
 public class Donation implements Serializable {
 
     private final String id;
