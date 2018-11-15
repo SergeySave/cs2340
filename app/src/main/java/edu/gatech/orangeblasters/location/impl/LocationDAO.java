@@ -1,7 +1,5 @@
 package edu.gatech.orangeblasters.location.impl;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -167,7 +165,7 @@ public class LocationDAO {
      * @return the donations
      */
     public List<String> getDonations() {
-        return Collections.unmodifiableList(donations);
+        return donations; //Encapsulation broken to work better with firebase
     }
 
     /**
@@ -175,9 +173,8 @@ public class LocationDAO {
      *
      * @param donations the donation
      */
-    public void setDonations(Collection<String> donations) {
-        this.donations.clear();
-        this.donations.addAll(donations);
+    public void setDonations(List<String> donations) {
+        this.donations = donations;
     }
 
     /**
@@ -217,10 +214,7 @@ public class LocationDAO {
                     .map(op -> op.orElse(null));
             Stream<Donation> donationStream1 = donationStream
                     .filter(Objects::nonNull);
-            donationStream1.forEach(don -> {
-                        List<Donation> donations = location.getDonations();
-                        donations.add(don);
-                    });
+            donationStream1.forEach(location::addDonation);
         }
         return location;
     }
