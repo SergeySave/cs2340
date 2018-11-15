@@ -24,7 +24,7 @@ public class BitmapFirebaseService implements BitmapService {
 
     private static final String BITMAPS = "bitmaps";
     private static final String IDS = "ids";
-    public static final int QUALITY = 75;
+    private static final int QUALITY = 75;
 
     private final Random random = new Random();
 

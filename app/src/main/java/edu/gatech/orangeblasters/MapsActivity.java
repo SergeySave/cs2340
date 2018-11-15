@@ -21,9 +21,9 @@ import edu.gatech.orangeblasters.location.LocationService;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback  {
 
-    public static final LatLng ATLANTA = new LatLng(33.748997, -84.387985);
-    public static final int ZOOM_LEVEL = 10;
-    public static final int ZOOM_TIME = 2000;
+    private static final LatLng ATLANTA = new LatLng(33.748997, -84.387985);
+    private static final int ZOOM_LEVEL = 10;
+    private static final int ZOOM_TIME = 2000;
 
     private final OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
     private final LocationService locationService = orangeBlastersApplication.getLocationService();

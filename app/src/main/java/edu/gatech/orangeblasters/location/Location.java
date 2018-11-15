@@ -17,7 +17,7 @@ public class Location {
     private final String address;
     private final String phoneNumber;
     private final List<Donation> donations = new ArrayList<>();
-    private String website;
+    //private String website;
 
     /**
      * Creates a new location with all the details

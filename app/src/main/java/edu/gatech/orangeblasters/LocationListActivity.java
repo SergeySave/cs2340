@@ -173,7 +173,7 @@ public class LocationListActivity extends AppCompatActivity {
              * method to hold view of location
              * @param v represents view
              */
-            public LocationViewHolder(View v) {
+            LocationViewHolder(View v) {
                 super(v);
                 // Define click listener for the ViewHolder's View.
                 v.setOnClickListener(v1 -> {
@@ -196,7 +196,7 @@ public class LocationListActivity extends AppCompatActivity {
              * method to set text on screen
              * @param item the item to add to the location list
              */
-            public void bind(Location item) {
+            void bind(Location item) {
                 location = item;
                 textView.setText(item.getName());
             }

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -75,17 +74,15 @@ public class AddDonationActivity extends AppCompatActivity {
         category.setAdapter(adapter);
         category.setSelection(0);
 
-        imageUpload.setOnClickListener(this::uploadImage);
+        imageUpload.setOnClickListener(v -> uploadImage());
         //uploadButton.setOnClickListener(this::uploadImage);
-        saveButton.setOnClickListener(this::returnDonation);
+        saveButton.setOnClickListener(v -> returnDonation());
     }
 
     /**
      * Uploads the Image
-     *
-     * @param v the view being passed in
      */
-    private void uploadImage(View v) {
+    private void uploadImage() {
         Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(i, RESULT_LOAD_IMAGE);
     }
@@ -109,10 +106,8 @@ public class AddDonationActivity extends AppCompatActivity {
 
     /**
      * Returns the donation
-     *
-     * @param v the View being passed in
      */
-    private void returnDonation(View v) {
+    private void returnDonation() {
         Intent data = new Intent();
 
         if (bitmap != null) {

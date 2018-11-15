@@ -13,16 +13,16 @@ import edu.gatech.orangeblasters.donation.Donation;
 
 public class LocationFilteredList extends FilteredList<Location> {
 
-    public static final int POINTS_SAME_NAME = 20;
-    public static final int POINTS_SIMILAR_NAME = 5;
-    public static final int POINTS_TYPE = 2;
-    public static final int POINTS_ADDRESS = 2;
+    private static final int POINTS_SAME_NAME = 20;
+    private static final int POINTS_SIMILAR_NAME = 5;
+    private static final int POINTS_TYPE = 2;
+    private static final int POINTS_ADDRESS = 2;
 
     public LocationFilteredList(ListUpdateCallback listUpdater) {
         this(LocationFilteredList::relevanceFunction, listUpdater);
     }
 
-    public LocationFilteredList(BiFunction<String, Location, Integer> relevanceFunction, ListUpdateCallback listUpdater) {
+    private LocationFilteredList(BiFunction<String, Location, Integer> relevanceFunction, ListUpdateCallback listUpdater) {
         super(Location.class, relevanceFunction,
                 Comparator.comparing(Location::getName),
                 (don1, don2) -> don1.getId().equals(don2.getId()),

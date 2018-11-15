@@ -202,7 +202,7 @@ public class DonationListActivity extends AppCompatActivity {
             private final TextView textView;
             private Donation donation;
 
-            public DonationViewHolder(View v) {
+            DonationViewHolder(View v) {
                 super(v);
                 // Define click listener for the ViewHolder's View.
                 v.setOnClickListener(v1 -> {
@@ -225,7 +225,7 @@ public class DonationListActivity extends AppCompatActivity {
              *
              * @param item the item to bind
              */
-            public void bind(Donation item) {
+            void bind(Donation item) {
                 donation = item;
                 textView.setText(item.getDescShort());
             }
