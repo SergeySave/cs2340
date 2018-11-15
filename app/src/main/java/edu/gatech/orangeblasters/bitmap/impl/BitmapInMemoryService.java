@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import edu.gatech.orangeblasters.bitmap.BitmapCallback;
 import edu.gatech.orangeblasters.bitmap.BitmapService;
@@ -23,7 +25,9 @@ public class BitmapInMemoryService implements BitmapService {
      * @return a string of the id
      */
     private String createId() {
-        return random.ints(4).mapToObj(Integer::toHexString).collect(Collectors.joining());
+        IntStream ints = random.ints(4);
+        Stream<String> hexs = ints.mapToObj(Integer::toHexString);
+        return hexs.collect(Collectors.joining());
     }
 
     @Override

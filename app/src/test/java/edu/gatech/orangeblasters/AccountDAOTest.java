@@ -1,19 +1,12 @@
 package edu.gatech.orangeblasters;
 // sandy xie J Unit
+
 import junit.framework.Assert;
 
-import org.junit.Test;
 import org.junit.Before;
+import org.junit.Test;
 
 import java.util.stream.Stream;
-
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 
 public class AccountDAOTest {
 
@@ -42,7 +35,7 @@ public class AccountDAOTest {
     @Test
     public void testUpdate() {
         FilteredList<String> list = new FilteredList<>(String.class,
-                (query, string) -> query == null || string.contains(query) ? 1 : 0,
+                (query, string) -> ((query == null) || string.contains(query)) ? 1 : 0,
                 String::compareTo, String::equals, null);
 
         //List exists

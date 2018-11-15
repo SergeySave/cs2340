@@ -7,6 +7,7 @@ import android.util.Log;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import edu.gatech.orangeblasters.location.Location;
@@ -29,7 +31,9 @@ public class LocationServiceInMemoryImpl implements LocationService {
     private final MutableLiveData<List<String>> idList = new MutableLiveData<>();
     private final Random random = new Random();
     private String createId() {
-        return random.ints(4).mapToObj(Integer::toHexString).collect(Collectors.joining());
+        IntStream intStream = random.ints(4);
+        Stream<String> hexStream = intStream.mapToObj(Integer::toHexString);
+        return hexStream.collect(Collectors.joining());
     }
 
     /**
@@ -43,8 +47,12 @@ public class LocationServiceInMemoryImpl implements LocationService {
             try(Scanner scan = new Scanner(inputCSV)) {
                 // A list is used here so I can then easily find the indexes
                 // the header names are first converted to lowercase to match better
-                List<String> header = Arrays.stream(scan.nextLine().substring(1).split(","))
-                        .map(String::toLowerCase)
+                String line = scan.nextLine();
+                String substring = line.substring(1);
+                Stream<String> stream = Arrays.stream(substring.split(","));
+                Stream<String> stringStream = stream
+                        .map(String::toLowerCase);
+                List<String> header = stringStream
                         .collect(Collectors.toList());
 
                 int idIndex = header.indexOf("key");
@@ -55,21 +63,23 @@ public class LocationServiceInMemoryImpl implements LocationService {
                 int addressIndex = header.indexOf("street address");
                 int pNumIndex = header.indexOf("phone");
 
-                if (nameIndex == -1 || typeIndex == -1 || longIndex == -1
-                        || latIndex == -1 || addressIndex == -1 || pNumIndex == -1) {
+                if ((nameIndex == -1) || (typeIndex == -1) || (longIndex == -1)
+                        || (latIndex == -1) || (addressIndex == -1) || (pNumIndex == -1)) {
                     throw new RuntimeException("Location Data Missing Header Information");
                 }
 
                 //This is a map of location type names to location types
                 //This is done here to allow O(1) conversion from name to type
                 //The location types are all lower cased to facilitate better matching
-                Map<String, LocationType> typeMap = Arrays.stream(LocationType.values())
+                Stream<LocationType> locationTypeStream = Arrays.stream(LocationType.values());
+                Map<String, LocationType> typeMap = locationTypeStream
                         .collect(Collectors.toMap(((Function<LocationType, String>)
                                 LocationType::getFullName)
                                 .andThen(String::toLowerCase), Function.identity()));
 
                 while (scan.hasNextLine()) {
-                    String[] entry = scan.nextLine().split(",");
+                    String nextLine = scan.nextLine();
+                    String[] entry = nextLine.split(",");
 
                     String typeString = entry[typeIndex].toLowerCase();
                     if (!typeMap.containsKey(typeString)) {
@@ -106,7 +116,8 @@ public class LocationServiceInMemoryImpl implements LocationService {
 
     @Override
     public Stream<Location> getLocations() {
-        return locations.values().stream();
+        Collection<Location> values = locations.values();
+        return values.stream();
     }
 
     @Override

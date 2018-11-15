@@ -13,6 +13,8 @@ import java.util.Base64;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import edu.gatech.orangeblasters.account.Account;
 import edu.gatech.orangeblasters.account.AccountCallback;
@@ -39,7 +41,9 @@ public class AccountServiceFirebaseImpl implements AccountService {
      * @return the account ID
      */
     private String createId() {
-        return random.ints(4).mapToObj(Integer::toHexString).collect(Collectors.joining());
+        IntStream ints = random.ints(4);
+        Stream<String> hexs = ints.mapToObj(Integer::toHexString);
+        return hexs.collect(Collectors.joining());
     }
 
     /**
@@ -49,7 +53,8 @@ public class AccountServiceFirebaseImpl implements AccountService {
      * @return the account in a 64 format
      */
     private String to64(String input) {
-        return Base64.getEncoder().encodeToString(input.getBytes(Charset.forName("UTF-8")));
+        Base64.Encoder encoder = Base64.getEncoder();
+        return encoder.encodeToString(input.getBytes(Charset.forName("UTF-8")));
     }
 
 // --Commented out by Inspection START (11/7/18, 2:37 PM):
@@ -60,7 +65,9 @@ public class AccountServiceFirebaseImpl implements AccountService {
 
     @Override
     public void tryLogin(String email, String password, AccountCallback<Account> callback) {
-        databaseReference.child(EMAILS).child(to64(email)).addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference emails = databaseReference.child(EMAILS);
+        DatabaseReference emailRef = emails.child(to64(email));
+        emailRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String userID = dataSnapshot.getValue(String.class);
@@ -70,13 +77,20 @@ public class AccountServiceFirebaseImpl implements AccountService {
                     return;
                 }
 
-                databaseReference.child(IDS).child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+                DatabaseReference ids = databaseReference.child(IDS);
+                DatabaseReference idRef = ids.child(userID);
+                idRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         AccountDAO accountDAO = dataSnapshot.getValue(AccountDAO.class);
 
-                        if (accountDAO != null && accountDAO.getPassword().equals(password)) {
-                            callback.onComplete(Optional.ofNullable(accountDAO.toAccount()));
+                        if (accountDAO != null) {
+                            String pass = accountDAO.getPassword();
+                            if (pass.equals(password)) {
+                                callback.onComplete(Optional.ofNullable(accountDAO.toAccount()));
+                            } else {
+                                callback.onComplete(Optional.empty());
+                            }
                         } else {
                             callback.onComplete(Optional.empty());
                         }
@@ -94,7 +108,9 @@ public class AccountServiceFirebaseImpl implements AccountService {
 
     @Override
     public void getAccount(String id, AccountCallback<Account> callback) {
-        databaseReference.child(IDS).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference ids = databaseReference.child(IDS);
+        DatabaseReference idRef = ids.child(id);
+        idRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 AccountDAO accountDAO = dataSnapshot.getValue(AccountDAO.class);
@@ -115,8 +131,12 @@ public class AccountServiceFirebaseImpl implements AccountService {
     public void createUser(String name, String email, String password, AccountCallback<? super User> callback) {
         User user = new User(createId(), name, email, password, AccountState.NORMAL);
 
-        databaseReference.child(EMAILS).child(to64(email)).setValue(user.getId());
-        databaseReference.child(IDS).child(user.getId()).setValue(AccountDAO.fromUser(user));
+        DatabaseReference emails = databaseReference.child(EMAILS);
+        DatabaseReference emailRef = emails.child(to64(email));
+        emailRef.setValue(user.getId());
+        DatabaseReference ids = databaseReference.child(IDS);
+        DatabaseReference idRef = ids.child(user.getId());
+        idRef.setValue(AccountDAO.fromUser(user));
 
         callback.onComplete(Optional.of(user));
     }
@@ -125,8 +145,12 @@ public class AccountServiceFirebaseImpl implements AccountService {
     public void createAdmin(String name, String email, String password, AccountCallback<? super Admin> callback) {
         Admin admin = new Admin(createId(), name, email, password, AccountState.NORMAL);
 
-        databaseReference.child(EMAILS).child(to64(email)).setValue(admin.getId());
-        databaseReference.child(IDS).child(admin.getId()).setValue(AccountDAO.fromAdmin(admin));
+        DatabaseReference emails = databaseReference.child(EMAILS);
+        DatabaseReference emailRef = emails.child(to64(email));
+        emailRef.setValue(admin.getId());
+        DatabaseReference ids = databaseReference.child(IDS);
+        DatabaseReference idRef = ids.child(admin.getId());
+        idRef.setValue(AccountDAO.fromAdmin(admin));
 
         callback.onComplete(Optional.of(admin));
     }
@@ -135,8 +159,12 @@ public class AccountServiceFirebaseImpl implements AccountService {
     public void createManager(String name, String email, String password, AccountCallback<? super Manager> callback) {
         Manager manager = new Manager(createId(), name, email, password, AccountState.NORMAL);
 
-        databaseReference.child(EMAILS).child(to64(email)).setValue(manager.getId());
-        databaseReference.child(IDS).child(manager.getId()).setValue(AccountDAO.fromManager(manager));
+        DatabaseReference emails = databaseReference.child(EMAILS);
+        DatabaseReference emailRef = emails.child(to64(email));
+        emailRef.setValue(manager.getId());
+        DatabaseReference ids = databaseReference.child(IDS);
+        DatabaseReference idRef = ids.child(manager.getId());
+        idRef.setValue(AccountDAO.fromManager(manager));
 
         callback.onComplete(Optional.of(manager));
     }
@@ -145,8 +173,12 @@ public class AccountServiceFirebaseImpl implements AccountService {
     public void createLocationEmployee(String name, String email, String password, String locationId, AccountCallback<? super LocationEmployee> callback) {
         LocationEmployee employee = new LocationEmployee(createId(), name, email, password, AccountState.NORMAL, locationId);
 
-        databaseReference.child(EMAILS).child(to64(email)).setValue(employee.getId());
-        databaseReference.child(IDS).child(employee.getId()).setValue(AccountDAO.fromLocationEmployee(employee));
+        DatabaseReference emails = databaseReference.child(EMAILS);
+        DatabaseReference emailRef = emails.child(to64(email));
+        emailRef.setValue(employee.getId());
+        DatabaseReference ids = databaseReference.child(IDS);
+        DatabaseReference idRef = ids.child(employee.getId());
+        idRef.setValue(AccountDAO.fromLocationEmployee(employee));
 
         callback.onComplete(Optional.of(employee));
     }

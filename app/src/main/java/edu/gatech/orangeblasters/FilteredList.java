@@ -6,16 +6,15 @@ import android.support.v7.util.SortedList;
 import java.util.Comparator;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
-import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class FilteredList<T> {
 
     private Supplier<Stream<T>> dataSource;
-    private BiFunction<String, T, Integer> relFunc;
+    private final BiFunction<String, T, Integer> relFunc;
     private String filterText;
-    private SortedList<T> sortedList;
+    private final SortedList<T> sortedList;
 
     /**
      * Sets the source of the data that will be used
@@ -44,9 +43,10 @@ public class FilteredList<T> {
         sortedList.beginBatchedUpdates();
         sortedList.clear();
         if (dataSource != null) {
-            dataSource.get()
-                    .filter(donation -> relFunc.apply(filterText, donation) > 0)
-                    .forEach(sortedList::add);
+            Stream<T> tStream = dataSource.get();
+            Stream<T> filtered = tStream
+                    .filter(donation -> relFunc.apply(filterText, donation) > 0);
+            filtered.forEach(sortedList::add);
         }
         sortedList.endBatchedUpdates();
     }
@@ -66,9 +66,9 @@ public class FilteredList<T> {
 
             @Override
             public int compare(T o1, T o2) {
-                return Comparator.comparing((Function<T, Integer>)((t) -> relFunc.apply(filterText, t)))
-                        .thenComparing(comparator)
-                        .compare(o1, o2);
+                Comparator<T> comparing = Comparator.comparing((t) -> relFunc.apply(filterText, t));
+                Comparator<T> thenComparing = comparing.thenComparing(comparator);
+                return thenComparing.compare(o1, o2);
             }
 
             @Override

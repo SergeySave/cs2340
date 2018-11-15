@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 
 import edu.gatech.orangeblasters.account.Account;
+import edu.gatech.orangeblasters.account.AccountService;
 
 /**
  * A login screen that offers login via email/password.
@@ -30,7 +32,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
-            if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+            if ((id == EditorInfo.IME_ACTION_DONE) || (id == EditorInfo.IME_NULL)) {
                 attemptLogin();
                 return true;
             }
@@ -50,12 +52,15 @@ public class WelcomeActivity extends AppCompatActivity {
      * Checks to see if the user can log in by validating credentials
      */
     private void attemptLogin() {
-        final String userStr = mUserNameView.getText().toString();
-        final String passStr = mPasswordView.getText().toString();
+        Editable mUserNameViewText = mUserNameView.getText();
+        final String userStr = mUserNameViewText.toString();
+        Editable mPasswordViewText = mPasswordView.getText();
+        final String passStr = mPasswordViewText.toString();
 
         //Try logging in
-        OrangeBlastersApplication.getInstance().getAccountService()
-                .tryLogin(userStr, passStr, (optionalAccount -> {
+        OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+        AccountService accountService = orangeBlastersApplication.getAccountService();
+        accountService.tryLogin(userStr, passStr, (optionalAccount -> {
                     //When the login attempt is processed
                     if (optionalAccount.isPresent()) {
                         Account account = optionalAccount.get();

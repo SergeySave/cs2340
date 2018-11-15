@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,10 +16,12 @@ import android.widget.Spinner;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
+import edu.gatech.orangeblasters.bitmap.BitmapService;
 import edu.gatech.orangeblasters.donation.DonationCategory;
 
 public class AddDonationActivity extends AppCompatActivity {
@@ -88,7 +91,7 @@ public class AddDonationActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+        if ((requestCode == RESULT_LOAD_IMAGE) && (resultCode == RESULT_OK) && (null != data)) {
             Uri uri = data.getData();
 
             ImageView imageUpload = findViewById(R.id.imageUpload);
@@ -111,23 +114,31 @@ public class AddDonationActivity extends AppCompatActivity {
         Intent data = new Intent();
 
         if (bitmap != null) {
-            String id = OrangeBlastersApplication.getInstance().
-                    getBitmapService().addBitmap(bitmap);
+            OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+            BitmapService bitmapService = orangeBlastersApplication.getBitmapService();
+            String id = bitmapService.addBitmap(bitmap);
             data.putExtra(RETURN_IMAGE, id);
         } else {
             data.putExtra(RETURN_IMAGE, (String)null);
         }
-        data.putExtra(RETURN_DESC_SHORT, shortDesc.getText().toString());
-        data.putExtra(RETURN_DESC_LONG, longDesc.getText().toString());
-        data.putExtra(RETURN_PRICE, price.getText().toString());
+        Editable shortDescText = shortDesc.getText();
+        data.putExtra(RETURN_DESC_SHORT, shortDescText.toString());
+        Editable longDescText = longDesc.getText();
+        data.putExtra(RETURN_DESC_LONG, longDescText.toString());
+        Editable priceText = price.getText();
+        data.putExtra(RETURN_PRICE, priceText.toString());
         data.putExtra(RETURN_CATEGORY, ((DonationCategory) category.getSelectedItem()));
-        data.putExtra(RETURN_COMMENTS, donationComments.getText().toString());
+        Editable donationCommentsText = donationComments.getText();
+        data.putExtra(RETURN_COMMENTS, donationCommentsText.toString());
         //And the time
-        String date = this.date.getText().toString();
+        Editable dateText = this.date.getText();
+        String date = dateText.toString();
         LocalDate localDate = LocalDate.parse(date, dateFormatter);
-        String time = this.time.getText().toString();
+        Editable timeText = this.time.getText();
+        String time = timeText.toString();
         LocalTime localTime = LocalTime.parse(time, timeFormatter);
-        data.putExtra(RETURN_TIME, localDate.atTime(localTime).atOffset(ZoneOffset.UTC));
+        LocalDateTime localDateTime = localDate.atTime(localTime);
+        data.putExtra(RETURN_TIME, localDateTime.atOffset(ZoneOffset.UTC));
         //return it
         setResult(RESULT_OK, data);
         finish();

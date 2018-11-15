@@ -6,10 +6,10 @@ public abstract class Account implements Serializable {
 
     private final String id;
 
-    private String name;
-    private String password;
-    private String email;
-    private AccountState accountState;
+    private final String name;
+    private final String password;
+    private final String email;
+    private final AccountState accountState;
 
     Account(String id, String name, String email, String password, AccountState accountState) {
         this.id = id;

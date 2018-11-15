@@ -1,10 +1,13 @@
 package edu.gatech.orangeblasters.account.impl;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import edu.gatech.orangeblasters.account.Account;
 import edu.gatech.orangeblasters.account.AccountCallback;
@@ -27,13 +30,21 @@ public class AccountServiceInMemoryImpl implements AccountService {
      * @return a string of the id
      */
     private String createId() {
-        return random.ints(4).mapToObj(Integer::toHexString).collect(Collectors.joining());
+        IntStream ints = random.ints(4);
+        Stream<String> hexs = ints.mapToObj(Integer::toHexString);
+        return hexs.collect(Collectors.joining());
     }
 
     @Override
     public void tryLogin(String email, String password, AccountCallback<Account> callback) {
-        callback.onComplete(accounts.values().stream().filter(acc -> acc.getEmail().equals(
-                email) && acc.getPassword().equals(password)).findAny());
+        Collection<Account> values = accounts.values();
+        Stream<Account> stream = values.stream();
+        Stream<Account> filtered = stream.filter(acc -> {
+            String email1 = acc.getEmail();
+            String password1 = acc.getPassword();
+            return email1.equals(email) && password1.equals(password);
+        });
+        callback.onComplete(filtered.findAny());
     }
 
     @Override

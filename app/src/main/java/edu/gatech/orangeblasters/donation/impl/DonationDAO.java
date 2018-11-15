@@ -2,8 +2,10 @@ package edu.gatech.orangeblasters.donation.impl;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Optional;
 
 import edu.gatech.orangeblasters.donation.Donation;
 import edu.gatech.orangeblasters.donation.DonationCategory;
@@ -103,15 +105,19 @@ public class DonationDAO {
     public static DonationDAO fromDonation(Donation donation) {
         DonationDAO donationDAO = new DonationDAO();
         donationDAO.id = donation.getId();
-        donationDAO.timestamp = donation.getTimestamp().atZoneSameInstant(
-                ZoneId.of("UTC")).toEpochSecond();
+        OffsetDateTime timestamp = donation.getTimestamp();
+        ZonedDateTime zonedDateTime = timestamp.atZoneSameInstant(ZoneId.of("UTC"));
+        donationDAO.timestamp = zonedDateTime.toEpochSecond();
         donationDAO.locationId = donation.getLocationId();
         donationDAO.descShort = donation.getDescShort();
         donationDAO.descLong = donation.getDescLong();
-        donationDAO.value = donation.getValue().toString();
+        BigDecimal value = donation.getValue();
+        donationDAO.value = value.toString();
         donationDAO.donationCategory = donation.getDonationCategory();
-        donationDAO.comments = donation.getComments().orElse(null);
-        donationDAO.pictureId = donation.getPictureId().orElse(null);
+        Optional<String> comments = donation.getComments();
+        donationDAO.comments = comments.orElse(null);
+        Optional<String> pictureId = donation.getPictureId();
+        donationDAO.pictureId = pictureId.orElse(null);
         return donationDAO;
     }
 
@@ -121,9 +127,10 @@ public class DonationDAO {
      * @return the donation with all details
      */
     public Donation toDonation() {
-        return new Donation(id, ZonedDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.of(
-                "UTC")).toOffsetDateTime(), locationId, descShort, descLong, new BigDecimal(
-                        value), donationCategory, comments, pictureId);
+        ZoneId utc = ZoneId.of("UTC");
+        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(Instant.ofEpochSecond(timestamp), utc);
+        return new Donation(id, zonedDateTime.toOffsetDateTime(), locationId, descShort, descLong,
+                new BigDecimal(value), donationCategory, comments, pictureId);
     }
 
 }

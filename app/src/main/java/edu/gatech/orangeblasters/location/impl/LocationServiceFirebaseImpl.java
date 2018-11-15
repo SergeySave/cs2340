@@ -10,12 +10,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import edu.gatech.orangeblasters.location.Location;
@@ -42,11 +44,14 @@ public class LocationServiceFirebaseImpl implements LocationService {
      * @return the location's ID
      */
     private String createId() {
-        return random.ints(4).mapToObj(Integer::toHexString).collect(Collectors.joining());
+        IntStream ints = random.ints(4);
+        Stream<String> hexs = ints.mapToObj(Integer::toHexString);
+        return hexs.collect(Collectors.joining());
     }
 
     public LocationServiceFirebaseImpl() {
-        databaseReference.child(IDS).addChildEventListener(new ChildEventListener() {
+        DatabaseReference ids = databaseReference.child(IDS);
+        ids.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 LocationDAO locationDAO = dataSnapshot.getValue(LocationDAO.class);
@@ -85,14 +90,18 @@ public class LocationServiceFirebaseImpl implements LocationService {
 
     @Override
     public void update(Location location) {
-        databaseReference.child(IDS).child(location.getId()).setValue(LocationDAO.fromLocation(location));
+        DatabaseReference ids = databaseReference.child(IDS);
+        DatabaseReference idRef = ids.child(location.getId());
+        idRef.setValue(LocationDAO.fromLocation(location));
     }
 
     @Override
     public Location addLocation(String name, LocationType type, double longitude, double latitude, String address, String phoneNumber) {
         Location location = new Location(createId(), name, type, longitude, latitude, address, phoneNumber);
         locations.put(location.getId(), location);
-        databaseReference.child(IDS).child(location.getId()).setValue(LocationDAO.fromLocation(location));
+        DatabaseReference ids = databaseReference.child(IDS);
+        DatabaseReference idRef = ids.child(location.getId());
+        idRef.setValue(LocationDAO.fromLocation(location));
         return location;
     }
 
@@ -103,7 +112,8 @@ public class LocationServiceFirebaseImpl implements LocationService {
 
     @Override
     public Stream<Location> getLocations() {
-        return locations.values().stream();
+        Collection<Location> values = locations.values();
+        return values.stream();
     }
 
     @Override

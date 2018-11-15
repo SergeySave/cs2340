@@ -18,7 +18,8 @@ public class DashboardActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_dashboard);
 
-        String userId = getIntent().getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
+        Intent origIntent = getIntent();
+        String userId = origIntent.getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
 
         Button locationButton = findViewById(R.id.locationButton);
         locationButton.setOnClickListener(v -> {

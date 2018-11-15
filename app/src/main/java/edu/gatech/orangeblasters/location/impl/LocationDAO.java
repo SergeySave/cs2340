@@ -2,10 +2,13 @@ package edu.gatech.orangeblasters.location.impl;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import edu.gatech.orangeblasters.OrangeBlastersApplication;
 import edu.gatech.orangeblasters.donation.Donation;
+import edu.gatech.orangeblasters.donation.DonationService;
 import edu.gatech.orangeblasters.location.Location;
 import edu.gatech.orangeblasters.location.LocationType;
 
@@ -101,7 +104,10 @@ public class LocationDAO {
         locationDAO.latitude = location.getLatitude();
         locationDAO.address = location.getAddress();
         locationDAO.phoneNumber = location.getPhoneNumber();
-        locationDAO.donations = location.getDonations().stream().map(Donation::getId).collect(Collectors.toList());
+        List<Donation> donations = location.getDonations();
+        Stream<Donation> stream = donations.stream();
+        Stream<String> stringStream = stream.map(Donation::getId);
+        locationDAO.donations = stringStream.collect(Collectors.toList());
         return locationDAO;
     }
 
@@ -114,10 +120,18 @@ public class LocationDAO {
         Location location = new Location(id, name, type, longitude, latitude, address, phoneNumber);
         //location.getDonations()
         if (donations != null) {
-            donations.stream().map(id -> OrangeBlastersApplication.getInstance().getDonationService().getDonation(id))
-                    .map(op -> op.orElse(null))
-                    .filter(Objects::nonNull)
-                    .forEach(don -> location.getDonations().add(don));
+            Stream<String> stream = donations.stream();
+            OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+            DonationService donationService = orangeBlastersApplication.getDonationService();
+            Stream<Optional<Donation>> optionalStream = stream.map(donationService::getDonation);
+            Stream<Donation> donationStream = optionalStream
+                    .map(op -> op.orElse(null));
+            Stream<Donation> donationStream1 = donationStream
+                    .filter(Objects::nonNull);
+            donationStream1.forEach(don -> {
+                        List<Donation> donations = location.getDonations();
+                        donations.add(don);
+                    });
         }
         return location;
     }

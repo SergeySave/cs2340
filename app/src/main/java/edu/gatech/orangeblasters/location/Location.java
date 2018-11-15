@@ -156,14 +156,14 @@ public class Location {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if ((o == null) || (getClass() != o.getClass())) {
             return false;
         }
         Location location = (Location) o;
-        return Double.compare(location.longitude, longitude) == 0 &&
-                Double.compare(location.latitude, latitude) == 0 &&
+        return (Double.compare(location.longitude, longitude) == 0) &&
+                (Double.compare(location.latitude, latitude) == 0) &&
                 Objects.equals(name, location.name) &&
-                type == location.type &&
+                (type == location.type) &&
                 Objects.equals(address, location.address) &&
                 Objects.equals(phoneNumber, location.phoneNumber);
     }

@@ -8,12 +8,14 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import edu.gatech.orangeblasters.OrangeBlastersApplication;
@@ -38,11 +40,14 @@ public class DonationServiceFirebaseImpl implements DonationService {
 
     private final Random random = new Random();
     private String createId() {
-        return random.ints(4).mapToObj(Integer::toHexString).collect(Collectors.joining());
+        IntStream ints = random.ints(4);
+        Stream<String> hexs = ints.mapToObj(Integer::toHexString);
+        return hexs.collect(Collectors.joining());
     }
 
     public DonationServiceFirebaseImpl() {
-        databaseReference.child(IDS).addChildEventListener(new ChildEventListener() {
+        DatabaseReference ids = databaseReference.child(IDS);
+        ids.addChildEventListener(new ChildEventListener() {
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -50,8 +55,8 @@ public class DonationServiceFirebaseImpl implements DonationService {
                 if (donationDAO != null) {
                     Donation value = donationDAO.toDonation();
                     donations.put(donationDAO.getId(), value);
-                    getLocation(value)
-                            .ifPresent( dons -> dons.add(value));
+                    Optional<List<Donation>> location = getLocation(value);
+                    location.ifPresent( dons -> dons.add(value));
                 }
             }
 
@@ -61,8 +66,8 @@ public class DonationServiceFirebaseImpl implements DonationService {
                 if (donationDAO != null) {
                     Donation value = donationDAO.toDonation();
                     donations.put(donationDAO.getId(), value);
-                    getLocation(value)
-                            .ifPresent( dons -> dons.add(value));
+                    Optional<List<Donation>> location = getLocation(value);
+                    location.ifPresent( dons -> dons.add(value));
                 }
             }
 
@@ -71,17 +76,22 @@ public class DonationServiceFirebaseImpl implements DonationService {
                 DonationDAO donationDAO = dataSnapshot.getValue(DonationDAO.class);
                 if (donationDAO != null) {
                     donations.remove(donationDAO.getId());
-                    getLocation(donationDAO)
-                            .ifPresent( dons -> dons.removeIf(don -> don.getId().equals(donationDAO.getId())));
+                    Optional<List<Donation>> location = getLocation(donationDAO);
+                    location.ifPresent( dons -> dons.removeIf(don -> {
+                        String id = don.getId();
+                        return id.equals(donationDAO.getId());
+                    }));
                 }
             }
 
             private Optional<List<Donation>> getLocation(DonationDAO donationDAO) {
-                return locationService.getLocation(donationDAO.getLocationId()).map(Location::getDonations);
+                Optional<Location> location = locationService.getLocation(donationDAO.getLocationId());
+                return location.map(Location::getDonations);
             }
 
             private Optional<List<Donation>> getLocation(Donation value) {
-                return locationService.getLocation(value.getLocationId()).map(Location::getDonations);
+                Optional<Location> location = locationService.getLocation(value.getLocationId());
+                return location.map(Location::getDonations);
             }
 
             @Override
@@ -99,7 +109,8 @@ public class DonationServiceFirebaseImpl implements DonationService {
 
     @Override
     public Stream<Donation> getDonations() {
-        return donations.values().stream();
+        Collection<Donation> values = donations.values();
+        return values.stream();
     }
 
     @Override
@@ -109,8 +120,9 @@ public class DonationServiceFirebaseImpl implements DonationService {
                                    String comments, String pictureId) {
         Donation donation = new Donation(createId(), timestamp, locationId, descShort,
                 descLong, value, donationCategory, comments, pictureId);
-        databaseReference.child(IDS).child(donation.getId())
-                .setValue(DonationDAO.fromDonation(donation));
+        DatabaseReference ids = databaseReference.child(IDS);
+        DatabaseReference idRef = ids.child(donation.getId());
+        idRef.setValue(DonationDAO.fromDonation(donation));
         return donation;
     }
 }

@@ -16,11 +16,11 @@ public class FilteredListMovedTest {
     public void testMoved() {
         int counter[] = new int[1];
         FilteredList<String> list = new FilteredList<>(String.class,
-                (query, string) -> query == null || string.contains(query) ? 1 : 0,
+                (query, string) -> ((query == null) || string.contains(query)) ? 1 : 0,
                 String::compareTo, String::equals, null);
 
         FilteredList<String> list2 = new FilteredList<>(String.class,
-                (query, string) -> query == null || string.contains(query) ? 1 : 0,
+                (query, string) -> ((query == null) || string.contains(query)) ? 1 : 0,
                 String::compareTo, String::equals, new ListUpdateCallback() {
             @Override
             public void onInserted(int position, int count) {

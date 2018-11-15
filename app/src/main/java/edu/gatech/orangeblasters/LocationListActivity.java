@@ -1,6 +1,7 @@
 package edu.gatech.orangeblasters;
 
 import android.arch.lifecycle.LiveData;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -30,14 +31,14 @@ public class LocationListActivity extends AppCompatActivity {
     private LocationFilteredList locationFilteredList;
     private String userId;
     private LocationService locationService;
-    private OrangeBlastersApplication orangeBlastersApplication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        userId = getIntent().getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
-        orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+        Intent intent = getIntent();
+        userId = intent.getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
+        OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
         locationService = orangeBlastersApplication.getLocationService();
 
         setContentView(R.layout.activity_location_list);
@@ -88,7 +89,8 @@ public class LocationListActivity extends AppCompatActivity {
              * method to test for empty location list
              */
             private void update() {
-                if (adapter.getSortedList().size() == 0) {
+                SortedList<Location> sortedList = adapter.getSortedList();
+                if (sortedList.size() == 0) {
                     notFound.setVisibility(View.VISIBLE);
                     notFound.setText(R.string.locationsNotFound);
                 } else {
@@ -142,20 +144,23 @@ public class LocationListActivity extends AppCompatActivity {
         @NonNull
         @Override
         public LocationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext())
+            LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+            View v = layoutInflater
                     .inflate(R.layout.location_row, parent, false);
             return new LocationViewHolder(v);
         }
 
         @Override
         public void onBindViewHolder(@NonNull LocationViewHolder holder, int position) {
-            holder.bind(getSortedList().get(position));
+            SortedList<Location> sortedList = getSortedList();
+            holder.bind(sortedList.get(position));
 
         }
 
         @Override
         public int getItemCount() {
-            return getSortedList().size();
+            SortedList<Location> sortedList = getSortedList();
+            return sortedList.size();
         }
 
         /**
@@ -173,10 +178,11 @@ public class LocationListActivity extends AppCompatActivity {
                 super(v);
                 // Define click listener for the ViewHolder's View.
                 v.setOnClickListener(v1 -> {
-                    Intent intent = new Intent(v.getContext(), LocationDetailsActivity.class);
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, LocationDetailsActivity.class);
                     intent.putExtra(OrangeBlastersApplication.PARAM_USER_ID, userId);
                     intent.putExtra(LocationDetailsActivity.EXTRA_LOCATION_ID, location.getId());
-                    v.getContext().startActivity(intent);
+                    context.startActivity(intent);
                 });
                 textView = v.findViewById(R.id.textView);
             }

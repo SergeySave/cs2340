@@ -3,6 +3,7 @@ package edu.gatech.orangeblasters;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
@@ -13,12 +14,14 @@ import android.widget.Spinner;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import edu.gatech.orangeblasters.account.Account;
 import edu.gatech.orangeblasters.account.AccountCallback;
 import edu.gatech.orangeblasters.account.AccountService;
 import edu.gatech.orangeblasters.account.AccountType;
 import edu.gatech.orangeblasters.location.Location;
+import edu.gatech.orangeblasters.location.LocationService;
 
 /**
  * A login screen that offers login via username/password.
@@ -70,8 +73,10 @@ public class RegisterActivity extends AppCompatActivity  {
 
         location = findViewById(R.id.location);
 
-        List<Location> names = OrangeBlastersApplication.getInstance().
-                getLocationService().getLocations().collect(Collectors.toList());
+        OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+        LocationService locationService = orangeBlastersApplication.getLocationService();
+        Stream<Location> locations = locationService.getLocations();
+        List<Location> names = locations.collect(Collectors.toList());
 
         ArrayAdapter<Location> adapter2 = new ArrayAdapter<>
                 (this,android.R.layout.simple_spinner_item, names);
@@ -80,7 +85,7 @@ public class RegisterActivity extends AppCompatActivity  {
 
         mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
-            if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+            if ((id == EditorInfo.IME_ACTION_DONE) || (id == EditorInfo.IME_NULL)) {
                 attemptCreateAccount();
                 return true;
             }
@@ -99,18 +104,22 @@ public class RegisterActivity extends AppCompatActivity  {
      * Creates an account with the given information
      */
     private void attemptCreateAccount() {
-        String email = mUsernameView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        Editable mUsernameViewText = mUsernameView.getText();
+        String email = mUsernameViewText.toString();
+        Editable mPasswordViewText = mPasswordView.getText();
+        String password = mPasswordViewText.toString();
 
         if (!email.matches("[^@]+@[^@]+\\.[^@.]+")) {
-            Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.error_invalid_email,
-                    Snackbar.LENGTH_SHORT).show();
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.error_invalid_email,
+                    Snackbar.LENGTH_SHORT);
+            snackbar.show();
             return;
         }
 
         if (password.length() < 4) {
-            Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.error_invalid_password,
-                    Snackbar.LENGTH_SHORT).show();
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.error_invalid_password,
+                    Snackbar.LENGTH_SHORT);
+            snackbar.show();
             return;
         }
 
@@ -119,7 +128,8 @@ public class RegisterActivity extends AppCompatActivity  {
         if (selectedItem != null) {
             selectedId = selectedItem.getId();
         }
-        AccountService accountService = OrangeBlastersApplication.getInstance().getAccountService();
+        OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+        AccountService accountService = orangeBlastersApplication.getAccountService();
         //finish will be called if an account is created
         //if not nothing will happen (this maybe should be fixed)
         AccountCallback<Account> accountCreationCallback = result -> result.ifPresent(__->finish());
