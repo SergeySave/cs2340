@@ -122,13 +122,13 @@ public class LocationListActivity extends AppCompatActivity {
 
     private void initializeFilteredList() {
         locationFilteredList.setFilterText("");
-        locationFilteredList.setDataSource(() -> locationService.getLocations());
+        locationFilteredList.setDataSource(locationService::getLocations);
     }
 
     private void listenToFilteredList(LiveData<List<String>> liveIdList) {
         liveIdList.observe(this, (list) -> {
             //When the ID list changes update the list
-            locationFilteredList.setDataSource(() -> locationService.getLocations());
+            locationFilteredList.setDataSource(locationService::getLocations);
         });
     }
 
