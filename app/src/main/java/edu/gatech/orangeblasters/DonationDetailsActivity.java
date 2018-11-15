@@ -53,6 +53,10 @@ public class DonationDetailsActivity extends AppCompatActivity {
             finish();
         }
 
+        updateDisplay(donation, location);
+    }
+
+    private void updateDisplay(Donation donation, Location location) {
         TextView donTime = findViewById(R.id.time);
         TextView donShortDes = findViewById(R.id.item_name);
         TextView donLocation = findViewById(R.id.donationLocation);

@@ -222,7 +222,11 @@ public class Donation implements Serializable {
         Donation donation = (Donation) o;
         return Objects.equals(timestamp, donation.timestamp) &&
                 Objects.equals(locationId, donation.locationId) &&
-                Objects.equals(descShort, donation.descShort) &&
+                secondHalfOfEquals(donation);
+    }
+
+    private boolean secondHalfOfEquals(Donation donation) {
+        return Objects.equals(descShort, donation.descShort) &&
                 Objects.equals(descLong, donation.descLong) &&
                 Objects.equals(value, donation.value) &&
                 (donationCategory == donation.donationCategory) &&
