@@ -11,8 +11,8 @@
     <string name="logo">Logo</string>
     <string name="logout">Logout</string>
     <string name="password">Password</string>
-    <string name="backButton">backbutton</string>
-    <string name="gotoDonation">gotodonation</string>
+    <string name="backButton">Back</string>
+    <string name="gotoDonation">Go To Donation</string>
     <string name="TextView">TextView</string>
 
 
