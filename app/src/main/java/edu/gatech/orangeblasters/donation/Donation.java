@@ -6,18 +6,21 @@ import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Represents a Donation in the system
+ */
 public class Donation implements Serializable {
 
     private final String id;
 
-    private OffsetDateTime timestamp;
-    private String locationId;
-    private String descShort;
-    private String descLong;
-    private BigDecimal value;
-    private DonationCategory donationCategory;
-    private String comments;
-    private String pictureId;
+    private final OffsetDateTime timestamp;
+    private final String locationId;
+    private final String descShort;
+    private final String descLong;
+    private final BigDecimal value;
+    private final DonationCategory donationCategory;
+    private final String comments;
+    private final String pictureId;
 
     /**
      * Creates a donation without the comments and picture
@@ -216,16 +219,20 @@ public class Donation implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if ((o == null) || (getClass() != o.getClass())) {
             return false;
         }
         Donation donation = (Donation) o;
         return Objects.equals(timestamp, donation.timestamp) &&
                 Objects.equals(locationId, donation.locationId) &&
-                Objects.equals(descShort, donation.descShort) &&
+                secondHalfOfEquals(donation);
+    }
+
+    private boolean secondHalfOfEquals(Donation donation) {
+        return Objects.equals(descShort, donation.descShort) &&
                 Objects.equals(descLong, donation.descLong) &&
                 Objects.equals(value, donation.value) &&
-                donationCategory == donation.donationCategory &&
+                (donationCategory == donation.donationCategory) &&
                 Objects.equals(comments, donation.comments) &&
                 Objects.equals(pictureId, donation.pictureId);
     }

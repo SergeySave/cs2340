@@ -11,6 +11,9 @@ import edu.gatech.orangeblasters.account.Manager;
 import edu.gatech.orangeblasters.account.User;
 
 //All getter and setters used by firebase
+/**
+ * Represents an account in the firebase
+ */
 @SuppressWarnings("unused")
 public class AccountDAO implements Serializable {
 
@@ -22,58 +25,128 @@ public class AccountDAO implements Serializable {
     private AccountState accountState;
     private String locationId;
 
+    /**
+     * Get the id
+     *
+     * @return the id
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Set the id
+     *
+     * @param id the id
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Get the account type
+     *
+     * @return the account type
+     */
     public AccountType getAccountType() {
         return accountType;
     }
 
+    /**
+     * Set the account type
+     *
+     * @param accountType the account type
+     */
     public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
     }
 
+    /**
+     * Get the name
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Set the name
+     *
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Get the password
+     *
+     * @return the password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Set the password
+     *
+     * @param password the password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Get the email
+     *
+     * @return the email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Set the email
+     *
+     * @param email the email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Get the account state
+     *
+     * @return the account state
+     */
     public AccountState getAccountState() {
         return accountState;
     }
 
+    /**
+     * Set the account state
+     *
+     * @param accountState the account state
+     */
     public void setAccountState(AccountState accountState) {
         this.accountState = accountState;
     }
 
+    /**
+     * Get the location id
+     *
+     * @return the location id
+     */
     public String getLocationId() {
         return locationId;
     }
 
+    /**
+     * Set the location id
+     *
+     * @param locationId the location id
+     */
     public void setLocationId(String locationId) {
         this.locationId = locationId;
     }

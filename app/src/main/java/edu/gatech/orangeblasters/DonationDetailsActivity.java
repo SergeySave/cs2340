@@ -1,5 +1,6 @@
 package edu.gatech.orangeblasters;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,10 +13,14 @@ import java.util.Optional;
 
 import edu.gatech.orangeblasters.bitmap.BitmapService;
 import edu.gatech.orangeblasters.donation.Donation;
+import edu.gatech.orangeblasters.donation.DonationCategory;
 import edu.gatech.orangeblasters.donation.DonationService;
 import edu.gatech.orangeblasters.location.Location;
 import edu.gatech.orangeblasters.location.LocationService;
 
+/**
+ * Represents the details screen for donation
+ */
 public class DonationDetailsActivity extends AppCompatActivity {
 
     public static final String EXTRA_DONATION = "DONATION";
@@ -23,29 +28,38 @@ public class DonationDetailsActivity extends AppCompatActivity {
     private static final DateTimeFormatter dateTimeFormatter =
             DateTimeFormatter.ofPattern("HH:mm-MM/dd/yyyy");
 
-    private OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
-    private DonationService donationService = orangeBlastersApplication.getDonationService();
-    private BitmapService bitmapService = orangeBlastersApplication.getBitmapService();
-    private LocationService locationService = orangeBlastersApplication.getLocationService();
+    private final OrangeBlastersApplication orangeBlastersApplication =
+            OrangeBlastersApplication.getInstance();
+    private final DonationService donationService = orangeBlastersApplication.getDonationService();
+    private final BitmapService bitmapService = orangeBlastersApplication.getBitmapService();
+    private final LocationService locationService = orangeBlastersApplication.getLocationService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donation_details);
 
-        String donationId = getIntent().getStringExtra(EXTRA_DONATION);
-        Donation donation = donationService.getDonation(donationId).orElse(null);
-        if (donation == null || donation.getLocationId() == null) {
+        Intent intent = getIntent();
+        String donationId = intent.getStringExtra(EXTRA_DONATION);
+        Optional<Donation> optionalDonation = donationService.getDonation(donationId);
+        Donation donation = optionalDonation.orElse(null);
+        if ((donation == null) || (donation.getLocationId() == null)) {
             finish();
         }
 
 
-        Location location = locationService
-                .getLocation(Objects.requireNonNull(donation).getLocationId()).orElse(null);
-        if (location == null || location.getName() == null) {
+        Donation nonNull = Objects.requireNonNull(donation);
+        Optional<Location> optionalLocation = locationService
+                .getLocation(nonNull.getLocationId());
+        Location location = optionalLocation.orElse(null);
+        if ((location == null) || (location.getName() == null)) {
             finish();
         }
 
+        updateDisplay(donation, location);
+    }
+
+    private void updateDisplay(Donation donation, Location location) {
         TextView donTime = findViewById(R.id.time);
         TextView donShortDes = findViewById(R.id.item_name);
         TextView donLocation = findViewById(R.id.donationLocation);
@@ -55,8 +69,10 @@ public class DonationDetailsActivity extends AppCompatActivity {
         ImageView image = findViewById(R.id.imageDisplay);
 
         donTime.setText(dateTimeFormatter.format(donation.getTimestamp()));
-        donLocation.setText(Objects.requireNonNull(location).getName());
-        donCategory.setText(donation.getDonationCategory().getFullName());
+        Location locationNonNull = Objects.requireNonNull(location);
+        donLocation.setText(locationNonNull.getName());
+        DonationCategory donationCategory = donation.getDonationCategory();
+        donCategory.setText(donationCategory.getFullName());
         donShortDes.setText(donation.getDescShort());
         Optional<String> comments = donation.getComments();
         if (comments.isPresent()) {
@@ -68,12 +84,10 @@ public class DonationDetailsActivity extends AppCompatActivity {
         donLongDes.setText(donation.getDescLong());
         Optional<String> pictureId = donation.getPictureId();
         image.setVisibility(View.INVISIBLE);
-        pictureId.ifPresent(s -> {
-            bitmapService.getBitmap(s, bitmap -> bitmap.ifPresent(bm -> {
-                image.setImageBitmap(bm);
+        pictureId.ifPresent(s -> bitmapService.getBitmap(s, bitmap -> bitmap.ifPresent(bm -> {
+            image.setImageBitmap(bm);
 
-                image.setVisibility(View.VISIBLE);
-            }));
-        });
+            image.setVisibility(View.VISIBLE);
+        })));
     }
 }

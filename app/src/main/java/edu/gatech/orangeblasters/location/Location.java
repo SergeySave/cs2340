@@ -1,11 +1,15 @@
 package edu.gatech.orangeblasters.location;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 import edu.gatech.orangeblasters.donation.Donation;
 
+/**
+ * Represents a location in the system
+ */
 public class Location {
 
     private final String id;
@@ -17,7 +21,7 @@ public class Location {
     private final String address;
     private final String phoneNumber;
     private final List<Donation> donations = new ArrayList<>();
-    private String website;
+    //private String website;
 
     /**
      * Creates a new location with all the details
@@ -146,7 +150,16 @@ public class Location {
      * @return the list of donations at that location
      */
     public List<Donation> getDonations() {
-        return donations;
+        return Collections.unmodifiableList(donations);
+    }
+
+    /**
+     * Add a donation
+     *
+     * @param donation adds a donation
+     */
+    public void addDonation(Donation donation) {
+        donations.add(donation);
     }
 
     // --Commented out by Inspection (11/7/18, 2:37 PM):public String getWebsite(){return website;}
@@ -156,14 +169,14 @@ public class Location {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if ((o == null) || (getClass() != o.getClass())) {
             return false;
         }
         Location location = (Location) o;
-        return Double.compare(location.longitude, longitude) == 0 &&
-                Double.compare(location.latitude, latitude) == 0 &&
+        return (Double.compare(location.longitude, longitude) == 0) &&
+                (Double.compare(location.latitude, latitude) == 0) &&
                 Objects.equals(name, location.name) &&
-                type == location.type &&
+                (type == location.type) &&
                 Objects.equals(address, location.address) &&
                 Objects.equals(phoneNumber, location.phoneNumber);
     }

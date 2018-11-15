@@ -1,5 +1,6 @@
 package edu.gatech.orangeblasters;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,13 +19,17 @@ import android.widget.TextView;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.Optional;
+import java.util.stream.Stream;
 
+import edu.gatech.orangeblasters.account.AccountService;
 import edu.gatech.orangeblasters.account.AccountType;
 import edu.gatech.orangeblasters.account.LocationEmployee;
 import edu.gatech.orangeblasters.donation.Donation;
 import edu.gatech.orangeblasters.donation.DonationCategory;
 import edu.gatech.orangeblasters.donation.DonationFilteredList;
 import edu.gatech.orangeblasters.donation.DonationService;
+import edu.gatech.orangeblasters.location.Location;
 import edu.gatech.orangeblasters.location.LocationService;
 
 /**
@@ -40,29 +45,33 @@ public class DonationListActivity extends AppCompatActivity {
 
     private DonationFilteredList donationFilteredList;
     private String locationId;
-    private OrangeBlastersApplication orangeBlastersApplication =
+    private final OrangeBlastersApplication orangeBlastersApplication =
             OrangeBlastersApplication.getInstance();
-    private LocationService locationService = orangeBlastersApplication.getLocationService();
-    private DonationService donationService = orangeBlastersApplication.getDonationService();
+    private final LocationService locationService = orangeBlastersApplication.getLocationService();
+    private final DonationService donationService = orangeBlastersApplication.getDonationService();
+    private final AccountService accountService = orangeBlastersApplication.getAccountService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String userId = getIntent().getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
+        Intent intent = getIntent();
+        String userId = intent.getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
 
-        locationId = getIntent().getStringExtra(PARAM_LOCATION_ID);
+        locationId = intent.getStringExtra(PARAM_LOCATION_ID);
 
         setContentView(R.layout.activity_donationlist);
 
         Button mAddDonationButton = findViewById(R.id.addDonation);
         mAddDonationButton.setVisibility(View.INVISIBLE);
-        OrangeBlastersApplication.getInstance().getAccountService().getAccount(userId,
+        accountService.getAccount(userId,
                 account -> account.ifPresent(acc -> {
-            if (acc.getType() == AccountType.EMPLOYEE && ((LocationEmployee)acc)
-                    .getLocation().equals(locationId)) {
-                mAddDonationButton.setVisibility(View.VISIBLE);
-                mAddDonationButton.setOnClickListener(view -> addingDonation());
+            if (acc.getType() == AccountType.EMPLOYEE) {
+                String locationId = ((LocationEmployee) acc).getLocation();
+                if (locationId.equals(this.locationId)) {
+                    mAddDonationButton.setVisibility(View.VISIBLE);
+                    mAddDonationButton.setOnClickListener(view -> addingDonation());
+                }
             }
         }));
 
@@ -110,7 +119,8 @@ public class DonationListActivity extends AppCompatActivity {
             }
 
             private void update() {
-                if (adapter.getSortedList().size() == 0) {
+                SortedList<Donation> sortedList = adapter.getSortedList();
+                if (sortedList.size() == 0) {
                     notFound.setVisibility(View.VISIBLE);
                     notFound.setText(R.string.locationsNotFound);
                 } else {
@@ -141,12 +151,18 @@ public class DonationListActivity extends AppCompatActivity {
 
     private void initializeList() {
         donationFilteredList.setFilterText("");
-        if (locationId == null) {
-            donationFilteredList.setDataSource(() -> donationService.getDonations());
-        } else {
-            donationFilteredList.setDataSource(() -> donationService.getDonations()
-                    .filter(don -> don.getLocationId().equals(locationId)));
-        }
+        donationFilteredList.setDataSource(() -> {
+            Stream<Donation> donations = donationService.getDonations();
+            if (locationId == null) {
+                return donations;
+            } else {
+                return donations
+                        .filter(don -> {
+                            String locId = don.getLocationId();
+                            return locId.equals(locationId);
+                        });
+            }
+        });
     }
 
     public class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.DonationViewHolder> {
@@ -163,32 +179,36 @@ public class DonationListActivity extends AppCompatActivity {
         @NonNull
         @Override
         public DonationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext())
+            LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+            View v = layoutInflater
                     .inflate(R.layout.location_row, parent, false);
             return new DonationViewHolder(v);
         }
 
         @Override
         public void onBindViewHolder(@NonNull DonationViewHolder holder, int position) {
-            holder.bind(getSortedList().get(position));
+            SortedList<Donation> sortedList = getSortedList();
+            holder.bind(sortedList.get(position));
         }
 
         @Override
         public int getItemCount() {
-            return getSortedList().size();
+            SortedList<Donation> sortedList = getSortedList();
+            return sortedList.size();
         }
 
         public class DonationViewHolder extends RecyclerView.ViewHolder {
             private final TextView textView;
             private Donation donation;
 
-            public DonationViewHolder(View v) {
+            DonationViewHolder(View v) {
                 super(v);
                 // Define click listener for the ViewHolder's View.
                 v.setOnClickListener(v1 -> {
-                    Intent intent = new Intent(v.getContext(), DonationDetailsActivity.class);
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, DonationDetailsActivity.class);
                     intent.putExtra(DonationDetailsActivity.EXTRA_DONATION, donation.getId());
-                    v.getContext().startActivity(intent);
+                    context.startActivity(intent);
                 });
                 textView = v.findViewById(R.id.textView);
             }
@@ -204,7 +224,7 @@ public class DonationListActivity extends AppCompatActivity {
              *
              * @param item the item to bind
              */
-            public void bind(Donation item) {
+            void bind(Donation item) {
                 donation = item;
                 textView.setText(item.getDescShort());
             }
@@ -224,7 +244,7 @@ public class DonationListActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK && null != data) {
+        if ((resultCode == RESULT_OK) && (null != data)) {
             String bitmapId = data.getStringExtra(AddDonationActivity.RETURN_IMAGE);
             String shortDesc =
                     (String) data.getSerializableExtra(AddDonationActivity.RETURN_DESC_SHORT);
@@ -238,12 +258,12 @@ public class DonationListActivity extends AppCompatActivity {
             OffsetDateTime dateTime =
                     (OffsetDateTime) data.getSerializableExtra(AddDonationActivity.RETURN_TIME);
 
-            Donation donation = OrangeBlastersApplication.getInstance().getDonationService()
-                    .createDonation(dateTime, locationId, shortDesc, longDesc,
-                            new BigDecimal(price), category, comments, bitmapId);
+            Donation donation = donationService.createDonation(dateTime, locationId, shortDesc,
+                    longDesc, new BigDecimal(price), category, comments, bitmapId);
 
-            locationService.getLocation(locationId).ifPresent(location -> {
-                location.getDonations().add(donation);
+            Optional<Location> optionalLocation = locationService.getLocation(locationId);
+            optionalLocation.ifPresent(location -> {
+                location.addDonation(donation);
                 locationService.update(location);
             });
 

@@ -3,6 +3,7 @@ package edu.gatech.orangeblasters;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -18,23 +19,29 @@ import java.util.stream.Stream;
 import edu.gatech.orangeblasters.location.Location;
 import edu.gatech.orangeblasters.location.LocationService;
 
+/**
+ * Represents a screen the map
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback  {
 
-    public static final LatLng ATLANTA = new LatLng(33.748997, -84.387985);
-    public static final int ZOOM_LEVEL = 10;
-    public static final int ZOOM_TIME = 2000;
+    private static final LatLng ATLANTA = new LatLng(33.748997, -84.387985);
+    private static final int ZOOM_LEVEL = 10;
+    private static final int ZOOM_TIME = 2000;
 
-    private OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
-    private LocationService locationService = orangeBlastersApplication.getLocationService();
+    private final OrangeBlastersApplication orangeBlastersApplication =
+            OrangeBlastersApplication.getInstance();
+    private final LocationService locationService = orangeBlastersApplication.getLocationService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String userId = getIntent().getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
+        Intent origIntent = getIntent();
+        String userId = origIntent.getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
 
         setContentView(R.layout.activity_google_map);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        SupportMapFragment mapFragment = (SupportMapFragment) supportFragmentManager
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -50,20 +57,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        GoogleMap mMap = googleMap;
 
         Stream<Location> locations = locationService.getLocations();
         locations.forEach(l -> {
             LatLng location = new LatLng(l.getLatitude(), l.getLongitude());
-            Marker m = mMap.addMarker(new MarkerOptions()
-                    .position(location)
-                    .title(l.getName())
-                    .snippet(l.getPhoneNumber()));
-            m.showInfoWindow();
+            MarkerOptions markerOptions = new MarkerOptions();
+            MarkerOptions position = markerOptions.position(location);
+            MarkerOptions title = position.title(l.getName());
+            Marker marker = googleMap.addMarker(title.snippet(l.getPhoneNumber()));
+            marker.showInfoWindow();
         });
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(ATLANTA));
-        mMap.animateCamera(CameraUpdateFactory.zoomIn());
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(ZOOM_LEVEL), ZOOM_TIME, null);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(ATLANTA));
+        googleMap.animateCamera(CameraUpdateFactory.zoomIn());
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(ZOOM_LEVEL), ZOOM_TIME, null);
     }
 }

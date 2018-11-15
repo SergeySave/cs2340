@@ -9,22 +9,30 @@ import android.widget.TextView;
 import java.util.Optional;
 
 import edu.gatech.orangeblasters.location.Location;
+import edu.gatech.orangeblasters.location.LocationService;
+import edu.gatech.orangeblasters.location.LocationType;
 
+/**
+ * Displays the details for a location
+ */
 public class LocationDetailsActivity extends AppCompatActivity {
 
     public static final String EXTRA_LOCATION_ID = "LOCATION_ID";
+
+    private final OrangeBlastersApplication orangeBlastersApplication =
+            OrangeBlastersApplication.getInstance();
+    private final LocationService locationService = orangeBlastersApplication.getLocationService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_details);
 
-        String userId = getIntent().getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
+        Intent origIntent = getIntent();
+        String userId = origIntent.getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
 
-        String locId = getIntent().getStringExtra(EXTRA_LOCATION_ID);
-        Optional<Location> optionalLocation = OrangeBlastersApplication.getInstance(
-
-        ).getLocationService().getLocation(locId);
+        String locId = origIntent.getStringExtra(EXTRA_LOCATION_ID);
+        Optional<Location> optionalLocation = locationService.getLocation(locId);
         if (!optionalLocation.isPresent()) {
             finish();
         } else {
@@ -36,7 +44,8 @@ public class LocationDetailsActivity extends AppCompatActivity {
             TextView locPNum = findViewById(R.id.locationNumber);
 
             locName.setText(location.getName());
-            locType.setText(location.getType().getFullName());
+            LocationType type = location.getType();
+            locType.setText(type.getFullName());
             locAddress.setText(location.getAddress());
             locPNum.setText(location.getPhoneNumber());
 

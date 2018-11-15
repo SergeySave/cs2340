@@ -2,15 +2,27 @@ package edu.gatech.orangeblasters.account;
 
 import java.io.Serializable;
 
+/**
+ * Represents an account
+ */
 public abstract class Account implements Serializable {
 
     private final String id;
 
-    private String name;
-    private String password;
-    private String email;
-    private AccountState accountState;
+    private final String name;
+    private final String password;
+    private final String email;
+    private final AccountState accountState;
 
+    /**
+     * Create a new account
+     *
+     * @param id the account id
+     * @param name the account name
+     * @param email the account email
+     * @param password the account password
+     * @param accountState the account state
+     */
     Account(String id, String name, String email, String password, AccountState accountState) {
         this.id = id;
         this.name = name;
@@ -28,6 +40,11 @@ public abstract class Account implements Serializable {
         return id;
     }
 
+    /**
+     * Get the name
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
@@ -83,5 +100,10 @@ public abstract class Account implements Serializable {
 //    }
 // --Commented out by Inspection STOP (11/7/18, 2:37 PM)
 
+    /**
+     * Get the account type
+     *
+     * @return the account type
+     */
     public abstract AccountType getType();
 }

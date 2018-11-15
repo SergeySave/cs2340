@@ -6,16 +6,20 @@ import android.support.v7.util.SortedList;
 import java.util.Comparator;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
-import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+/**
+ * Represents a filtered list
+ *
+ * @param <T> the type of the list
+ */
 public class FilteredList<T> {
 
     private Supplier<Stream<T>> dataSource;
-    private BiFunction<String, T, Integer> relFunc;
+    private final BiFunction<String, T, Integer> relFunc;
     private String filterText;
-    private SortedList<T> sortedList;
+    private final SortedList<T> sortedList;
 
     /**
      * Sets the source of the data that will be used
@@ -44,9 +48,10 @@ public class FilteredList<T> {
         sortedList.beginBatchedUpdates();
         sortedList.clear();
         if (dataSource != null) {
-            dataSource.get()
-                    .filter(donation -> relFunc.apply(filterText, donation) > 0)
-                    .forEach(sortedList::add);
+            Stream<T> tStream = dataSource.get();
+            Stream<T> filtered = tStream
+                    .filter(donation -> relFunc.apply(filterText, donation) > 0);
+            filtered.forEach(sortedList::add);
         }
         sortedList.endBatchedUpdates();
     }
@@ -60,15 +65,26 @@ public class FilteredList<T> {
         return sortedList;
     }
 
-    public FilteredList(Class<T> clazz, BiFunction<String, T, Integer> relevanceFunction, Comparator<T> comparator, BiPredicate<T, T> equivalence, ListUpdateCallback listUpdater) {
+    /**
+     * Create a new filtered list
+     *
+     * @param clazz the class of the stored type
+     * @param relevanceFunction a function that determines relevance
+     * @param comparator a comparison function for items
+     * @param equivalence an equivalence function for items
+     * @param listUpdater a callback for when the list is updated
+     */
+    public FilteredList(Class<T> clazz, BiFunction<String, T, Integer> relevanceFunction,
+                        Comparator<T> comparator, BiPredicate<T, T> equivalence,
+                        ListUpdateCallback listUpdater) {
         this.relFunc = relevanceFunction;
         sortedList = new SortedList<>(clazz, new SortedList.Callback<T>() {
 
             @Override
             public int compare(T o1, T o2) {
-                return Comparator.comparing((Function<T, Integer>)((t) -> relFunc.apply(filterText, t)))
-                        .thenComparing(comparator)
-                        .compare(o1, o2);
+                Comparator<T> comparing = Comparator.comparing((t) -> relFunc.apply(filterText, t));
+                Comparator<T> thenComparing = comparing.thenComparing(comparator);
+                return thenComparing.compare(o1, o2);
             }
 
             @Override

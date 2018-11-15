@@ -14,15 +14,20 @@ import java.util.Base64;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import edu.gatech.orangeblasters.bitmap.BitmapCallback;
 import edu.gatech.orangeblasters.bitmap.BitmapService;
 
+/**
+ * Represents a storage of bitmaps in firebase
+ */
 public class BitmapFirebaseService implements BitmapService {
 
     private static final String BITMAPS = "bitmaps";
     private static final String IDS = "ids";
-    public static final int QUALITY = 75;
+    private static final int QUALITY = 75;
 
     private final Random random = new Random();
 
@@ -30,7 +35,9 @@ public class BitmapFirebaseService implements BitmapService {
     private final DatabaseReference databaseReference = firebaseDatabase.getReference(BITMAPS);
 
     private String createId() {
-        return random.ints(4).mapToObj(Integer::toHexString).collect(Collectors.joining());
+        IntStream ints = random.ints(4);
+        Stream<String> hexs = ints.mapToObj(Integer::toHexString);
+        return hexs.collect(Collectors.joining());
     }
 
     @Override
@@ -40,8 +47,11 @@ public class BitmapFirebaseService implements BitmapService {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY, byteArrayOutputStream);
 
-        String encoded = Base64.getEncoder().encodeToString(byteArrayOutputStream.toByteArray());
-        databaseReference.child(IDS).child(id).setValue(encoded);
+        Base64.Encoder encoder = Base64.getEncoder();
+        String encoded = encoder.encodeToString(byteArrayOutputStream.toByteArray());
+        DatabaseReference ids = databaseReference.child(IDS);
+        DatabaseReference idRef = ids.child(id);
+        idRef.setValue(encoded);
         bitmap.recycle();
 
         return id;
@@ -49,14 +59,18 @@ public class BitmapFirebaseService implements BitmapService {
 
     @Override
     public void getBitmap(String id, BitmapCallback callback) {
-        databaseReference.child(IDS).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference ids = databaseReference.child(IDS);
+        DatabaseReference idRef = ids.child(id);
+        idRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String encoded = dataSnapshot.getValue(String.class);
                 if (encoded != null) {
-                    byte[] decoded = Base64.getDecoder().decode(encoded);
+                    Base64.Decoder decoder = Base64.getDecoder();
+                    byte[] decoded = decoder.decode(encoded);
                     BitmapFactory.Options options = new BitmapFactory.Options();
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(decoded, 0, decoded.length, options);
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(decoded, 0, decoded.length,
+                            options);
                     callback.onComplete(Optional.ofNullable(bitmap));
                 } else {
                     callback.onComplete(Optional.empty());

@@ -1,6 +1,7 @@
 package edu.gatech.orangeblasters;
 
 import android.arch.lifecycle.LiveData;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,22 +24,25 @@ import edu.gatech.orangeblasters.location.Location;
 import edu.gatech.orangeblasters.location.LocationFilteredList;
 import edu.gatech.orangeblasters.location.LocationService;
 
+/**
+ * Displays a list of locations
+ */
 public class LocationListActivity extends AppCompatActivity {
 
     private TextView notFound;
 
     private LocationFilteredList locationFilteredList;
     private String userId;
-    private LocationService locationService;
-    private OrangeBlastersApplication orangeBlastersApplication;
+    private final OrangeBlastersApplication orangeBlastersApplication =
+            OrangeBlastersApplication.getInstance();
+    private final LocationService locationService = orangeBlastersApplication.getLocationService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        userId = getIntent().getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
-        orangeBlastersApplication = OrangeBlastersApplication.getInstance();
-        locationService = orangeBlastersApplication.getLocationService();
+        Intent intent = getIntent();
+        userId = intent.getStringExtra(OrangeBlastersApplication.PARAM_USER_ID);
 
         setContentView(R.layout.activity_location_list);
         RecyclerView mRecyclerView = findViewById(R.id.location_recycler);
@@ -88,7 +92,8 @@ public class LocationListActivity extends AppCompatActivity {
              * method to test for empty location list
              */
             private void update() {
-                if (adapter.getSortedList().size() == 0) {
+                SortedList<Location> sortedList = adapter.getSortedList();
+                if (sortedList.size() == 0) {
                     notFound.setVisibility(View.VISIBLE);
                     notFound.setText(R.string.locationsNotFound);
                 } else {
@@ -120,13 +125,13 @@ public class LocationListActivity extends AppCompatActivity {
 
     private void initializeFilteredList() {
         locationFilteredList.setFilterText("");
-        locationFilteredList.setDataSource(() -> locationService.getLocations());
+        locationFilteredList.setDataSource(locationService::getLocations);
     }
 
     private void listenToFilteredList(LiveData<List<String>> liveIdList) {
         liveIdList.observe(this, (list) -> {
             //When the ID list changes update the list
-            locationFilteredList.setDataSource(() -> locationService.getLocations());
+            locationFilteredList.setDataSource(locationService::getLocations);
         });
     }
 
@@ -142,20 +147,23 @@ public class LocationListActivity extends AppCompatActivity {
         @NonNull
         @Override
         public LocationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext())
+            LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+            View v = layoutInflater
                     .inflate(R.layout.location_row, parent, false);
             return new LocationViewHolder(v);
         }
 
         @Override
         public void onBindViewHolder(@NonNull LocationViewHolder holder, int position) {
-            holder.bind(getSortedList().get(position));
+            SortedList<Location> sortedList = getSortedList();
+            holder.bind(sortedList.get(position));
 
         }
 
         @Override
         public int getItemCount() {
-            return getSortedList().size();
+            SortedList<Location> sortedList = getSortedList();
+            return sortedList.size();
         }
 
         /**
@@ -169,14 +177,15 @@ public class LocationListActivity extends AppCompatActivity {
              * method to hold view of location
              * @param v represents view
              */
-            public LocationViewHolder(View v) {
+            LocationViewHolder(View v) {
                 super(v);
                 // Define click listener for the ViewHolder's View.
                 v.setOnClickListener(v1 -> {
-                    Intent intent = new Intent(v.getContext(), LocationDetailsActivity.class);
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, LocationDetailsActivity.class);
                     intent.putExtra(OrangeBlastersApplication.PARAM_USER_ID, userId);
                     intent.putExtra(LocationDetailsActivity.EXTRA_LOCATION_ID, location.getId());
-                    v.getContext().startActivity(intent);
+                    context.startActivity(intent);
                 });
                 textView = v.findViewById(R.id.textView);
             }
@@ -191,7 +200,7 @@ public class LocationListActivity extends AppCompatActivity {
              * method to set text on screen
              * @param item the item to add to the location list
              */
-            public void bind(Location item) {
+            void bind(Location item) {
                 location = item;
                 textView.setText(item.getName());
             }

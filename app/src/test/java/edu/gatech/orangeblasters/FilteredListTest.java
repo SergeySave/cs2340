@@ -15,7 +15,7 @@ public class FilteredListTest {
     @Test
     public void testUpdate() {
         FilteredList<String> list = new FilteredList<>(String.class,
-                (query, string) -> query == null || string.contains(query) ? 1 : 0,
+                (query, string) -> ((query == null) || string.contains(query)) ? 1 : 0,
                 String::compareTo, String::equals, null);
 
         //List exists
