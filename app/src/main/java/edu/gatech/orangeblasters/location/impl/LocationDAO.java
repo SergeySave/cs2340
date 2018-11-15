@@ -27,8 +27,10 @@ public class LocationDAO {
     private String phoneNumber;
     private List<String> donations;
 
-    private final transient OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
-    private final transient DonationService donationService = orangeBlastersApplication.getDonationService();
+    private final transient OrangeBlastersApplication orangeBlastersApplication =
+            OrangeBlastersApplication.getInstance();
+    private final transient DonationService donationService =
+            orangeBlastersApplication.getDonationService();
 
     public String getId() {
         return id;

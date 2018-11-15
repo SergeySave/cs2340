@@ -30,7 +30,8 @@ public class DonationServiceFirebaseImpl implements DonationService {
     private static final String DONATIONS = "donations";
     private static final String IDS = "ids";
 
-    private final OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+    private final OrangeBlastersApplication orangeBlastersApplication =
+            OrangeBlastersApplication.getInstance();
     private final LocationService locationService = orangeBlastersApplication.getLocationService();
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private final DatabaseReference databaseReference = firebaseDatabase.getReference(DONATIONS);
@@ -85,7 +86,8 @@ public class DonationServiceFirebaseImpl implements DonationService {
             }
 
             private Optional<List<Donation>> getLocation(DonationDAO donationDAO) {
-                Optional<Location> location = locationService.getLocation(donationDAO.getLocationId());
+                Optional<Location> location = locationService
+                        .getLocation(donationDAO.getLocationId());
                 return location.map(Location::getDonations);
             }
 

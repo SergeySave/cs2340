@@ -97,12 +97,16 @@ public class AccountServiceFirebaseImpl implements AccountService {
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) { callback.onComplete(Optional.empty()); }
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        callback.onComplete(Optional.empty());
+                    }
                 });
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) { callback.onComplete(Optional.empty()); }
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                callback.onComplete(Optional.empty());
+            }
         });
     }
 
@@ -128,7 +132,8 @@ public class AccountServiceFirebaseImpl implements AccountService {
     }
 
     @Override
-    public void createUser(String name, String email, String password, AccountCallback<? super User> callback) {
+    public void createUser(String name, String email, String password,
+                           AccountCallback<? super User> callback) {
         User user = new User(createId(), name, email, password, AccountState.NORMAL);
 
         DatabaseReference emails = databaseReference.child(EMAILS);
@@ -142,7 +147,8 @@ public class AccountServiceFirebaseImpl implements AccountService {
     }
 
     @Override
-    public void createAdmin(String name, String email, String password, AccountCallback<? super Admin> callback) {
+    public void createAdmin(String name, String email, String password,
+                            AccountCallback<? super Admin> callback) {
         Admin admin = new Admin(createId(), name, email, password, AccountState.NORMAL);
 
         DatabaseReference emails = databaseReference.child(EMAILS);
@@ -156,7 +162,8 @@ public class AccountServiceFirebaseImpl implements AccountService {
     }
 
     @Override
-    public void createManager(String name, String email, String password, AccountCallback<? super Manager> callback) {
+    public void createManager(String name, String email, String password,
+                              AccountCallback<? super Manager> callback) {
         Manager manager = new Manager(createId(), name, email, password, AccountState.NORMAL);
 
         DatabaseReference emails = databaseReference.child(EMAILS);
@@ -170,8 +177,11 @@ public class AccountServiceFirebaseImpl implements AccountService {
     }
 
     @Override
-    public void createLocationEmployee(String name, String email, String password, String locationId, AccountCallback<? super LocationEmployee> callback) {
-        LocationEmployee employee = new LocationEmployee(createId(), name, email, password, AccountState.NORMAL, locationId);
+    public void createLocationEmployee(String name, String email, String password,
+                                       String locationId,
+                                       AccountCallback<? super LocationEmployee> callback) {
+        LocationEmployee employee = new LocationEmployee(createId(), name, email, password,
+                AccountState.NORMAL, locationId);
 
         DatabaseReference emails = databaseReference.child(EMAILS);
         DatabaseReference emailRef = emails.child(to64(email));

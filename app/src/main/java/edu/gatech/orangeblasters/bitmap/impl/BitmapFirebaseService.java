@@ -66,7 +66,8 @@ public class BitmapFirebaseService implements BitmapService {
                     Base64.Decoder decoder = Base64.getDecoder();
                     byte[] decoded = decoder.decode(encoded);
                     BitmapFactory.Options options = new BitmapFactory.Options();
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(decoded, 0, decoded.length, options);
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(decoded, 0, decoded.length,
+                            options);
                     callback.onComplete(Optional.ofNullable(bitmap));
                 } else {
                     callback.onComplete(Optional.empty());

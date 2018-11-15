@@ -22,7 +22,8 @@ public class DonationFilteredList extends FilteredList<Donation> {
         this(DonationFilteredList::relevanceFunction, listUpdater);
     }
 
-    private DonationFilteredList(BiFunction<String, Donation, Integer> relevanceFunction, ListUpdateCallback listUpdater) {
+    private DonationFilteredList(BiFunction<String, Donation, Integer> relevanceFunction,
+                                 ListUpdateCallback listUpdater) {
         super(Donation.class, relevanceFunction,
                 Comparator.comparing(Donation::getDescShort),
                 (don1, don2) -> don1.getId().equals(don2.getId()),
@@ -50,7 +51,8 @@ public class DonationFilteredList extends FilteredList<Donation> {
         Optional<String> lowerComments = comments.map(String::toLowerCase);
         Optional<Integer> lowerCommentInt = lowerComments.map(s -> s.contains(lower) ? 1 : 0);
 
-        OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+        OrangeBlastersApplication orangeBlastersApplication =
+                OrangeBlastersApplication.getInstance();
         LocationService locationService = orangeBlastersApplication.getLocationService();
         Optional<Location> location = locationService.getLocation(donation.getLocationId());
 
@@ -61,7 +63,7 @@ public class DonationFilteredList extends FilteredList<Donation> {
         String fullName = donationCategory.getFullName();
         String lowerFullname = fullName.toLowerCase();
         return (descShort.equalsIgnoreCase(lower) ? POINTS_SAME_NAME : 0) //Exact name = 20 points
-                + (lowerDescShort.contains(lower) ? POINTS_SIMILAR_NAME : 0) //Contains name = 5 point
+                + (lowerDescShort.contains(lower) ? POINTS_SIMILAR_NAME : 0) //Contains name =5point
                 + (lowerDescLong.contains(lower) ? POINTS_SIMILAR_DESC : 0) //Type = 2 point
                 + (lowerCommentInt.orElse(0)) //comments = 1 point
                 + (locPoint.orElse(0)) // donation has the right name = 1 point

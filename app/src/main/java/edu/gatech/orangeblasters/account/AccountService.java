@@ -14,19 +14,21 @@ public interface AccountService {
     void createLocationEmployee(String name, String email, String password, String locationId,
                                 AccountCallback<? super LocationEmployee> callback);
 
-    default void createAccount(AccountType selectedItem, String name, String email, String password, String locationId, AccountCallback<Account> accountCreationCallback) {
+    default void createAccount(AccountType selectedItem, String name, String email,
+                               String password, String locationId,
+                               AccountCallback<Account> accountCreationCallback) {
         switch (selectedItem) {
             case USER:
-                createUser(email, email, password, accountCreationCallback);
+                createUser(name, email, password, accountCreationCallback);
                 break;
             case ADMIN:
-                createAdmin(email, email, password, accountCreationCallback);
+                createAdmin(name, email, password, accountCreationCallback);
                 break;
             case MANAGER:
-                createManager(email, email, password, accountCreationCallback);
+                createManager(name, email, password, accountCreationCallback);
                 break;
             case EMPLOYEE:
-                createLocationEmployee(email, email, password, locationId, accountCreationCallback);
+                createLocationEmployee(name, email, password, locationId, accountCreationCallback);
                 break;
         }
     }

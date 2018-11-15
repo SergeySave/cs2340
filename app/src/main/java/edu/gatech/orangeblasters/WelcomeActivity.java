@@ -21,7 +21,8 @@ public class WelcomeActivity extends AppCompatActivity {
     private EditText mUserNameView;
     private EditText mPasswordView;
 
-    private final OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+    private final OrangeBlastersApplication orangeBlastersApplication =
+            OrangeBlastersApplication.getInstance();
     private final AccountService accountService = orangeBlastersApplication.getAccountService();
 
     @Override

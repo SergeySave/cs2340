@@ -96,8 +96,10 @@ public class LocationServiceFirebaseImpl implements LocationService {
     }
 
     @Override
-    public Location addLocation(String name, LocationType type, double longitude, double latitude, String address, String phoneNumber) {
-        Location location = new Location(createId(), name, type, longitude, latitude, address, phoneNumber);
+    public Location addLocation(String name, LocationType type, double longitude, double latitude,
+                                String address, String phoneNumber) {
+        Location location = new Location(createId(), name, type, longitude, latitude, address,
+                phoneNumber);
         locations.put(location.getId(), location);
         DatabaseReference ids = databaseReference.child(IDS);
         DatabaseReference idRef = ids.child(location.getId());

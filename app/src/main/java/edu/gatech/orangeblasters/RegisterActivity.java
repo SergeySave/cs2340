@@ -34,7 +34,8 @@ public class RegisterActivity extends AppCompatActivity  {
     private Spinner userSpinner;
     private Spinner location;
 
-    private final OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+    private final OrangeBlastersApplication orangeBlastersApplication =
+            OrangeBlastersApplication.getInstance();
     private final LocationService locationService = orangeBlastersApplication.getLocationService();
     private final AccountService accountService = orangeBlastersApplication.getAccountService();
 
@@ -112,15 +113,15 @@ public class RegisterActivity extends AppCompatActivity  {
         String password = mPasswordViewText.toString();
 
         if (!email.matches("[^@]+@[^@]+\\.[^@.]+")) {
-            Snackbar snackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.error_invalid_email,
-                    Snackbar.LENGTH_SHORT);
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout),
+                    R.string.error_invalid_email, Snackbar.LENGTH_SHORT);
             snackbar.show();
             return;
         }
 
         if (password.length() < 4) {
-            Snackbar snackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.error_invalid_password,
-                    Snackbar.LENGTH_SHORT);
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout),
+                    R.string.error_invalid_password, Snackbar.LENGTH_SHORT);
             snackbar.show();
             return;
         }
@@ -133,7 +134,8 @@ public class RegisterActivity extends AppCompatActivity  {
         //finish will be called if an account is created
         //if not nothing will happen (this maybe should be fixed)
         AccountCallback<Account> accountCreationCallback = result -> result.ifPresent(__->finish());
-        accountService.createAccount(((AccountType) userSpinner.getSelectedItem()), email, email, password, selectedId, accountCreationCallback);
+        accountService.createAccount(((AccountType) userSpinner.getSelectedItem()), email, email,
+                password, selectedId, accountCreationCallback);
     }
 }
 

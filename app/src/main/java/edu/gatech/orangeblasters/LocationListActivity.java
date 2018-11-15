@@ -30,7 +30,8 @@ public class LocationListActivity extends AppCompatActivity {
 
     private LocationFilteredList locationFilteredList;
     private String userId;
-    private final OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+    private final OrangeBlastersApplication orangeBlastersApplication =
+            OrangeBlastersApplication.getInstance();
     private final LocationService locationService = orangeBlastersApplication.getLocationService();
 
     @Override

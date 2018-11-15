@@ -9,6 +9,7 @@ public interface DonationService {
 
     Optional<Donation> getDonation(String id);
     Stream<Donation> getDonations();
-    Donation createDonation(OffsetDateTime timestamp, String locationId, String descShort, String descLong,
-                          BigDecimal value, DonationCategory donationCategory, String comments, String pictureId);
+    Donation createDonation(OffsetDateTime timestamp, String locationId, String descShort,
+                            String descLong, BigDecimal value, DonationCategory donationCategory,
+                            String comments, String pictureId);
 }

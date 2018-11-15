@@ -60,7 +60,9 @@ public class FilteredList<T> {
         return sortedList;
     }
 
-    public FilteredList(Class<T> clazz, BiFunction<String, T, Integer> relevanceFunction, Comparator<T> comparator, BiPredicate<T, T> equivalence, ListUpdateCallback listUpdater) {
+    public FilteredList(Class<T> clazz, BiFunction<String, T, Integer> relevanceFunction,
+                        Comparator<T> comparator, BiPredicate<T, T> equivalence,
+                        ListUpdateCallback listUpdater) {
         this.relFunc = relevanceFunction;
         sortedList = new SortedList<>(clazz, new SortedList.Callback<T>() {
 

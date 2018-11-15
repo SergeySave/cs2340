@@ -16,7 +16,8 @@ public class LocationDetailsActivity extends AppCompatActivity {
 
     public static final String EXTRA_LOCATION_ID = "LOCATION_ID";
 
-    private final OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+    private final OrangeBlastersApplication orangeBlastersApplication =
+            OrangeBlastersApplication.getInstance();
     private final LocationService locationService = orangeBlastersApplication.getLocationService();
 
     @Override

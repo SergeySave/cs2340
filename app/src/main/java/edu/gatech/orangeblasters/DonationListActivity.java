@@ -258,8 +258,8 @@ public class DonationListActivity extends AppCompatActivity {
             OffsetDateTime dateTime =
                     (OffsetDateTime) data.getSerializableExtra(AddDonationActivity.RETURN_TIME);
 
-            Donation donation = donationService.createDonation(dateTime, locationId, shortDesc, longDesc,
-                            new BigDecimal(price), category, comments, bitmapId);
+            Donation donation = donationService.createDonation(dateTime, locationId, shortDesc,
+                    longDesc, new BigDecimal(price), category, comments, bitmapId);
 
             Optional<Location> optionalLocation = locationService.getLocation(locationId);
             optionalLocation.ifPresent(location -> {

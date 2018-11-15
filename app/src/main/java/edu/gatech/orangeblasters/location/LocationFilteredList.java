@@ -22,7 +22,8 @@ public class LocationFilteredList extends FilteredList<Location> {
         this(LocationFilteredList::relevanceFunction, listUpdater);
     }
 
-    private LocationFilteredList(BiFunction<String, Location, Integer> relevanceFunction, ListUpdateCallback listUpdater) {
+    private LocationFilteredList(BiFunction<String, Location, Integer> relevanceFunction,
+                                 ListUpdateCallback listUpdater) {
         super(Location.class, relevanceFunction,
                 Comparator.comparing(Location::getName),
                 (don1, don2) -> don1.getId().equals(don2.getId()),

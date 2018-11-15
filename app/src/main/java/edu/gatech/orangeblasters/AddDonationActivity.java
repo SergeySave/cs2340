@@ -49,7 +49,8 @@ public class AddDonationActivity extends AppCompatActivity {
             DateTimeFormatter.ofPattern("MM/dd/yyyy");
     private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
-    private final OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+    private final OrangeBlastersApplication orangeBlastersApplication =
+            OrangeBlastersApplication.getInstance();
     private final BitmapService bitmapService = orangeBlastersApplication.getBitmapService();
 
     @Override

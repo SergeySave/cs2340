@@ -128,7 +128,8 @@ public class DonationDAO {
      */
     public Donation toDonation() {
         ZoneId utc = ZoneId.of("UTC");
-        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(Instant.ofEpochSecond(timestamp), utc);
+        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(Instant.ofEpochSecond(timestamp),
+                utc);
         return new Donation(id, zonedDateTime.toOffsetDateTime(), locationId, descShort, descLong,
                 new BigDecimal(value), donationCategory, comments, pictureId);
     }

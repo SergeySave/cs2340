@@ -25,7 +25,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int ZOOM_LEVEL = 10;
     private static final int ZOOM_TIME = 2000;
 
-    private final OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+    private final OrangeBlastersApplication orangeBlastersApplication =
+            OrangeBlastersApplication.getInstance();
     private final LocationService locationService = orangeBlastersApplication.getLocationService();
 
     @Override

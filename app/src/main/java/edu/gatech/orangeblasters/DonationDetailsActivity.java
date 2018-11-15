@@ -25,7 +25,8 @@ public class DonationDetailsActivity extends AppCompatActivity {
     private static final DateTimeFormatter dateTimeFormatter =
             DateTimeFormatter.ofPattern("HH:mm-MM/dd/yyyy");
 
-    private final OrangeBlastersApplication orangeBlastersApplication = OrangeBlastersApplication.getInstance();
+    private final OrangeBlastersApplication orangeBlastersApplication =
+            OrangeBlastersApplication.getInstance();
     private final DonationService donationService = orangeBlastersApplication.getDonationService();
     private final BitmapService bitmapService = orangeBlastersApplication.getBitmapService();
     private final LocationService locationService = orangeBlastersApplication.getLocationService();
