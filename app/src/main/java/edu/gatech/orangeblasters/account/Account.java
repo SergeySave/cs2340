@@ -46,6 +46,11 @@ public abstract class Account implements Serializable {
                 && (accountState == account.accountState);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, password, email, accountState);
+    }
+
     /**
      * Gets the ID
      *

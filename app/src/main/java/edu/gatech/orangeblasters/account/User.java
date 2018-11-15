@@ -1,7 +1,5 @@
 package edu.gatech.orangeblasters.account;
 
-import java.util.Objects;
-
 
 /**
  * Represents a User Account

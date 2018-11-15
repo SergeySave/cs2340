@@ -1,18 +1,18 @@
 package edu.gatech.orangeblasters;
 //Ross's j unit
+
 import junit.framework.Assert;
 
-import org.junit.Test;
 import org.junit.Before;
+import org.junit.Test;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 import edu.gatech.orangeblasters.donation.Donation;
 import edu.gatech.orangeblasters.donation.DonationCategory;
-
-import java.time.OffsetDateTime;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.math.BigDecimal;
-
 
 import static junit.framework.Assert.assertNotNull;
 
@@ -28,10 +28,10 @@ public class DonationTest {
     public void setUp() {
 
         OffsetDateTime time1 = OffsetDateTime.of(LocalDateTime.of(
-                2017, 05, 12, 05, 45),
+                2017, 5, 12, 5, 45),
                 ZoneOffset.ofHoursMinutes(6, 30));
         OffsetDateTime time2 = OffsetDateTime.of(LocalDateTime.of(
-                2018, 02, 12, 05, 45),
+                2018, 2, 12, 5, 45),
                 ZoneOffset.ofHoursMinutes(6, 30));
         BigDecimal bigDecimal1 = new BigDecimal("123");
 
