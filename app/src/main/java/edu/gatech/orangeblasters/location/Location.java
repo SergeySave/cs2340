@@ -1,6 +1,7 @@
 package edu.gatech.orangeblasters.location;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -146,7 +147,16 @@ public class Location {
      * @return the list of donations at that location
      */
     public List<Donation> getDonations() {
-        return donations;
+        return Collections.unmodifiableList(donations);
+    }
+
+    /**
+     * Add a donation
+     *
+     * @param donation adds a donation
+     */
+    public void addDonation(Donation donation) {
+        donations.add(donation);
     }
 
     // --Commented out by Inspection (11/7/18, 2:37 PM):public String getWebsite(){return website;}

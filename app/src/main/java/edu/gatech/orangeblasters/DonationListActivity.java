@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -264,8 +263,7 @@ public class DonationListActivity extends AppCompatActivity {
 
             Optional<Location> optionalLocation = locationService.getLocation(locationId);
             optionalLocation.ifPresent(location -> {
-                List<Donation> donations = location.getDonations();
-                donations.add(donation);
+                location.addDonation(donation);
                 locationService.update(location);
             });
 

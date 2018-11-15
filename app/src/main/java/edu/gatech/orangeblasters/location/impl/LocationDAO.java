@@ -1,5 +1,7 @@
 package edu.gatech.orangeblasters.location.impl;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -85,11 +87,12 @@ public class LocationDAO {
     }
 
     public List<String> getDonations() {
-        return donations;
+        return Collections.unmodifiableList(donations);
     }
 
-    public void setDonations(List<String> donations) {
-        this.donations = donations;
+    public void setDonations(Collection<String> donations) {
+        this.donations.clear();
+        this.donations.addAll(donations);
     }
 
     /**
