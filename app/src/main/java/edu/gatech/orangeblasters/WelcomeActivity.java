@@ -20,6 +20,7 @@ public class WelcomeActivity extends AppCompatActivity {
      // UI references.
     private EditText mUserNameView;
     private EditText mPasswordView;
+    private int loginAttempts;
 
     private final OrangeBlastersApplication orangeBlastersApplication =
             OrangeBlastersApplication.getInstance();
@@ -65,15 +66,22 @@ public class WelcomeActivity extends AppCompatActivity {
         //Try logging in
         accountService.tryLogin(userStr, passStr, (optionalAccount -> {
                     //When the login attempt is processed
-                    if (optionalAccount.isPresent()) {
+                    if (optionalAccount.isPresent() && loginAttempts <= 3) {
                         Account account = optionalAccount.get();
                         Intent intent = new Intent(this, MapsActivity.class);
                         intent.putExtra(OrangeBlastersApplication.PARAM_USER_ID, account.getId());
                         startActivity(intent);
                     } else {
-                        Snackbar my_Snack = Snackbar.make(findViewById(R.id.myCoordinatorLayout),
-                                R.string.invalid_user_pass, Snackbar.LENGTH_SHORT);
-                        my_Snack.show();
+                        if (loginAttempts >= 3) {
+                            Snackbar snack = Snackbar.make(findViewById(R.id.myCoordinatorLayout),
+                                    "You Can no Longer login after 3 failed tries", Snackbar.LENGTH_SHORT);
+                            snack.show();
+                        } else {
+                            Snackbar my_Snack = Snackbar.make(findViewById(R.id.myCoordinatorLayout),
+                                    R.string.invalid_user_pass, Snackbar.LENGTH_SHORT);
+                            my_Snack.show();
+                        }
+                        loginAttempts++;
                     }
                 }));
     }

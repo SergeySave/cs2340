@@ -47,9 +47,9 @@ public class DonationTest {
 
 
         // d3 & d4 are different
-        d3 = new Donation("qwerty", time1, "location1", "chair",
-                "big chair", bigDecimal1, DonationCategory.CLOTHING,
-                "None", "12345" );
+        d3 = new Donation("qwerty", time1, "location9", "chai77r",
+                "big ch99air", bigDecimal1, DonationCategory.CLOTHING,
+                "No88ne", "12345" );
         d4 = new Donation("asdfg", time2, "location2", "desk",
                 "big desk", bigDecimal1, DonationCategory.HOUSEHOLD,
                 "None", "54321" );
