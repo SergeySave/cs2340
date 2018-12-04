@@ -201,13 +201,13 @@
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/drop_down" />
 
-                <Button
-                    android:id="@+id/saveButton"
-                    android:layout_width="251dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/donationTime"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/save_button" />
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="251dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/donationTime"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/save_button" />
 
             </RelativeLayout>
     </ScrollView>

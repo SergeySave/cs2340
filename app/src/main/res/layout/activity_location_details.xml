@@ -37,7 +37,7 @@
         android:layout_height="300dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="202dp"
+        android:layout_marginTop="213dp"
         android:contentDescription="@string/logo"
         android:scaleType="fitCenter"
         android:src="@drawable/location_info"
@@ -95,11 +95,11 @@
     <ImageView
         android:id="@+id/go_to_donation"
         android:layout_width="326dp"
-        android:layout_height="wrap_content"
+        android:layout_height="87dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="113dp"
+        android:layout_marginBottom="97dp"
         android:background="@drawable/donation_click"
         android:contentDescription="@string/gotoDonation" />
 

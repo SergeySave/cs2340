@@ -43,20 +43,20 @@
 
         <EditText
             android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="229dp"
+            android:layout_height="34dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="190dp"
             android:background="@drawable/blank_bar"
             android:fontFamily="@font/montserrat"
             android:hint="@string/prompt_username"
             android:imeActionId="6"
-            android:textColorHint="@color/hintColor"
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionUnspecified"
             android:inputType="textEmailAddress"
             android:textColor="@color/textColor"
+            android:textColorHint="@color/hintColor"
             android:textSize="15sp"
             android:typeface="monospace" />
 
@@ -76,27 +76,28 @@
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat"
+            android:layout_width="230dp"
+            android:layout_height="34dp"
             android:layout_below="@+id/pass"
             android:layout_centerHorizontal="true"
             android:background="@drawable/blank_bar"
+            android:fontFamily="@font/montserrat"
             android:hint="@string/password"
-            android:textColorHint="@color/hintColor"
             android:imeActionId="6"
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionUnspecified"
-            android:textColor="@color/textColor"
             android:inputType="textPassword"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/hintColor"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/user_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/username"
-            android:layout_below="@+id/password"
+            android:layout_above="@+id/userType"
+            android:layout_alignStart="@+id/name"
+            android:layout_marginBottom="-315dp"
             android:fontFamily="@font/montserrat"
             android:text="@string/user_type"
             android:textColor="@android:color/black"
@@ -107,25 +108,27 @@
 
         <Spinner
             android:id="@+id/userType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_width="235dp"
+            android:layout_height="28dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="315dp"
             android:background="@drawable/drop_down"
             android:spinnerMode="dropdown"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user_type"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_type" />
 
         <Spinner
             android:id="@+id/location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="235dp"
+            android:layout_height="28dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="292dp"
+            android:layout_marginBottom="348dp"
             android:background="@drawable/drop_down"
             android:spinnerMode="dropdown"
             android:textColor="#FFFFFF"
@@ -137,8 +140,8 @@
 
         <Button
             android:id="@+id/register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="197dp"
+            android:layout_height="66dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="158dp"
@@ -152,8 +155,8 @@
 
         <Button
             android:id="@+id/cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="196dp"
+            android:layout_height="67dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="56dp"
