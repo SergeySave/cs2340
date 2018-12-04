@@ -74,7 +74,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     } else {
                         if (loginAttempts >= 3) {
                             Snackbar snack = Snackbar.make(findViewById(R.id.myCoordinatorLayout),
-                                    "You Can no Longer login after 3 failed tries", Snackbar.LENGTH_SHORT);
+                                    "You Can no Longer login after 3 failed tries.", Snackbar.LENGTH_SHORT);
                             snack.show();
                         } else {
                             Snackbar my_Snack = Snackbar.make(findViewById(R.id.myCoordinatorLayout),
