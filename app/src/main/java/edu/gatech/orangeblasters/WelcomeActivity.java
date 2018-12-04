@@ -42,7 +42,8 @@ public class WelcomeActivity extends AppCompatActivity {
             }
             return false;
         });
-
+        Button mGuestLogin = findViewById(R.id.guestlogin);
+        mGuestLogin.setOnClickListener(view-> attemptguestlogin());
         Button mEmailSignInButton = findViewById(R.id.sign_in);
         mEmailSignInButton.setOnClickListener(view -> attemptLogin());
 
@@ -75,6 +76,24 @@ public class WelcomeActivity extends AppCompatActivity {
                         my_Snack.show();
                     }
                 }));
+    }
+
+    private void attemptguestlogin() {
+        final String userStr = "guest@guest.com";
+        final String passStr = "pass";
+        accountService.tryLogin(userStr, passStr, (optionalAccount -> {
+            //When the login attempt is processed
+            if (optionalAccount.isPresent()) {
+                Account account = optionalAccount.get();
+                Intent intent = new Intent(this, MapsActivity.class);
+                intent.putExtra(OrangeBlastersApplication.PARAM_USER_ID, account.getId());
+                startActivity(intent);
+            } else {
+                Snackbar my_Snack = Snackbar.make(findViewById(R.id.myCoordinatorLayout),
+                        R.string.invalid_user_pass, Snackbar.LENGTH_SHORT);
+                my_Snack.show();
+            }
+        }));
     }
 }
 
